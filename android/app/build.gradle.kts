@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.finance_management"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -44,4 +44,9 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    // Добавь здесь свои другие зависимости, если есть
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

@@ -1,5 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:auto_route/annotations.dart';
 
 @RoutePage()
@@ -44,8 +45,8 @@ Future<void> addDataToFirestore() async {
       'name': 'Vitalii Kharlan',
       'email': 'vitaliy.kharlan.1977G@gmail.com',
     });
-    print('Data added to Firestore');
+    debugPrint('Data added to Firestore');
   } catch (e) {
-    print('Error adding data to Firestore: $e');
+    debugPrint('Error adding data to Firestore: $e');
   }
 }
