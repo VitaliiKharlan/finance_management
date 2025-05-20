@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class AppTextStyles {
@@ -52,9 +51,9 @@ abstract class AppTextStyles {
   // headlineMedium
   static final descriptionTaskField = TextStyle(
     fontFamily: GoogleFonts.spectral().fontFamily,
-    fontSize: 14,
+    fontSize: 15,
     fontStyle: FontStyle.italic,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     height: 1.0,
     letterSpacing: 0.0,
     color: Color(0xFF9C27B0),
@@ -107,9 +106,9 @@ abstract class AppTextStyles {
   // bodyLarge
   static const bodyLarge = TextStyle(
     fontFamily: 'SF Pro Display',
-    fontSize: 20,
+    fontSize: 16,
     fontStyle: FontStyle.normal,
-    fontWeight: FontWeight.w800,
+    fontWeight: FontWeight.w400,
     height: 1.0,
     letterSpacing: 0.0,
     color: Color(0xFFCC2A4B),
@@ -118,7 +117,7 @@ abstract class AppTextStyles {
   // bodyMedium
   static const description = TextStyle(
     fontFamily: 'RobotoMono',
-    fontSize: 18,
+    fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w500,
     height: 1.5,

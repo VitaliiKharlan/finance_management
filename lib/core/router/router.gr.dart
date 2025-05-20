@@ -43,6 +43,22 @@ class CategoryRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CreateAccountScreen]
+class CreateAccountRoute extends PageRouteInfo<void> {
+  const CreateAccountRoute({List<PageRouteInfo>? children})
+    : super(CreateAccountRoute.name, initialChildren: children);
+
+  static const String name = 'CreateAccountRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CreateAccountScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})

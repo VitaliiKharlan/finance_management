@@ -2,6 +2,12 @@ abstract class AppIcons {
   /// icons
   static const _basePath = 'assets/icons/';
 
+  /// icons for CreateAccountScreen
+  static const iconCreateAccountScreenEyePassClosed =
+      '${_basePath}create_account_eye_pass_closed.png';
+  static const iconCreateAccountScreenEyePassOpen =
+      '${_basePath}create_account_eye_pass_open.png';
+
   /// icons for AppBar
   static const iconAppBarNotificationsBell =
       '${_basePath}app_bar_notifications_bell.png';
