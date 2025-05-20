@@ -11,17 +11,97 @@
 part of 'router.dart';
 
 /// generated route for
-/// [TitleScreen]
-class TitleRoute extends PageRouteInfo<void> {
-  const TitleRoute({List<PageRouteInfo>? children})
-    : super(TitleRoute.name, initialChildren: children);
+/// [AnalysisScreen]
+class AnalysisRoute extends PageRouteInfo<void> {
+  const AnalysisRoute({List<PageRouteInfo>? children})
+    : super(AnalysisRoute.name, initialChildren: children);
 
-  static const String name = 'TitleRoute';
+  static const String name = 'AnalysisRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const TitleScreen();
+      return const AnalysisScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [CategoryScreen]
+class CategoryRoute extends PageRouteInfo<void> {
+  const CategoryRoute({List<PageRouteInfo>? children})
+    : super(CategoryRoute.name, initialChildren: children);
+
+  static const String name = 'CategoryRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const CategoryScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [HomeScreen]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute({List<PageRouteInfo>? children})
+    : super(HomeRoute.name, initialChildren: children);
+
+  static const String name = 'HomeRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const HomeScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [MainScreen]
+class MainRoute extends PageRouteInfo<void> {
+  const MainRoute({List<PageRouteInfo>? children})
+    : super(MainRoute.name, initialChildren: children);
+
+  static const String name = 'MainRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const MainScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProfileScreen]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute({List<PageRouteInfo>? children})
+    : super(ProfileRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [TransactionsScreen]
+class TransactionsRoute extends PageRouteInfo<void> {
+  const TransactionsRoute({List<PageRouteInfo>? children})
+    : super(TransactionsRoute.name, initialChildren: children);
+
+  static const String name = 'TransactionsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransactionsScreen();
     },
   );
 }

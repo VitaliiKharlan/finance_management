@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'app_button_styles.dart';
 import 'app_text_styles.dart';
 
-const primaryColor = Colors.deepPurple;
+const primaryColor = Color(0xFF00D09E);
 
 final lightTheme = ThemeData(
   useMaterial3: true,
