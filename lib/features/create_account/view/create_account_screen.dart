@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/router/router.dart';
 import '../widgets/custom_text_field.dart';
 
 @RoutePage()
@@ -140,7 +141,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             style: TextStyle(fontSize: 12),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              context.pushRoute(const WelcomeRoute());
+                            },
                             child: const Text(
                               'Log In',
                               style: TextStyle(

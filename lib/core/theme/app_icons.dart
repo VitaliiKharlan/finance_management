@@ -2,6 +2,10 @@ abstract class AppIcons {
   /// icons
   static const _basePath = 'assets/icons/';
 
+  /// icons for WelcomeScreen
+  static const iconWelcomeFacebook = '${_basePath}welcome_icon_facebook.png';
+  static const iconWelcomeGoogle = '${_basePath}welcome_icon_google.png';
+
   /// icons for CreateAccountScreen
   static const iconCreateAccountScreenEyePassClosed =
       '${_basePath}create_account_eye_pass_closed.png';

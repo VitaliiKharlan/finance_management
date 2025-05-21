@@ -7,6 +7,7 @@ import '../../features/create_account/view/create_account_screen.dart';
 import '../../features/home/view/home_screen.dart';
 import '../../features/profile/view/profile_screen.dart';
 import '../../features/transactions/view/transactions_screen.dart';
+import '../../features/welcome/view/welcome_screen.dart';
 
 part 'router.gr.dart';
 
@@ -15,11 +16,8 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes {
     return [
-      AutoRoute(
-        page: CreateAccountRoute.page,
-        path: '/',
-        initial: true,
-      ),
+      AutoRoute(page: WelcomeRoute.page, path: '/', initial: true),
+      AutoRoute(page: CreateAccountRoute.page, path: '/create_account'),
       AutoRoute(
         page: MainRoute.page,
         path: '/main',
@@ -31,7 +29,6 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: ProfileRoute.page, path: 'profile'),
         ],
       ),
-
     ];
   }
 }
