@@ -1,0 +1,83 @@
+name: finance_management
+description: 'finance management application'
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  firebase_auth: ^5.5.2
+  firebase_core: ^3.13.0
+  firebase_analytics: ^11.4.5
+  cloud_firestore: ^5.6.6
+  google_fonts: ^6.2.1
+  auto_route: ^9.3.0
+  flutter_bloc: ^9.1.0
+  equatable: ^2.0.7
+  intl: ^0.20.2
+  flutter_svg: ^2.0.17
+  json_annotation: ^4.9.0
+  lottie: ^3.3.1
+  get_it: ^8.0.3
+  logger: ^2.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.1.4
+  build_web_compilers: ^4.0.3
+  auto_route_generator: ^9.3.0
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/svg/
+    - assets/lottie_animation/
+
+  fonts:
+
+    - family: SF Pro Display
+      fonts:
+        - asset: assets/fonts/sfProDisplay/thin.otf
+          weight: 100
+        - asset: assets/fonts/sfProDisplay/regular.otf
+          weight: 400
+        - asset: assets/fonts/sfProDisplay/semiBold.otf
+          weight: 600
+        - asset: assets/fonts/sfProDisplay/bold.otf
+          weight: 700
+
+    - family: SF Pro Text
+      fonts:
+        - asset: assets/fonts/sfProText/regular.ttf
+          weight: 400
+        - asset: assets/fonts/sfProText/semiBold.ttf
+          weight: 600
+        - asset: assets/fonts/sfProText/bold.ttf
+          weight: 700
+
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/robotoMono/regular.ttf
+        - asset: assets/fonts/robotoMono/regular_italic.ttf
+          style: italic
+        - asset: assets/fonts/robotoMono/medium.ttf
+          weight: 500
+        - asset: assets/fonts/robotoMono/bold.ttf
+          weight: 700
+
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/lato/bold.ttf
+          weight: 700
+        - asset: assets/fonts/lato/bold_italic.ttf
+          weight: 700
+          style: italic
