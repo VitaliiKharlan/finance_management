@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DailyWeeklyMonthlyWidget extends StatelessWidget {
-  const DailyWeeklyMonthlyWidget({super.key});
+class TabSelector extends StatelessWidget {
+  const TabSelector({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,14 +1,16 @@
+import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-class BalanceSummaryWidget extends StatelessWidget {
-  final double totalBalance;
-  final double totalExpense;
-
-  const BalanceSummaryWidget({
+class BalanceOverviewSection extends StatelessWidget {
+  const BalanceOverviewSection({
     super.key,
     required this.totalBalance,
     required this.totalExpense,
   });
+
+  final double totalBalance;
+  final double totalExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class BalanceSummaryWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildItem(
+            icon: AppIcons.iconHomeIncome,
             label: 'Total Balance',
             value: '\$${totalBalance.toStringAsFixed(2)}',
             valueColor: Colors.white,
@@ -31,6 +34,7 @@ class BalanceSummaryWidget extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 8),
           ),
           _buildItem(
+            icon: AppIcons.iconHomeExpense,
             label: 'Total Expense',
             value: '-\$${totalExpense.toStringAsFixed(2)}',
             valueColor: const Color(0xFF5050FF),
@@ -41,6 +45,7 @@ class BalanceSummaryWidget extends StatelessWidget {
   }
 
   Widget _buildItem({
+    required String icon,
     required String label,
     required String value,
     required Color valueColor,
@@ -48,13 +53,19 @@ class BalanceSummaryWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
+        Row(
+          children: [
+            SvgPicture.asset(icon, width: 12, height: 12),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 4),
         Text(

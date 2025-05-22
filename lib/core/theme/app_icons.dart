@@ -12,10 +12,6 @@ abstract class AppIcons {
   static const iconCreateAccountScreenEyePassOpen =
       '${_basePath}create_account_eye_pass_open.png';
 
-  /// icons for AppBar
-  static const iconAppBarNotificationsBell =
-      '${_basePath}app_bar_notifications_bell.png';
-
   /// icons for NavigationBar
   static const iconBottomNavigationBarHome =
       '${_basePath}bottom_navigation_icon_home.png';
@@ -27,4 +23,13 @@ abstract class AppIcons {
       '${_basePath}bottom_navigation_icon_category.png';
   static const iconBottomNavigationBarProfile =
       '${_basePath}bottom_navigation_icon_profile.png';
+
+  /// icons for HomeScreen
+  static const iconHomeNotifications =
+      '${_basePath}icon_home_notifications.svg';
+  static const iconHomeIncome = '${_basePath}icon_home_income.svg';
+  static const iconHomeExpense = '${_basePath}icon_home_expense.svg';
+  static const iconHomeSalary = '${_basePath}icon_salary.svg';
+  static const iconHomeGroceries = '${_basePath}icon_groceries.svg';
+  static const iconHomeRent = '${_basePath}icon_rent.svg';
 }

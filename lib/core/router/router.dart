@@ -21,6 +21,7 @@ class AppRouter extends RootStackRouter {
       AutoRoute(
         page: MainRoute.page,
         path: '/main',
+        // path: '/',
         children: [
           AutoRoute(page: HomeRoute.page, path: 'home'),
           AutoRoute(page: AnalysisRoute.page, path: 'analysis'),

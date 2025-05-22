@@ -172,7 +172,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     TapGestureRecognizer()
                                       ..onTap = () {
                                         context.pushRoute(
-                                          const CreateAccountRoute(),
+                                          const HomeRoute(),
                                         );
                                       },
                               ),
