@@ -1,14 +1,22 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/router/router.dart';
 import '../../../core/theme/app_icons.dart';
+import '../../auth/auth.dart';
 import '../../create_account/widgets/custom_text_field.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+  WelcomeScreen({super.key});
+
+  final User? user = Auth().currentUser;
+
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -74,7 +82,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            context.pushRoute(const HomeRoute());
+                          },
                           child: const Text(
                             'Log In',
                             style: TextStyle(
@@ -137,7 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      const Center(child: Text("or sign up with")),
+                      const Center(child: Text('or sign up with')),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +182,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                     TapGestureRecognizer()
                                       ..onTap = () {
                                         context.pushRoute(
-                                          const HomeRoute(),
+                                          const CreateAccountRoute(),
                                         );
                                       },
                               ),

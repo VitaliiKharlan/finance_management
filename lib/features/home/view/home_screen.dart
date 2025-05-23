@@ -17,8 +17,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF00D09E),
       body: SafeArea(
-
-
         child: Column(
           children: [
             const HeaderSection(),
@@ -40,7 +38,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 32, vertical: 20),
+                  horizontal: 32,
+                  vertical: 20,
+                ),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
