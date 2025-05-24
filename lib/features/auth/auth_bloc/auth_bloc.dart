@@ -1,14 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../auth_repository.dart';
-import 'auth_event.dart';
-import 'auth_state.dart';
+import '../customer.dart';
+import '../user_entity.dart';
+
+part 'auth_event.dart';
+part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
 
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+    on<LoginRequested>(_onLoginRequested);
     on<RegisterCustomerRequested>(_onRegisterCustomerRequested);
+  }
+
+  Future<void> _onLoginRequested(
+    LoginRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+
+    try {
+      await authRepository.login(event.email, event.password);
+      emit(AuthSuccess());
+    } on FirebaseAuthException catch (e) {
+      emit(AuthFailure(e.message ?? 'Login failed'));
+    } catch (e) {
+      emit(AuthFailure('Unexpected error: ${e.toString()}'));
+    }
   }
 
   Future<void> _onRegisterCustomerRequested(

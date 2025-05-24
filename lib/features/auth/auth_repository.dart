@@ -13,10 +13,17 @@ class AuthRepository implements IAuthRepository<UserEntity> {
     required FirebaseFirestore firestore,
     FirebaseAuth? firebaseAuth,
   }) : _firestore = firestore,
-       _auth = firebaseAuth ?? FirebaseAuth.instance;
+       _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   final FirebaseFirestore _firestore;
-  final FirebaseAuth _auth;
+  final FirebaseAuth _firebaseAuth;
+
+  Future<void> login(String email, String password) {
+    return _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
 
   @override
   Future<UserEntity> getUser(String uid) async {
@@ -45,7 +52,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
   }
 
   Future<User> registerFirebaseUser(String email, String password) async {
-    final userCredential = await _auth.createUserWithEmailAndPassword(
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );

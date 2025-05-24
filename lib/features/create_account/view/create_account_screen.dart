@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/router/router.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
-import '../../auth/auth_bloc/auth_event.dart';
-import '../../auth/auth_bloc/auth_state.dart';
 import '../../auth/customer.dart';
 import '../../auth/user_entity.dart';
 import '../widgets/custom_text_field.dart';
