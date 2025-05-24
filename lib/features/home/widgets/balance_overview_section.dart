@@ -14,14 +14,12 @@ class BalanceOverviewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Padding(
       padding: const EdgeInsets.only(left: 48, top: 20, right: 48),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildItem(
+          _BalanceOverviewItem(
             icon: AppIcons.iconHomeIncome,
             label: 'Total Balance',
             value: '\$${totalBalance.toStringAsFixed(2)}',
@@ -33,7 +31,7 @@ class BalanceOverviewSection extends StatelessWidget {
             color: Colors.white24,
             margin: const EdgeInsets.symmetric(horizontal: 8),
           ),
-          _buildItem(
+          _BalanceOverviewItem(
             icon: AppIcons.iconHomeExpense,
             label: 'Total Expense',
             value: '-\$${totalExpense.toStringAsFixed(2)}',
@@ -43,13 +41,23 @@ class BalanceOverviewSection extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildItem({
-    required String icon,
-    required String label,
-    required String value,
-    required Color valueColor,
-  }) {
+class _BalanceOverviewItem extends StatelessWidget {
+  const _BalanceOverviewItem({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.valueColor,
+  });
+
+  final String icon;
+  final String label;
+  final String value;
+  final Color valueColor;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -67,7 +75,6 @@ class BalanceOverviewSection extends StatelessWidget {
             ),
           ],
         ),
-        // const SizedBox(height: 4),
         Text(
           value,
           style: TextStyle(
