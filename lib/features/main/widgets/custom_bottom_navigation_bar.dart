@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_icons.dart';
+import '../../../core/constants/bottom_navigation_constants.dart';
+import '../../../core/utils/bottom_navigation_item.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -18,13 +19,14 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
     return Container(
       height: 108,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
       decoration: BoxDecoration(
-        color: Color(0xFFDFF7E2),
+        color: const Color(0xFFDFF7E2),
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(80                                            ),
+          topLeft: Radius.circular(80),
           topRight: Radius.circular(80),
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 8,
@@ -32,38 +34,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _buildNavItem(AppIcons.iconBottomNavigationBarHome, theme, 0),
-          _buildNavItem(AppIcons.iconBottomNavigationBarAnalysis, theme, 1),
-          _buildNavItem(AppIcons.iconBottomNavigationBarTransactions, theme, 2),
-          _buildNavItem(AppIcons.iconBottomNavigationBarCategory, theme, 3),
-          _buildNavItem(AppIcons.iconBottomNavigationBarProfile, theme, 4),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNavItem(String assetPath, ThemeData theme, int index) {
-    final isActive = currentIndex == index;
-    return GestureDetector(
-      onTap: () => onTap(index),
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color:
-              isActive
-                  ? theme.primaryColor.withValues(alpha: 0.1)
-                  : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Image.asset(
-          assetPath,
-          width: 28,
-          height: 28,
-          color: isActive ? theme.primaryColor : Colors.grey,
+        children: List.generate(
+          BottomNavigationConstants.items.length,
+          (index) => BottomNavigationItem(
+            assetPath: BottomNavigationConstants.items[index],
+            isActive: currentIndex == index,
+            onTap: () => onTap(index),
+            theme: theme,
+          ),
         ),
       ),
     );

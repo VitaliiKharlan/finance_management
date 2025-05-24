@@ -7,8 +7,8 @@ class UserEntity implements IEntity {
     required this.email,
     required this.mobileNumber,
     required this.dateOfBirth,
-    required this.password,
-    required this.confirmPassword,
+    // required this.password,
+    // required this.confirmPassword,
   });
 
   final String id;
@@ -16,8 +16,9 @@ class UserEntity implements IEntity {
   final String email;
   final String mobileNumber;
   final String dateOfBirth;
-  final String password;
-  final String confirmPassword;
+
+  // final String password;
+  // final String confirmPassword;
 
   factory UserEntity.fromMap(Map<String, dynamic> map) {
     return UserEntity(
@@ -26,8 +27,8 @@ class UserEntity implements IEntity {
       email: map['email'],
       mobileNumber: map['mobileNumber'],
       dateOfBirth: map['dateOfBirth'],
-      password: map['password'],
-      confirmPassword: map['confirmPassword'],
+      // password: map['password'],
+      // confirmPassword: map['confirmPassword'],
     );
   }
 
@@ -39,8 +40,8 @@ class UserEntity implements IEntity {
       'email': email,
       'mobileNumber': mobileNumber,
       'dateOfBirth': dateOfBirth,
-      'password': password,
-      'confirmPassword': confirmPassword,
+      // 'password': password,
+      // 'confirmPassword': confirmPassword,
     };
   }
 
@@ -52,7 +53,8 @@ class UserEntity implements IEntity {
         'email: $email, '
         'mobileNumber: $mobileNumber, '
         'dateOfBirth: $dateOfBirth, '
-        'password: $password, '
-        'confirmPassword: $confirmPassword}';
+        // 'password: $password, '
+        // 'confirmPassword: $confirmPassword'
+        '}';
   }
 }

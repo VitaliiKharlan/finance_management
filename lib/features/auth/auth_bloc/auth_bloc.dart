@@ -5,7 +5,7 @@ import 'auth_event.dart';
 import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final IAuthRepository authRepository;
+  final AuthRepository authRepository;
 
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<RegisterCustomerRequested>(_onRegisterCustomerRequested);
@@ -15,16 +15,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     RegisterCustomerRequested event,
     Emitter<AuthState> emit,
   ) async {
+    if (event.password != event.confirmPassword) {
+      emit(AuthFailure('Passwords do not match'));
+      return;
+    }
+
     emit(AuthLoading());
 
     try {
       await authRepository.registerCustomer(
         user: event.user,
         customer: event.customer,
+        password: event.password,
       );
       emit(AuthSuccess());
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      emit(AuthFailure('Failed to register: ${e.toString()}'));
     }
   }
 }

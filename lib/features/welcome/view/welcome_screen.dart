@@ -2,28 +2,62 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/router/router.dart';
 import '../../../core/theme/app_icons.dart';
-import '../../auth/auth.dart';
 import '../../create_account/widgets/custom_text_field.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatefulWidget {
-  WelcomeScreen({super.key});
-
-  final User? user = Auth().currentUser;
-
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
+  const WelcomeScreen({super.key});
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   bool _obscurePassword = true;
+  bool _isLoading = false;
+
+  Future<void> _login() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      context.pushRoute(const HomeRoute());
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.message ?? 'Login failed')));
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       CustomTextField(
                         label: 'Username Or Email',
                         hint: 'example@example.com',
+                        controller: emailController,
                       ),
                       CustomTextField(
                         label: 'Password',
@@ -70,6 +105,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         toggleVisibility: () {
                           setState(() => _obscurePassword = !_obscurePassword);
                         },
+                        controller: passwordController,
                       ),
                       const SizedBox(height: 24),
                       SizedBox(
@@ -83,16 +119,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                           ),
                           onPressed: () {
-                            context.pushRoute(const HomeRoute());
+                            _isLoading ? null : _login();
+                            // context.pushRoute(const HomeRoute());
                           },
-                          child: const Text(
-                            'Log In',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
+                          child:
+                              _isLoading
+                                  ? const CircularProgressIndicator(
+                                    color: Colors.black,
+                                  )
+                                  : const Text(
+                                    'Log In',
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -152,13 +194,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset(
+                          SvgPicture.asset(
                             AppIcons.iconWelcomeFacebook,
                             width: 32,
                             height: 32,
                           ),
                           SizedBox(width: 24),
-                          Image.asset(
+                          SvgPicture.asset(
                             AppIcons.iconWelcomeGoogle,
                             width: 32,
                             height: 32,
@@ -179,12 +221,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 recognizer:
-                                    TapGestureRecognizer()
-                                      ..onTap = () {
-                                        context.pushRoute(
-                                          const CreateAccountRoute(),
-                                        );
-                                      },
+                                TapGestureRecognizer()
+                                  ..onTap = () {
+                                    context.pushRoute(
+                                      const CreateAccountRoute(),
+                                    );
+                                  },
                               ),
                             ],
                           ),

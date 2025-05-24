@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                     children: const [
                       SavingsSection(),
                       TabSelector(),
-                      SizedBox(height: 48),
+                      SizedBox(height: 20),
                       TransactionsList(),
                     ],
                   ),

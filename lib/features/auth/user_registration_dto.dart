@@ -1,7 +1,7 @@
 import 'i_customer_profile_dto.dart';
 
-class CustomerProfileDto implements ICustomerProfileDto {
-  CustomerProfileDto({
+class UserRegistrationDto implements ICustomerProfileDto {
+  UserRegistrationDto({
     required this.id,
     required this.name,
     required this.email,
@@ -11,20 +11,18 @@ class CustomerProfileDto implements ICustomerProfileDto {
     this.confirmPassword,
   });
 
-  String? id;
-  String? name;
-
-  String? email;
+  final String id;
+  final String name;
+  final String email;
   String? mobileNumber;
   String? dateOfBirth;
   String? password;
   String? confirmPassword;
 
-  factory CustomerProfileDto.fromJson(Map<String, dynamic> json) {
-    return CustomerProfileDto(
+  factory UserRegistrationDto.fromJson(Map<String, dynamic> json) {
+    return UserRegistrationDto(
       id: json['id'],
       name: json['name'],
-
       email: json['email'],
       mobileNumber: json['mobileNumber'],
       dateOfBirth: json['dateOfBirth'],
@@ -47,20 +45,18 @@ class CustomerProfileDto implements ICustomerProfileDto {
     };
   }
 
-  CustomerProfileDto copyWith({
+  UserRegistrationDto copyWith({
     String? id,
     String? name,
-
     String? email,
     String? mobileNumber,
     String? dateOfBirth,
 
     String? password,
     String? confirmPassword,
-  }) => CustomerProfileDto(
+  }) => UserRegistrationDto(
     id: id ?? this.id,
     name: name ?? this.name,
-
     email: email ?? this.email,
     mobileNumber: mobileNumber ?? this.mobileNumber,
     dateOfBirth: dateOfBirth ?? this.dateOfBirth,

@@ -1,4 +1,6 @@
+import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ExpenseProgressBarWidget extends StatelessWidget {
   final double percentage;
@@ -15,6 +17,7 @@ class ExpenseProgressBarWidget extends StatelessWidget {
     final theme = Theme.of(context);
     final progress = percentage.clamp(0.0, 1.0);
     final barHeight = 32.0;
+    final displayPercentage = (progress * 100).toStringAsFixed(0);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
@@ -34,7 +37,7 @@ class ExpenseProgressBarWidget extends StatelessWidget {
               ),
               Container(
                 height: barHeight,
-                width: MediaQuery.of(context).size.width * progress - 32,
+                width: MediaQuery.sizeOf(context).width * progress - 32,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
@@ -64,6 +67,21 @@ class ExpenseProgressBarWidget extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              SvgPicture.asset(AppIcons.iconHomeCheck, height: 11, width: 11),
+              const SizedBox(width: 8),
+              Text(
+                '$displayPercentage% Of Your Expenses, Looks Good.',
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
         ],
       ),
     );

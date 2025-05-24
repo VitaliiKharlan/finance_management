@@ -6,7 +6,7 @@ class SavingsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(12),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: const Color(0xFF00D09E),
@@ -24,7 +24,7 @@ class SavingsSection extends StatelessWidget {
           ),
           Column(
             children: [
-              Text("Revenue Last Week", style: TextStyle(color: Colors.grey)),
+              Text('Revenue Last Week', style: TextStyle(color: Colors.grey)),
               Text('\$4,000.00', style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Text('Food Last Week', style: TextStyle(color: Colors.grey)),

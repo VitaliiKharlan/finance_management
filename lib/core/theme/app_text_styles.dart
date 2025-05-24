@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 abstract class AppTextStyles {
   // displayLarge
   static final displayLarge = TextStyle(
-    fontFamily: GoogleFonts.roboto().fontFamily,
+    fontFamily: GoogleFonts.poppins().fontFamily,
     fontSize: 24,
     fontStyle: FontStyle.italic,
     fontWeight: FontWeight.w400,
@@ -71,8 +71,8 @@ abstract class AppTextStyles {
   );
 
   // titleLarge
-  static const promo = TextStyle(
-    fontFamily: 'Lato',
+  static final promo = TextStyle(
+    fontFamily: GoogleFonts.roboto().fontFamily,
     fontSize: 24,
     fontStyle: FontStyle.italic,
     fontWeight: FontWeight.w700,
@@ -82,8 +82,8 @@ abstract class AppTextStyles {
   );
 
   // titleMedium
-  static const appBar = TextStyle(
-    fontFamily: 'SF Pro Text',
+  static final appBar = TextStyle(
+    fontFamily: GoogleFonts.roboto().fontFamily,
     fontSize: 20,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w800,
@@ -93,8 +93,8 @@ abstract class AppTextStyles {
   );
 
   // titleSmall
-  static const detailsMain = TextStyle(
-    fontFamily: 'SF Pro Display',
+  static final detailsMain = TextStyle(
+    fontFamily: GoogleFonts.roboto().fontFamily,
     fontSize: 16,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w400,
@@ -104,8 +104,8 @@ abstract class AppTextStyles {
   );
 
   // bodyLarge
-  static const bodyLarge = TextStyle(
-    fontFamily: 'SF Pro Display',
+  static final bodyLarge = TextStyle(
+    fontFamily: GoogleFonts.roboto().fontFamily,
     fontSize: 16,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w400,
@@ -115,8 +115,8 @@ abstract class AppTextStyles {
   );
 
   // bodyMedium
-  static const description = TextStyle(
-    fontFamily: 'RobotoMono',
+  static final description = TextStyle(
+    fontFamily: GoogleFonts.roboto().fontFamily,
     fontSize: 15,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w500,

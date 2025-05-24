@@ -3,30 +3,31 @@ abstract class AppIcons {
   static const _basePath = 'assets/icons/';
 
   /// icons for WelcomeScreen
-  static const iconWelcomeFacebook = '${_basePath}welcome_icon_facebook.png';
-  static const iconWelcomeGoogle = '${_basePath}welcome_icon_google.png';
+  static const iconWelcomeFacebook = '${_basePath}icon_welcome_facebook.svg';
+  static const iconWelcomeGoogle = '${_basePath}icon_welcome_google.svg';
 
   /// icons for CreateAccountScreen
   static const iconCreateAccountScreenEyePassClosed =
-      '${_basePath}create_account_eye_pass_closed.png';
+      '${_basePath}create_account_eye_pass_closed.svg';
   static const iconCreateAccountScreenEyePassOpen =
-      '${_basePath}create_account_eye_pass_open.png';
+      '${_basePath}create_account_eye_pass_open.svg';
 
   /// icons for NavigationBar
   static const iconBottomNavigationBarHome =
-      '${_basePath}bottom_navigation_icon_home.png';
+      '${_basePath}bottom_navigation_icon_home.svg';
   static const iconBottomNavigationBarAnalysis =
-      '${_basePath}bottom_navigation_icon_analysis.png';
+      '${_basePath}bottom_navigation_icon_analysis.svg';
   static const iconBottomNavigationBarTransactions =
-      '${_basePath}bottom_navigation_icon_transactions.png';
+      '${_basePath}bottom_navigation_icon_transactions.svg';
   static const iconBottomNavigationBarCategory =
-      '${_basePath}bottom_navigation_icon_category.png';
+      '${_basePath}bottom_navigation_icon_category.svg';
   static const iconBottomNavigationBarProfile =
-      '${_basePath}bottom_navigation_icon_profile.png';
+      '${_basePath}bottom_navigation_icon_profile.svg';
 
   /// icons for HomeScreen
   static const iconHomeNotifications =
       '${_basePath}icon_home_notifications.svg';
+  static const iconHomeCheck = '${_basePath}icon_home_check.svg';
   static const iconHomeIncome = '${_basePath}icon_home_income.svg';
   static const iconHomeExpense = '${_basePath}icon_home_expense.svg';
   static const iconHomeSalary = '${_basePath}icon_salary.svg';

@@ -1,5 +1,6 @@
 import 'package:finance_management/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_icons.dart';
 
@@ -8,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final bool obscureText;
   final VoidCallback? toggleVisibility;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
@@ -15,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     this.obscureText = false,
     this.toggleVisibility,
+    this.controller,
   });
 
   @override
@@ -44,12 +47,12 @@ class CustomTextField extends StatelessWidget {
               suffixIcon:
                   toggleVisibility != null
                       ? IconButton(
-                        icon: Image.asset(
+                    icon: SvgPicture.asset(
                           obscureText
                               ? AppIcons.iconCreateAccountScreenEyePassClosed
                               : AppIcons.iconCreateAccountScreenEyePassOpen,
-                          width: 20,
-                          height: 20,
+                          width: 24,
+                          height: 9,
                         ),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
@@ -61,6 +64,7 @@ class CustomTextField extends StatelessWidget {
                 borderSide: BorderSide.none,
               ),
             ),
+            controller: controller,
           ),
         ),
         const SizedBox(height: 16),
