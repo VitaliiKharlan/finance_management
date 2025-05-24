@@ -20,20 +20,19 @@ class BottomNavigationItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 57,
+        height: 53,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color:
-              isActive
-                  ? theme.primaryColor.withOpacity(0.1)
-                  : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
+          color: isActive ? Color(0xFF00D09E) : Colors.transparent,
+          borderRadius: BorderRadius.circular(22),
         ),
         child: SvgPicture.asset(
           assetPath,
           width: 28,
           height: 28,
           colorFilter: ColorFilter.mode(
-            isActive ? theme.primaryColor : Colors.grey,
+            isActive ? Color(0xFF052224) : Color(0xFF052224),
             BlendMode.srcIn,
           ),
         ),

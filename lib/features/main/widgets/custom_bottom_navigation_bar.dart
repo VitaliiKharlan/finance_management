@@ -18,13 +18,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      height: 108,
+      height: 100,
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
       decoration: BoxDecoration(
         color: const Color(0xFFDFF7E2),
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(80),
-          topRight: Radius.circular(80),
+          topLeft: Radius.circular(72),
+          topRight: Radius.circular(72),
         ),
         boxShadow: const [
           BoxShadow(

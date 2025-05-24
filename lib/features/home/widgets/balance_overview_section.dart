@@ -17,7 +17,7 @@ class BalanceOverviewSection extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
+      padding: const EdgeInsets.only(left: 48, top: 20, right: 48),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -60,19 +60,19 @@ class BalanceOverviewSection extends StatelessWidget {
             Text(
               label,
               style: const TextStyle(
-                color: Colors.white70,
+                color: Colors.black,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 4),
+        // const SizedBox(height: 4),
         Text(
           value,
           style: TextStyle(
             color: valueColor,
-            fontSize: 20,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
         ),

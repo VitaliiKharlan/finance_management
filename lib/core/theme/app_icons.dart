@@ -27,10 +27,14 @@ abstract class AppIcons {
   /// icons for HomeScreen
   static const iconHomeNotifications =
       '${_basePath}icon_home_notifications.svg';
-  static const iconHomeCheck = '${_basePath}icon_home_check.svg';
+
   static const iconHomeIncome = '${_basePath}icon_home_income.svg';
   static const iconHomeExpense = '${_basePath}icon_home_expense.svg';
-  static const iconHomeSalary = '${_basePath}icon_salary.svg';
-  static const iconHomeGroceries = '${_basePath}icon_groceries.svg';
-  static const iconHomeRent = '${_basePath}icon_rent.svg';
+  static const iconHomeCheck = '${_basePath}icon_home_check.svg';
+  static const iconHomeSavingCar = '${_basePath}icon_home_saving_car.svg';
+  static const iconHomeSavingSalary = '${_basePath}icon_home_saving_salary.svg';
+  static const iconHomeSavingFood = '${_basePath}icon_home_saving_food.svg';
+  static const iconHomeSalary = '${_basePath}icon_home_salary.svg';
+  static const iconHomeGroceries = '${_basePath}icon_home_groceries.svg';
+  static const iconHomeRent = '${_basePath}icon_home_rent.svg';
 }

@@ -7,18 +7,32 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 'Hi, Welcome Back',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-              Text("Good Morning", style: TextStyle(color: Colors.grey)),
+              Text(
+                "Good Morning",
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
           const Spacer(),

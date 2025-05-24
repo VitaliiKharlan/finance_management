@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
+                  horizontal: 20,
                   vertical: 20,
                 ),
                 child: SingleChildScrollView(
@@ -46,6 +46,7 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       SavingsSection(),
+                      SizedBox(height: 8),
                       TabSelector(),
                       SizedBox(height: 20),
                       TransactionsList(),

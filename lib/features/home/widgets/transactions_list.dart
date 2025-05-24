@@ -55,25 +55,92 @@ class TransactionTile extends StatelessWidget {
     this.isExpense = false,
   });
 
+  static const double _leadingWidth = 60; // ширина иконки + промежуток
+  static const double _titleWidth =
+      96; // фиксированная ширина колонки title+subtitle, подгони под свои данные
+  static const double _dividerLeftMargin =
+      8; // отступ от текста до левого делителяstatic const double _categoryWidth = 70; // фиксированная ширина категории
+  static const double _categoryWidth = 60; // фиксированная ширина категории
+  static const double _amountWidth = 72; // фиксированная ширина суммы
+
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(22),
-        child: SvgPicture.asset(svgAsset, width: 57, height: 53),
-      ),
-
-      title: Text(title),
-      subtitle: Text(subtitle),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(category, style: TextStyle(color: Colors.grey)),
-          Text(
-            amount,
-            style: TextStyle(
-              color: isExpense ? Colors.blue : Colors.black,
-              fontWeight: FontWeight.bold,
+          SizedBox(
+            width: _leadingWidth,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(22),
+              child: SvgPicture.asset(svgAsset, width: 57, height: 53),
+            ),
+          ),
+
+          const SizedBox(width: 16),
+
+          SizedBox(
+            width: _titleWidth,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Color(0xFF052224),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Color(0xFF0068FF),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(width: _dividerLeftMargin),
+
+          Container(width: 1, height: 32, color: Colors.grey.shade400),
+
+          const SizedBox(width: 6),
+
+          SizedBox(
+            width: _categoryWidth,
+            child: Text(
+              category,
+              style: const TextStyle(color: Colors.grey),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+
+          const SizedBox(width: 6),
+
+          Container(width: 1, height: 32, color: Colors.grey.shade400),
+
+          const SizedBox(width: 8),
+
+          SizedBox(
+            width: _amountWidth,
+            child: Text(
+              amount,
+              style: TextStyle(
+                color: isExpense ? Colors.blue : Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              textAlign: TextAlign.right,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
