@@ -5,8 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../core/logger/i_logger_service.dart';
 import '../../core/constants/firestore_constants.dart';
 import 'customer.dart';
-import 'i_auth_repository.dart';
 import 'user_registration_dto.dart';
+
+abstract class IAuthRepository<T> {
+  Future<T> getUser(String uid);
+
+  Future<void> registerCustomer({
+    required UserEntity user,
+    required Customer customer,
+    required String password,
+  });
+}
 
 class AuthRepository implements IAuthRepository<UserEntity> {
   AuthRepository({
@@ -36,7 +45,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
 
       final data = response.data();
       if (response.exists && data != null) {
-        return UserEntity.fromMap(data);
+        return UserEntity.fromJson(data);
       } else {
         throw Exception('No user data found');
       }
@@ -63,20 +72,18 @@ class AuthRepository implements IAuthRepository<UserEntity> {
     await _firestore
         .collection(FirestoreCollections.users)
         .doc(user.id)
-        .set(user.toMap());
+        .set(user.toJson());
   }
 
   @override
   Future<void> registerCustomer({
     required UserEntity user,
     required Customer customer,
-    required String password, // Пароль отдельно
+    required String password,
   }) async {
     try {
-      // 1. Создаём пользователя в Firebase Authentication
       final firebaseUser = await registerFirebaseUser(user.email, password);
 
-      // 2. Создаём нового UserEntity с uid из Firebase (без пароля!)
       final newUser = UserEntity(
         id: firebaseUser.uid,
         name: user.name,
@@ -85,10 +92,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
         dateOfBirth: user.dateOfBirth,
       );
 
-      // 3. Сохраняем пользователя в Firestore
       await _saveUserData(newUser);
-
-      // 4. Сохраняем профиль клиента, id профиля равен uid пользователя
 
       final profile = UserRegistrationDto(
         id: firebaseUser.uid,

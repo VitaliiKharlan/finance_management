@@ -1,15 +1,14 @@
-part of 'auth_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class AuthState {}
+part 'auth_state.freezed.dart';
 
-class AuthInitial extends AuthState {}
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState.initial() = AuthInitial;
 
-class AuthLoading extends AuthState {}
+  const factory AuthState.loading() = AuthLoading;
 
-class AuthSuccess extends AuthState {}
+  const factory AuthState.success() = AuthSuccess;
 
-class AuthFailure extends AuthState {
-  final String message;
-
-  AuthFailure(this.message);
+  const factory AuthState.failure(String message) = AuthFailure;
 }

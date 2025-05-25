@@ -1,14 +1,15 @@
-import 'i_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class UserEntity implements IEntity {
+part 'user_entity.g.dart';
+
+@JsonSerializable()
+class UserEntity {
   UserEntity({
     required this.id,
     required this.name,
     required this.email,
     required this.mobileNumber,
     required this.dateOfBirth,
-    // required this.password,
-    // required this.confirmPassword,
   });
 
   final String id;
@@ -17,32 +18,25 @@ class UserEntity implements IEntity {
   final String mobileNumber;
   final String dateOfBirth;
 
-  // final String password;
-  // final String confirmPassword;
+  factory UserEntity.fromJson(Map<String, dynamic> json) =>
+      _$UserEntityFromJson(json);
 
-  factory UserEntity.fromMap(Map<String, dynamic> map) {
+  Map<String, dynamic> toJson() => _$UserEntityToJson(this);
+
+  UserEntity copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? mobileNumber,
+    String? dateOfBirth,
+  }) {
     return UserEntity(
-      id: map['id'],
-      name: map['name'],
-      email: map['email'],
-      mobileNumber: map['mobileNumber'],
-      dateOfBirth: map['dateOfBirth'],
-      // password: map['password'],
-      // confirmPassword: map['confirmPassword'],
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      mobileNumber: mobileNumber ?? this.mobileNumber,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
     );
-  }
-
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'mobileNumber': mobileNumber,
-      'dateOfBirth': dateOfBirth,
-      // 'password': password,
-      // 'confirmPassword': confirmPassword,
-    };
   }
 
   @override
@@ -53,8 +47,6 @@ class UserEntity implements IEntity {
         'email: $email, '
         'mobileNumber: $mobileNumber, '
         'dateOfBirth: $dateOfBirth, '
-        // 'password: $password, '
-        // 'confirmPassword: $confirmPassword'
         '}';
   }
 }

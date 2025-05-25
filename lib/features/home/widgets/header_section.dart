@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +9,8 @@ class HeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    print('Locale: ${context.locale}');
+    print('Translation hiWelcomeBack: ${'createAccount'.tr()}');
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
@@ -17,8 +20,9 @@ class HeaderSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hi, Welcome Back',
+                tr("createAccount"),
 
+                // 'Hi, Welcome Back',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -26,7 +30,8 @@ class HeaderSection extends StatelessWidget {
                 ),
               ),
               Text(
-                "Good Morning",
+                'goodMorning'.tr(),
+                // 'Good Morning',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,

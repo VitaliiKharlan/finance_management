@@ -133,7 +133,7 @@ class WelcomeRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return WelcomeScreen();
+      return const WelcomeScreen();
     },
   );
 }

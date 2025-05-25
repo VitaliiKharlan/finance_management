@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'customer.g.dart';
+
+@JsonSerializable()
 class Customer {
   Customer({
     required this.id,
@@ -6,28 +11,15 @@ class Customer {
     required this.mobileNumber,
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) {
-    return Customer(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
-      email: json['email'] as String?,
-      mobileNumber: json['mobileNumber'] as String?,
-    );
-  }
-
-  factory Customer.def() {
-    return Customer(
-      id: 'Vitalii',
-      name: 'Kharlan',
-      email: 'vitaliy.kharlan.1977@gmail.com',
-      mobileNumber: '+38 (050) 4848948',
-    );
-  }
-
   final String? id;
   final String? name;
   final String? email;
   final String? mobileNumber;
+
+  factory Customer.fromJson(Map<String, dynamic> json) =>
+      _$CustomerFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CustomerToJson(this);
 
   Customer copyWith({
     String? id,
@@ -43,12 +35,13 @@ class Customer {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'mobileNumber': mobileNumber,
-    };
+  @override
+  String toString() {
+    return 'Customer{'
+        'id: $id, '
+        'name: $name, '
+        'email: $email, '
+        'mobileNumber: $mobileNumber, '
+        '}';
   }
 }

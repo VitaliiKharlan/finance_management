@@ -4,14 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../auth_repository.dart';
 import '../customer.dart';
 import '../user_entity.dart';
+import 'auth_state.dart';
 
 part 'auth_event.dart';
-part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository authRepository;
+  final AuthRepository _authRepository;
 
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+  AuthBloc({required AuthRepository authRepository})
+    : _authRepository = authRepository,
+      super(AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
     on<RegisterCustomerRequested>(_onRegisterCustomerRequested);
   }
@@ -23,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
 
     try {
-      await authRepository.login(event.email, event.password);
+      await _authRepository.login(event.email, event.password);
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
       emit(AuthFailure(e.message ?? 'Login failed'));
@@ -44,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
 
     try {
-      await authRepository.registerCustomer(
+      await _authRepository.registerCustomer(
         user: event.user,
         customer: event.customer,
         password: event.password,

@@ -1,6 +1,9 @@
-import 'i_customer_profile_dto.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class UserRegistrationDto implements ICustomerProfileDto {
+part 'user_registration_dto.g.dart';
+
+@JsonSerializable()
+class UserRegistrationDto {
   UserRegistrationDto({
     required this.id,
     required this.name,
@@ -19,31 +22,10 @@ class UserRegistrationDto implements ICustomerProfileDto {
   String? password;
   String? confirmPassword;
 
-  factory UserRegistrationDto.fromJson(Map<String, dynamic> json) {
-    return UserRegistrationDto(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      mobileNumber: json['mobileNumber'],
-      dateOfBirth: json['dateOfBirth'],
-      password: json['password'],
-      confirmPassword: json['confirmPassword'],
-    );
-  }
+  factory UserRegistrationDto.fromJson(Map<String, dynamic> json) =>
+      _$UserRegistrationDtoFromJson(json);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-
-      'email': email,
-      'mobileNumber': mobileNumber,
-      'dateOfBirth': dateOfBirth,
-      'password': password,
-      'confirmPassword': confirmPassword,
-    };
-  }
+  Map<String, dynamic> toJson() => _$UserRegistrationDtoToJson(this);
 
   UserRegistrationDto copyWith({
     String? id,
@@ -51,7 +33,6 @@ class UserRegistrationDto implements ICustomerProfileDto {
     String? email,
     String? mobileNumber,
     String? dateOfBirth,
-
     String? password,
     String? confirmPassword,
   }) => UserRegistrationDto(
@@ -66,13 +47,14 @@ class UserRegistrationDto implements ICustomerProfileDto {
 
   @override
   String toString() {
-    return 'CustomerProfileDto{'
+    return 'UserRegistrationDto{'
         'id: $id, '
         'name: $name, '
         'email: $email, '
         'mobileNumber: $mobileNumber, '
         'dateOfBirth: $dateOfBirth, '
         'password: $password, '
-        'confirmPassword: $confirmPassword,}';
+        'confirmPassword: $confirmPassword, '
+        '}';
   }
 }

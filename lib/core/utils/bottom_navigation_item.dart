@@ -29,8 +29,8 @@ class BottomNavigationItem extends StatelessWidget {
         ),
         child: SvgPicture.asset(
           assetPath,
-          width: 28,
-          height: 28,
+          width: 24,
+          height: 24,
           colorFilter: ColorFilter.mode(
             isActive ? Color(0xFF052224) : Color(0xFF052224),
             BlendMode.srcIn,
