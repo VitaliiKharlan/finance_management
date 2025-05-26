@@ -23,7 +23,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   bool _obscurePassword = true;
-  final bool _isLoading = false;
+  bool _hasShownError = false;
 
   @override
   void dispose() {
@@ -50,23 +50,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
+      listenWhen: (previous, current) => previous != current,
+      listener: (context, state) {
+        if (state is AuthFailure && !_hasShownError) {
+          _hasShownError = true;
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+        } else if (state is Authenticated || state is AuthSuccess) {
+          context.pushRoute(const HomeRoute());
+        } else {
+          _hasShownError = false;
+        }
+      },
       builder: (context, state) {
         final isLoading = state is AuthLoading;
-
-        if (state is AuthSuccess) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.pushRoute(const HomeRoute());
-          });
-        }
-
-        if (state is AuthFailure) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
-          });
-        }
         return Scaffold(
           backgroundColor: const Color(0xFF00D09E),
           body: SafeArea(
@@ -110,7 +109,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             obscureText: _obscurePassword,
                             toggleVisibility: () {
                               setState(
-                                () => _obscurePassword = !_obscurePassword,
+                                    () => _obscurePassword = !_obscurePassword,
                               );
                             },
                             controller: passwordController,
@@ -131,7 +130,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                       ? null
                                       : () => _onLoginPressed(context),
                               child:
-                                  _isLoading
+                              isLoading
                                       ? const CircularProgressIndicator(
                                         color: Colors.black,
                                       )

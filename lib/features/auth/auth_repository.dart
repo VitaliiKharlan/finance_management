@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/logger/i_logger_service.dart';
 import '../../core/constants/firestore_constants.dart';
+import 'auth_service.dart';
 import 'customer.dart';
 import 'user_registration_dto.dart';
 
@@ -20,16 +21,17 @@ abstract class IAuthRepository<T> {
 class AuthRepository implements IAuthRepository<UserEntity> {
   AuthRepository({
     required FirebaseFirestore firestore,
-    FirebaseAuth? firebaseAuth,
-  }) : _firestore = firestore,
-       _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+    required AuthService authService,
+  })
+      : _firestore = firestore,
+        _authService = authService;
 
   final FirebaseFirestore _firestore;
-  final FirebaseAuth _firebaseAuth;
+  final AuthService _authService;
 
   Future<void> login(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
+      await _authService.signIn(
         email: email,
         password: password,
       );
@@ -80,7 +82,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
 
   Future<User> registerFirebaseUser(String email, String password) async {
     try {
-      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      final userCredential = await _authService.createAccount(
         email: email,
         password: password,
       );
