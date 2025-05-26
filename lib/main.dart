@@ -16,8 +16,8 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('uk')],
-      path: 'assets/translations/',
+      supportedLocales: [Locale('en', 'US'), Locale('uk', 'UA')],
+      path: 'assets/translations',
       fallbackLocale: Locale('en'),
       child: MultiBlocProvider(
         providers: [

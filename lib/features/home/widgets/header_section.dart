@@ -20,9 +20,7 @@ class HeaderSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                tr("createAccount"),
-
-                // 'Hi, Welcome Back',
+                'hiWelcomeBack'.tr(),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -31,7 +29,7 @@ class HeaderSection extends StatelessWidget {
               ),
               Text(
                 'goodMorning'.tr(),
-                // 'Good Morning',
+
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
