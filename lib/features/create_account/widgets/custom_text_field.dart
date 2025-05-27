@@ -49,7 +49,7 @@ class CustomTextField extends StatelessWidget {
               suffixIcon:
                   toggleVisibility != null
                       ? IconButton(
-                    icon: SvgPicture.asset(
+                        icon: SvgPicture.asset(
                           obscureText
                               ? AppIcons.iconCreateAccountScreenEyePassClosed
                               : AppIcons.iconCreateAccountScreenEyePassOpen,
@@ -67,6 +67,7 @@ class CustomTextField extends StatelessWidget {
               ),
             ),
             controller: controller,
+            validator: validator,
           ),
         ),
         const SizedBox(height: 16),
