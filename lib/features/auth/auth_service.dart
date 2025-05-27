@@ -21,7 +21,7 @@ class AuthService {
     required String email,
     required String password,
   }) async {
-    return await firebaseAuth.signInWithEmailAndPassword(
+    return await firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );

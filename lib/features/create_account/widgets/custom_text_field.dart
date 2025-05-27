@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final VoidCallback? toggleVisibility;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
@@ -18,6 +19,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.toggleVisibility,
     this.controller,
+    this.validator,
   });
 
   @override
@@ -32,7 +34,7 @@ class CustomTextField extends StatelessWidget {
         const SizedBox(height: 4),
         SizedBox(
           height: 40,
-          child: TextField(
+          child: TextFormField(
             obscureText: obscureText,
             decoration: InputDecoration(
               hintText: hint,

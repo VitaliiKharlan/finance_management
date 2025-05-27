@@ -18,6 +18,8 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileNumberController = TextEditingController();
@@ -39,7 +41,25 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     super.dispose();
   }
 
+  String? _validatePhone(String? value) {
+    final phoneRegExp = RegExp(r'^\+?[0-9]{10,15}$');
+
+    if (value == null || value.trim().isEmpty) {
+      return 'Enter your phone number';
+    }
+
+    if (!phoneRegExp.hasMatch(value.trim())) {
+      return 'Incorrect number format';
+    }
+
+    return null;
+  }
+
   void _onSignUpPressed() {
+    if (_formKey.currentState?.validate() != true) {
+      return;
+    }
+
     final fullName = _fullNameController.text.trim();
     final email = _emailController.text.trim();
     final mobile = _mobileNumberController.text.trim();
@@ -114,124 +134,128 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       vertical: 20,
                     ),
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            label: 'Full Name',
-                            hint: 'example@example.com',
-                            controller: _fullNameController,
-                          ),
-                          CustomTextField(
-                            label: 'Email',
-                            hint: 'example@example.com',
-                            controller: _emailController,
-                          ),
-                          CustomTextField(
-                            label: 'Mobile Number',
-                            hint: '+ 123 456 789',
-                            controller: _mobileNumberController,
-                          ),
-                          CustomTextField(
-                            label: 'Date Of Birth',
-                            hint: 'DD / MM /YYY',
-                            controller: _dobController,
-                          ),
-                          CustomTextField(
-                            label: 'Password',
-                            hint: '●●●●●●●●',
-                            obscureText: _obscurePassword,
-                            toggleVisibility: () {
-                              setState(
-                                () => _obscurePassword = !_obscurePassword,
-                              );
-                            },
-                            controller: _passwordController,
-                          ),
-                          CustomTextField(
-                            label: 'Confirm Password',
-                            hint: '●●●●●●●●',
-                            obscureText: _obscureConfirmPassword,
-                            toggleVisibility: () {
-                              setState(
-                                () =>
-                                    _obscureConfirmPassword =
-                                        !_obscureConfirmPassword,
-                              );
-                            },
-                            controller: _confirmPasswordController,
-                          ),
-                          const SizedBox(height: 8),
-                          const Text.rich(
-                            TextSpan(
-                              text: 'By continuing, you agree to\n',
-                              children: [
-                                TextSpan(
-                                  text: 'Terms of Use',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              label: 'Full Name',
+                              hint: 'example@example.com',
+                              controller: _fullNameController,
+                            ),
+                            CustomTextField(
+                              label: 'Email',
+                              hint: 'example@example.com',
+                              controller: _emailController,
+                            ),
+                            CustomTextField(
+                              label: 'Mobile Number',
+                              hint: '+ 123 456 789',
+                              controller: _mobileNumberController,
+                              validator: _validatePhone,
+                            ),
+                            CustomTextField(
+                              label: 'Date Of Birth',
+                              hint: 'DD / MM /YYY',
+                              controller: _dobController,
+                            ),
+                            CustomTextField(
+                              label: 'Password',
+                              hint: '●●●●●●●●',
+                              obscureText: _obscurePassword,
+                              toggleVisibility: () {
+                                setState(
+                                  () => _obscurePassword = !_obscurePassword,
+                                );
+                              },
+                              controller: _passwordController,
+                            ),
+                            CustomTextField(
+                              label: 'Confirm Password',
+                              hint: '●●●●●●●●',
+                              obscureText: _obscureConfirmPassword,
+                              toggleVisibility: () {
+                                setState(
+                                  () =>
+                                      _obscureConfirmPassword =
+                                          !_obscureConfirmPassword,
+                                );
+                              },
+                              controller: _confirmPasswordController,
+                            ),
+                            const SizedBox(height: 8),
+                            const Text.rich(
+                              TextSpan(
+                                text: 'By continuing, you agree to\n',
+                                children: [
+                                  TextSpan(
+                                    text: 'Terms of Use',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(text: ' and '),
+                                  TextSpan(
+                                    text: 'Privacy Policy.',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 16),
+                            SizedBox(
+                              width: 148,
+                              height: 50,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF00C19C),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
                                   ),
                                 ),
-                                TextSpan(text: ' and '),
-                                TextSpan(
-                                  text: 'Privacy Policy.',
+                                onPressed: _onSignUpPressed,
+
+                                child: const Text(
+                                  'Sign Up',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 22,
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Already have an account? ',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    context.pushRoute(const WelcomeRoute());
+                                  },
+                                  child: const Text(
+                                    'Log In',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.blue,
+                                    ),
                                   ),
                                 ),
                               ],
-                              style: TextStyle(fontSize: 14),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 16),
-                          SizedBox(
-                            width: 148,
-                            height: 50,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF00C19C),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              onPressed: _onSignUpPressed,
-
-                              child: const Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Already have an account? ',
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  context.pushRoute(const WelcomeRoute());
-                                },
-                                child: const Text(
-                                  'Log In',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                        ],
+                            const SizedBox(height: 8),
+                          ],
+                        ),
                       ),
                     ),
                   ),
