@@ -47,7 +47,7 @@ class ProfileScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Color(0xFF093030),
                             ),
                           ),
                           const Spacer(),
@@ -87,7 +87,8 @@ class ProfileScreen extends StatelessWidget {
                                       // 'Vitalii Kharlan',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18,
+                                        fontSize: 20,
+                                        color: Color(0xFF0E3E3E),
                                       ),
                                     ),
                                     Text.rich(
@@ -97,7 +98,8 @@ class ProfileScreen extends StatelessWidget {
                                             text: 'ID: ',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              fontSize: 13,
+                                              color: Color(0xFF093030),
                                             ),
                                           ),
                                           TextSpan(
@@ -105,7 +107,8 @@ class ProfileScreen extends StatelessWidget {
                                             // text: '00000002',
                                             style: TextStyle(
                                               fontWeight: FontWeight.normal,
-                                              color: Colors.black,
+                                              fontSize: 13,
+                                              color: Color(0xFF093030),
                                             ),
                                           ),
                                         ],
