@@ -1,19 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/features/auth/user_entity.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../core/logger/i_logger_service.dart';
 import '../../core/constants/firestore_constants.dart';
 import 'auth_service.dart';
-import 'customer.dart';
 import 'user_registration_dto.dart';
 
 abstract class IAuthRepository<T> {
-  Future<T> getUser(String uid);
+  Future<UserEntity> getUser(String uid);
 
   Future<void> registerCustomer({
     required UserEntity user,
-    required Customer customer,
+
     required String password,
   });
 }
@@ -22,37 +20,11 @@ class AuthRepository implements IAuthRepository<UserEntity> {
   AuthRepository({
     required FirebaseFirestore firestore,
     required AuthService authService,
-  })
-      : _firestore = firestore,
-        _authService = authService;
+  }) : _firestore = firestore,
+       _authService = authService;
 
   final FirebaseFirestore _firestore;
   final AuthService _authService;
-
-  Future<void> login(String email, String password) async {
-    try {
-      await _authService.signIn(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e, s) {
-      logger.log(
-        'Login failed: ${e.message}',
-        error: e,
-        stackTrace: s,
-        logLevel: LogLevel.warning,
-      );
-      throw Exception('Login error: ${e.message}');
-    } catch (e, s) {
-      logger.log(
-        'Unexpected error during login',
-        error: e,
-        stackTrace: s,
-        logLevel: LogLevel.error,
-      );
-      rethrow;
-    }
-  }
 
   @override
   Future<UserEntity> getUser(String uid) async {
@@ -80,57 +52,19 @@ class AuthRepository implements IAuthRepository<UserEntity> {
     }
   }
 
-  Future<User> registerFirebaseUser(String email, String password) async {
-    try {
-      final userCredential = await _authService.createAccount(
-        email: email,
-        password: password,
-      );
-      return userCredential.user!;
-    } on FirebaseAuthException catch (e, s) {
-      logger.log(
-        'Firebase Registration Error: ${e.message}',
-        error: e,
-        stackTrace: s,
-        logLevel: LogLevel.warning,
-      );
-      throw Exception('Registration error: ${e.message}');
-    } catch (e, s) {
-      logger.log(
-        'Unknown error while registering Firebase',
-        error: e,
-        stackTrace: s,
-        logLevel: LogLevel.error,
-      );
-      rethrow;
-    }
-  }
-
-  Future<void> _saveUserDataToFirestore(UserEntity user) async {
-    try {
-      await _firestore
-          .collection(FirestoreCollections.users)
-          .doc(user.id)
-          .set(user.toJson());
-    } catch (e, s) {
-      logger.log(
-        'Error saving user data',
-        error: e,
-        stackTrace: s,
-        logLevel: LogLevel.error,
-      );
-      throw Exception('Error saving user');
-    }
-  }
-
   @override
   Future<void> registerCustomer({
     required UserEntity user,
-    required Customer customer,
+
     required String password,
   }) async {
     try {
-      final firebaseUser = await registerFirebaseUser(user.email, password);
+      final userCredential = await _authService.createAccount(
+        email: user.email,
+        password: password,
+      );
+
+      final firebaseUser = userCredential.user!;
 
       final newUser = UserEntity(
         id: firebaseUser.uid,
@@ -140,12 +74,15 @@ class AuthRepository implements IAuthRepository<UserEntity> {
         dateOfBirth: user.dateOfBirth,
       );
 
-      await _saveUserDataToFirestore(newUser);
+      await _firestore
+          .collection(FirestoreCollections.users)
+          .doc(newUser.id)
+          .set(newUser.toJson());
 
       final profile = UserRegistrationDto(
         id: firebaseUser.uid,
-        name: customer.name!,
-        email: customer.email!,
+        name: user.name,
+        email: user.email,
       );
 
       await _firestore
@@ -154,7 +91,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
           .set(profile.toJson());
     } catch (e, s) {
       logger.log(
-        'Error while registering client',
+        'Error while registering customer',
         error: e,
         stackTrace: s,
         logLevel: LogLevel.error,
