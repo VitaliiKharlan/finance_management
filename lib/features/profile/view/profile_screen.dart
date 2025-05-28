@@ -17,161 +17,169 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is Unauthenticated) {
           context.router.replaceAll([WelcomeRoute()]);
         }
       },
-      child: Scaffold(
-        backgroundColor: const Color(0xFF00D09E),
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 20,
+      builder: (context, state) {
+        final fullName = state is Authenticated ? state.user.name : 'Guest';
+        final userId = state is Authenticated ? state.user.id : 'Unknown';
+        return Scaffold(
+          backgroundColor: const Color(0xFF00D09E),
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 20,
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(AppIcons.iconProfileBringBack),
+                          const Spacer(),
+                          const Text(
+                            'Profile',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(
+                            AppIcons.iconHomeNotifications,
+                            width: 28,
+                            height: 28,
+                          ),
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(AppIcons.iconProfileBringBack),
-                        const Spacer(),
-                        const Text(
-                          'Profile',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                    SizedBox(height: 52),
+                    Expanded(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFF1FFF3),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(60),
+                            topRight: Radius.circular(60),
                           ),
                         ),
-                        const Spacer(),
-                        SvgPicture.asset(
-                          AppIcons.iconHomeNotifications,
-                          width: 28,
-                          height: 28,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 52),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFF1FFF3),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(60),
-                          topRight: Radius.circular(60),
-                        ),
-                      ),
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 24,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Center(
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 52),
-                                  Text(
-                                    'Vitalii Kharlan',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 24,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: 52),
+                                    Text(
+                                      fullName,
+                                      // 'Vitalii Kharlan',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                  ),
-                                  Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: 'ID: ',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black,
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: 'ID: ',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
                                           ),
-                                        ),
-                                        TextSpan(
-                                          text: '00000002',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.black,
+                                          TextSpan(
+                                            text: userId,
+                                            // text: '00000002',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.black,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 30),
-                            ProfileMenuItem(
-                              iconAsset: AppIcons.iconProfileEditProfile,
-                              title: 'Edit Profile',
-                              onTap: () {},
-                            ),
-                            ProfileMenuItem(
-                              iconAsset: AppIcons.iconProfileSecurity,
-                              title: 'Security',
-                              onTap: () {},
-                            ),
-                            ProfileMenuItem(
-                              iconAsset: AppIcons.iconProfileSettings,
-                              title: 'Setting',
-                              onTap: () {},
-                            ),
-                            ProfileMenuItem(
-                              iconAsset: AppIcons.iconProfileHelp,
-                              title: 'Help',
-                              onTap: () {},
-                            ),
-                            ProfileMenuItem(
-                              iconAsset: AppIcons.iconProfileLogout,
-                              title: 'Logout',
-                              onTap: () {
-                                showConfirmationDialog(
-                                  context: context,
-                                  title: 'Confirm Logout',
-                                  message: 'Are you sure you want to log out?',
-                                  confirmText: 'Logout',
-                                  cancelText: 'Cancel',
-                                  onConfirmed: () {
-                                    context.read<AuthBloc>().add(
-                                        LogoutRequested());
-                                  },
-                                );
-                              },
-                            ),
-                          ],
+                              const SizedBox(height: 30),
+                              ProfileMenuItem(
+                                iconAsset: AppIcons.iconProfileEditProfile,
+                                title: 'Edit Profile',
+                                onTap: () {},
+                              ),
+                              ProfileMenuItem(
+                                iconAsset: AppIcons.iconProfileSecurity,
+                                title: 'Security',
+                                onTap: () {},
+                              ),
+                              ProfileMenuItem(
+                                iconAsset: AppIcons.iconProfileSettings,
+                                title: 'Setting',
+                                onTap: () {},
+                              ),
+                              ProfileMenuItem(
+                                iconAsset: AppIcons.iconProfileHelp,
+                                title: 'Help',
+                                onTap: () {},
+                              ),
+                              ProfileMenuItem(
+                                iconAsset: AppIcons.iconProfileLogout,
+                                title: 'Logout',
+                                onTap: () {
+                                  showConfirmationDialog(
+                                    context: context,
+                                    title: 'Confirm Logout',
+                                    message:
+                                        'Are you sure you want to log out?',
+                                    confirmText: 'Logout',
+                                    cancelText: 'Cancel',
+                                    onConfirmed: () {
+                                      context.read<AuthBloc>().add(
+                                        LogoutRequested(),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Positioned(
-                top: 72,
-                left: 0,
-                right: 0,
-                child: Center(
-                  child: Container(
-                    decoration: BoxDecoration(shape: BoxShape.circle),
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundImage: AssetImage(AppImages.userAvatar),
+                  ],
+                ),
+                Positioned(
+                  top: 72,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundImage: AssetImage(AppImages.userAvatar),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
