@@ -28,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutRequested>(_onLogoutRequested);
 
     _authStateSubscription = _authService.authStateChanges.listen((user) {
-      if (user == null) {
+      if (user == null && state is! Unauthenticated) {
         add(LogoutRequested());
       }
     });
@@ -41,12 +41,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final currentUser = _authService.currentUser;
     if (currentUser != null) {
       try {
+        print('User found with UID: ${currentUser.uid}');
         final user = await _authRepository.getUser(currentUser.uid);
+        print('User data loaded: $user');
         emit(Authenticated(user: user));
       } catch (e) {
+        print('Failed to load user data: $e');
         emit(AuthFailure('Failed to load user data'));
       }
     } else {
+      print('No current user, emit Unauthenticated');
       emit(Unauthenticated());
     }
   }

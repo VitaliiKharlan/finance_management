@@ -59,6 +59,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is Authenticated || state is AuthSuccess) {
+          emailController.clear();
+          passwordController.clear();
           context.pushRoute(const HomeRoute());
         } else {
           _hasShownError = false;
