@@ -22,15 +22,15 @@ class BottomNavigationItem extends StatelessWidget {
       child: Container(
         width: 57,
         height: 53,
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isActive ? Color(0xFF00D09E) : Colors.transparent,
           borderRadius: BorderRadius.circular(22),
         ),
         child: SvgPicture.asset(
           assetPath,
-          width: 24,
-          height: 24,
+          width: 28,
+          height: 28,
           colorFilter: ColorFilter.mode(
             isActive ? Color(0xFF052224) : Color(0xFF052224),
             BlendMode.srcIn,

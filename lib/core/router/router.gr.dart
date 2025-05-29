@@ -27,19 +27,37 @@ class AnalysisRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [CategoryScreen]
-class CategoryRoute extends PageRouteInfo<void> {
-  const CategoryRoute({List<PageRouteInfo>? children})
-    : super(CategoryRoute.name, initialChildren: children);
+/// [CategoriesScreen]
+class CategoriesRoute extends PageRouteInfo<CategoriesRouteArgs> {
+  CategoriesRoute({Key? key, List<PageRouteInfo>? children})
+    : super(
+        CategoriesRoute.name,
+        args: CategoriesRouteArgs(key: key),
+        initialChildren: children,
+      );
 
-  static const String name = 'CategoryRoute';
+  static const String name = 'CategoriesRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const CategoryScreen();
+      final args = data.argsAs<CategoriesRouteArgs>(
+        orElse: () => const CategoriesRouteArgs(),
+      );
+      return CategoriesScreen(key: args.key);
     },
   );
+}
+
+class CategoriesRouteArgs {
+  const CategoriesRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'CategoriesRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

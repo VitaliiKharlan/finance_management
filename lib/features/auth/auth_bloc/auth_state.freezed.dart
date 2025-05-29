@@ -167,7 +167,6 @@ abstract mixin class $AuthenticatedCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class _$AuthenticatedCopyWithImpl<$Res>
     implements $AuthenticatedCopyWith<$Res> {

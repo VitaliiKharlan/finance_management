@@ -37,6 +37,29 @@ abstract class AppIcons {
   static const iconHomeGroceries = '${_basePath}icon_home_groceries.svg';
   static const iconHomeRent = '${_basePath}icon_home_rent.svg';
 
+  /// icons for CategoriesScreen
+  static const iconCategoriesBringBack =
+      '${_basePath}icon_categories_bring_back.svg';
+  static const iconCategoriesNotifications =
+      '${_basePath}icon_categories_notifications.svg';
+  static const iconCategoriesIncome = '${_basePath}icon_categories_income.svg';
+  static const iconCategoriesExpense =
+      '${_basePath}icon_categories_expense.svg';
+  static const iconCategoriesCheck = '${_basePath}icon_categories_check.svg';
+  static const iconCategoriesFood = '${_basePath}icon_categories_food.svg';
+  static const iconCategoriesTransport =
+      '${_basePath}icon_categories_transport.svg';
+  static const iconCategoriesMedicine =
+      '${_basePath}icon_categories_medicine.svg';
+  static const iconCategoriesGroceries =
+      '${_basePath}icon_categories_groceries.svg';
+  static const iconCategoriesRent = '${_basePath}icon_categories_rent.svg';
+  static const iconCategoriesGifts = '${_basePath}icon_categories_gift.svg';
+  static const iconCategoriesSavings = '${_basePath}icon_categories_saving.svg';
+  static const iconCategoriesEntertainment =
+      '${_basePath}icon_categories_entertainment.svg';
+  static const iconCategoriesMore = '${_basePath}icon_categories_more.svg';
+
   /// icons for ProfileScreen
   static const iconProfileBringBack = '${_basePath}icon_profile_bring_back.svg';
   static const iconProfileNotifications =

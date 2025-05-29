@@ -2,11 +2,11 @@ import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ExpenseProgressBarWidget extends StatelessWidget {
+class CategoriesExpenseProgressBarWidgetSection extends StatelessWidget {
   final double percentage;
   final double limitAmount;
 
-  const ExpenseProgressBarWidget({
+  const CategoriesExpenseProgressBarWidgetSection({
     super.key,
     required this.percentage,
     required this.limitAmount,
@@ -18,7 +18,7 @@ class ExpenseProgressBarWidget extends StatelessWidget {
     final displayPercentage = (progress * 100).toStringAsFixed(0);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+      padding: const EdgeInsets.only(left: 44, top: 8, right: 44, bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -94,20 +94,26 @@ class ExpenseProgressBarWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 8),
-          Row(
-            children: [
-              SvgPicture.asset(AppIcons.iconHomeCheck, height: 11, width: 11),
-              const SizedBox(width: 8),
-              Text(
-                '$displayPercentage% Of Your Expenses, Looks Good.',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  AppIcons.iconCategoriesCheck,
+                  height: 11,
+                  width: 11,
                 ),
-              ),
-            ],
+                const SizedBox(width: 8),
+                Text(
+                  '$displayPercentage% Of Your Expenses, Looks Good.',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
           ),
-          SizedBox(height: 12),
         ],
       ),
     );

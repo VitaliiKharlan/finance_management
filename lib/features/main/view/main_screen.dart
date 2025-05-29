@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
           HomeRoute(),
           AnalysisRoute(),
           TransactionsRoute(),
-          CategoryRoute(),
+          CategoriesRoute(),
           ProfileRoute(),
         ],
         builder: (context, child) {
