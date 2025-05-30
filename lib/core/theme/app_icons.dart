@@ -14,15 +14,15 @@ abstract class AppIcons {
 
   /// icons for NavigationBar
   static const iconBottomNavigationBarHome =
-      '${_basePath}bottom_navigation_icon_home.svg';
+      '${_basePath}icon_bottom_navigation_home.svg';
   static const iconBottomNavigationBarAnalysis =
-      '${_basePath}bottom_navigation_icon_analysis.svg';
+      '${_basePath}icon_bottom_navigation_analysis.svg';
   static const iconBottomNavigationBarTransactions =
-      '${_basePath}bottom_navigation_icon_transactions.svg';
+      '${_basePath}icon_bottom_navigation_transactions.svg';
   static const iconBottomNavigationBarCategory =
-      '${_basePath}bottom_navigation_icon_category.svg';
+      '${_basePath}icon_bottom_navigation_category.svg';
   static const iconBottomNavigationBarProfile =
-      '${_basePath}bottom_navigation_icon_profile.svg';
+      '${_basePath}icon_bottom_navigation_profile.svg';
 
   /// icons for HomeScreen
   static const iconHomeNotifications =
@@ -40,7 +40,10 @@ abstract class AppIcons {
   /// icons for AnalysisScreen
   static const iconAnalysisBringBack =
       '${_basePath}icon_analysis_bring_back.svg';
-  static const iconAnalysisNotifications = '${_basePath}icon_analysis.svg';
+  static const iconAnalysisNotifications =
+      '${_basePath}icon_analysis_notifications.svg';
+  static const iconAnalysisSearch = '${_basePath}icon_analysis_search.svg';
+  static const iconAnalysisCalendar = '${_basePath}icon_analysis_calendar.svg';
 
   /// icons for TransactionScreen
   static const iconTransactionBringBack =

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:finance_management/features/main/view/main_screen.dart';
 
-import '../../features/analysis/view/analysis.dart';
+import '../../features/analysis/view/analysis_screen.dart';
 import '../../features/category/view/categories_screen.dart';
 import '../../features/create_account/view/create_account_screen.dart';
 import '../../features/home/view/home_screen.dart';
