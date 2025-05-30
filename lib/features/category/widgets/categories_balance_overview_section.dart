@@ -1,6 +1,9 @@
 import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../core/theme/app_colors.dart';
 
 class CategoriesBalanceOverviewSection extends StatelessWidget {
   const CategoriesBalanceOverviewSection({
@@ -23,7 +26,7 @@ class CategoriesBalanceOverviewSection extends StatelessWidget {
             icon: AppIcons.iconCategoriesIncome,
             label: 'Total Balance',
             value: '\$${totalBalance.toStringAsFixed(2)}',
-            valueColor: Colors.white,
+            valueColor: AppColors.backgroundGreenWhiteAndLetters,
           ),
           Container(
             height: 40,
@@ -35,7 +38,8 @@ class CategoriesBalanceOverviewSection extends StatelessWidget {
             icon: AppIcons.iconCategoriesExpense,
             label: 'Total Expense',
             value: '-\$${totalExpense.toStringAsFixed(2)}',
-            valueColor: const Color(0xFF5050FF),
+            valueColor: AppColors.oceanBlueButton,
+            valueFontWeight: FontWeight.w500,
           ),
         ],
       ),
@@ -49,12 +53,14 @@ class _BalanceOverviewItem extends StatelessWidget {
     required this.label,
     required this.value,
     required this.valueColor,
+    this.valueFontWeight = FontWeight.bold,
   });
 
   final String icon;
   final String label;
   final String value;
   final Color valueColor;
+  final FontWeight valueFontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -67,20 +73,20 @@ class _BalanceOverviewItem extends StatelessWidget {
             const SizedBox(width: 4),
             Text(
               label,
-              style: const TextStyle(
+              style: GoogleFonts.poppins(
                 color: Colors.black,
                 fontSize: 14,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
         ),
         Text(
           value,
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             color: valueColor,
             fontSize: 24,
-            fontWeight: FontWeight.bold,
+            fontWeight: valueFontWeight,
           ),
         ),
       ],

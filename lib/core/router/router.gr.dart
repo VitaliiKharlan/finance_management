@@ -28,36 +28,18 @@ class AnalysisRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [CategoriesScreen]
-class CategoriesRoute extends PageRouteInfo<CategoriesRouteArgs> {
-  CategoriesRoute({Key? key, List<PageRouteInfo>? children})
-    : super(
-        CategoriesRoute.name,
-        args: CategoriesRouteArgs(key: key),
-        initialChildren: children,
-      );
+class CategoriesRoute extends PageRouteInfo<void> {
+  const CategoriesRoute({List<PageRouteInfo>? children})
+    : super(CategoriesRoute.name, initialChildren: children);
 
   static const String name = 'CategoriesRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<CategoriesRouteArgs>(
-        orElse: () => const CategoriesRouteArgs(),
-      );
-      return CategoriesScreen(key: args.key);
+      return const CategoriesScreen();
     },
   );
-}
-
-class CategoriesRouteArgs {
-  const CategoriesRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'CategoriesRouteArgs{key: $key}';
-  }
 }
 
 /// generated route for
@@ -125,17 +107,17 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [TransactionsScreen]
-class TransactionsRoute extends PageRouteInfo<void> {
-  const TransactionsRoute({List<PageRouteInfo>? children})
-    : super(TransactionsRoute.name, initialChildren: children);
+/// [TransactionScreen]
+class TransactionRoute extends PageRouteInfo<void> {
+  const TransactionRoute({List<PageRouteInfo>? children})
+    : super(TransactionRoute.name, initialChildren: children);
 
-  static const String name = 'TransactionsRoute';
+  static const String name = 'TransactionRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const TransactionsScreen();
+      return const TransactionScreen();
     },
   );
 }

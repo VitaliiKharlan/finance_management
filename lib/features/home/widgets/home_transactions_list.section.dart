@@ -55,13 +55,11 @@ class TransactionTile extends StatelessWidget {
     this.isExpense = false,
   });
 
-  static const double _leadingWidth = 60; // ширина иконки + промежуток
-  static const double _titleWidth =
-      96; // фиксированная ширина колонки title+subtitle, подгони под свои данные
-  static const double _dividerLeftMargin =
-      8; // отступ от текста до левого делителяstatic const double _categoryWidth = 70; // фиксированная ширина категории
-  static const double _categoryWidth = 60; // фиксированная ширина категории
-  static const double _amountWidth = 72; // фиксированная ширина суммы
+  static const double _leadingWidth = 60;
+  static const double _titleWidth = 96;
+  static const double _dividerLeftMargin = 8;
+  static const double _categoryWidth = 60;
+  static const double _amountWidth = 72;
 
   @override
   Widget build(BuildContext context) {

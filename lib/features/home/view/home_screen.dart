@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/balance_overview_section.dart';
-import '../widgets/expense_progress_bar_widget.dart';
-import '../widgets/header_section.dart';
-import '../widgets/savings_section.dart';
-import '../widgets/tab_selector.dart';
-import '../widgets/transactions_list.dart';
+import '../widgets/home_balance_overview_section.dart';
+import '../widgets/home_expense_progress_bar_widget.dart';
+import '../widgets/home_header_section.dart';
+import '../widgets/home_savings_section.dart';
+import '../widgets/home_tab_selector_section.dart';
+import '../widgets/home_transactions_list.section.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {

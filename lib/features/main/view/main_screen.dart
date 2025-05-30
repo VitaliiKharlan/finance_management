@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
         routes: [
           HomeRoute(),
           AnalysisRoute(),
-          TransactionsRoute(),
+          TransactionRoute(),
           CategoriesRoute(),
           ProfileRoute(),
         ],

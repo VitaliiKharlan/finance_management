@@ -1,19 +1,20 @@
-import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_icons.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
 
-class CategoriesHeaderSection extends StatefulWidget {
-  const CategoriesHeaderSection({super.key});
+class TransactionsHeaderSection extends StatefulWidget {
+  const TransactionsHeaderSection({super.key});
 
   @override
-  State<CategoriesHeaderSection> createState() =>
-      _CategoriesHeaderSectionState();
+  State<TransactionsHeaderSection> createState() =>
+      _TransactionsHeaderSectionState();
 }
 
-class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
+class _TransactionsHeaderSectionState extends State<TransactionsHeaderSection> {
   @override
   void initState() {
     super.initState();
@@ -23,23 +24,23 @@ class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(AppIcons.iconCategoriesBringBack),
+          SvgPicture.asset(AppIcons.iconTransactionBringBack),
           const Spacer(),
-          const Text(
-            'Categories',
+          Text(
+            'Transaction',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF093030),
+              color: AppColors.lettersAndIcons,
             ),
           ),
           const Spacer(),
           SvgPicture.asset(
-            AppIcons.iconCategoriesNotifications,
+            AppIcons.iconTransactionNotifications,
             width: 28,
             height: 28,
           ),

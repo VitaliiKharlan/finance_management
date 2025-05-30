@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {
@@ -43,7 +44,7 @@ class ConfirmationDialog extends StatelessWidget {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      context.router.maybePop();
                       if (onCancelled != null) onCancelled!();
                     },
                     child: Text(
@@ -59,7 +60,7 @@ class ConfirmationDialog extends StatelessWidget {
                       backgroundColor: Colors.redAccent,
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      context.router.maybePop();
                       onConfirmed();
                     },
                     child: Text(confirmText),

@@ -37,6 +37,40 @@ abstract class AppIcons {
   static const iconHomeGroceries = '${_basePath}icon_home_groceries.svg';
   static const iconHomeRent = '${_basePath}icon_home_rent.svg';
 
+  /// icons for AnalysisScreen
+  static const iconAnalysisBringBack =
+      '${_basePath}icon_analysis_bring_back.svg';
+  static const iconAnalysisNotifications = '${_basePath}icon_analysis.svg';
+
+  /// icons for TransactionScreen
+  static const iconTransactionBringBack =
+      '${_basePath}icon_transaction_bring_back.svg';
+  static const iconTransactionNotifications =
+      '${_basePath}icon_transaction_notifications.svg';
+  static const iconTransactionIncome =
+      '${_basePath}icon_transaction_income.svg';
+  static const iconTransactionExpense =
+      '${_basePath}icon_transaction_expense.svg';
+  static const iconTransactionCalendar =
+      '${_basePath}icon_transaction_calendar.svg';
+  static const iconTransactionFood = '${_basePath}icon_transaction_food.svg';
+  static const iconTransactionTransport =
+      '${_basePath}icon_transaction_transport.svg';
+  static const iconTransactionMedicine =
+      '${_basePath}icon_transaction_medicine.svg';
+  static const iconTransactionGroceries =
+      '${_basePath}icon_transaction_groceries.svg';
+  static const iconTransactionRent = '${_basePath}icon_transaction_rent.svg';
+  static const iconTransactionGifts = '${_basePath}icon_transaction_gift.svg';
+  static const iconTransactionSavings =
+      '${_basePath}icon_transaction_saving.svg';
+  static const iconTransactionEntertainment =
+      '${_basePath}icon_categories_entertainment.svg';
+  static const iconTransactionMore = '${_basePath}icon_transaction_more.svg';
+  static const iconTransactionSalary =
+      '${_basePath}icon_transaction_salary.svg';
+  static const iconTransactionOther = '${_basePath}icon_transaction_other.svg';
+
   /// icons for CategoriesScreen
   static const iconCategoriesBringBack =
       '${_basePath}icon_categories_bring_back.svg';

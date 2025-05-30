@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:finance_management/features/main/view/main_screen.dart';
-import 'package:flutter/material.dart';
 
 import '../../features/analysis/view/analysis.dart';
 import '../../features/category/view/categories_screen.dart';
 import '../../features/create_account/view/create_account_screen.dart';
 import '../../features/home/view/home_screen.dart';
 import '../../features/profile/view/profile_screen.dart';
-import '../../features/transactions/view/transactions_screen.dart';
+import '../../features/transaction/view/transaction_screen.dart';
 import '../../features/welcome/view/welcome_screen.dart';
 
 part 'router.gr.dart';
@@ -26,7 +25,7 @@ class AppRouter extends RootStackRouter {
         children: [
           AutoRoute(page: HomeRoute.page, path: 'home'),
           AutoRoute(page: AnalysisRoute.page, path: 'analysis'),
-          AutoRoute(page: TransactionsRoute.page, path: 'transactions'),
+          AutoRoute(page: TransactionRoute.page, path: 'transaction'),
           AutoRoute(page: CategoriesRoute.page, path: 'categories'),
           AutoRoute(page: ProfileRoute.page, path: 'profile'),
         ],
