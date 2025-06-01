@@ -6,10 +6,12 @@ import '../../../core/theme/app_icons.dart';
 
 class CategoriesSelectedCategoryHeaderWithCalendar extends StatelessWidget {
   final String monthName;
+  final VoidCallback? onCalendarPressed;
 
   const CategoriesSelectedCategoryHeaderWithCalendar({
     super.key,
     required this.monthName,
+    this.onCalendarPressed,
   });
 
   @override
@@ -24,9 +26,22 @@ class CategoriesSelectedCategoryHeaderWithCalendar extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           GestureDetector(
-            onTap: () {
-              // TODO: implement calendar
-            },
+            onTap:
+                onCalendarPressed ??
+                () async {
+                  final selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime.now(),
+                  );
+
+                  if (selectedDate != null && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Selected Date: $selectedDate')),
+                    );
+                  }
+                },
             child: Container(
               width: 32,
               height: 30,

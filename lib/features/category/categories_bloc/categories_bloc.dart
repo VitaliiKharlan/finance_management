@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/mock_transaction.dart';
+import '../data/category_mock_transactions.dart';
 import 'categories_state.dart';
 
 part 'categories_event.dart';
