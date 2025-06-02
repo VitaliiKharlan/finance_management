@@ -43,8 +43,17 @@ class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
               if (state is CategoriesLoadedState) {
                 title = state.selectedCategory;
               }
-              return Text(
+              Text(
                 title,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF093030),
+                ),
+              );
+              if (state is CategoriesAddExpenseState) {}
+              return Text(
+                'Add Expanses',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

@@ -11,6 +11,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc() : super(CategoriesInitialState()) {
     on<CategorySelectedEvent>(_onCategorySelected);
     on<CategoryBackEvent>(_onCategoryBack);
+    on<AddExpenseButtonPressedEvent>(_onAddExpensePressed);
   }
 
   void _onCategorySelected(
@@ -41,5 +42,12 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
 
   void _onCategoryBack(CategoryBackEvent event, Emitter<CategoriesState> emit) {
     emit(CategoriesInitialState());
+  }
+
+  void _onAddExpensePressed(
+    AddExpenseButtonPressedEvent event,
+    Emitter<CategoriesState> emit,
+  ) {
+    emit(CategoriesAddExpenseState());
   }
 }

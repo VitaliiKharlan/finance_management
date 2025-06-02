@@ -18,3 +18,5 @@ class CategorySelectedEvent extends CategoriesEvent {
 }
 
 class CategoryBackEvent extends CategoriesEvent {}
+
+class AddExpenseButtonPressedEvent extends CategoriesEvent {}

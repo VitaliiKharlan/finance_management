@@ -12,7 +12,6 @@ part of 'categories_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$CategoriesState {
 
@@ -168,7 +167,6 @@ abstract mixin class $CategoriesLoadedStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class _$CategoriesLoadedStateCopyWithImpl<$Res>
     implements $CategoriesLoadedStateCopyWith<$Res> {
@@ -203,6 +201,32 @@ class _$CategoriesLoadedStateCopyWithImpl<$Res>
 
 
 }
+
+/// @nodoc
+
+
+class CategoriesAddExpenseState implements CategoriesState {
+  const CategoriesAddExpenseState();
+
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType &&
+        other is CategoriesAddExpenseState);
+  }
+
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'CategoriesState.addExpense()';
+  }
+
+
+}
+
 
 /// @nodoc
 
@@ -254,7 +278,6 @@ abstract mixin class $CategoriesFailureStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class _$CategoriesFailureStateCopyWithImpl<$Res>
     implements $CategoriesFailureStateCopyWith<$Res> {
