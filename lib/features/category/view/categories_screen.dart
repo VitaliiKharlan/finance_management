@@ -19,28 +19,7 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CategoriesBloc(),
-      // child: Scaffold(
-      //   backgroundColor: Color(0xFF00D09E),
-      //         body: SafeArea(
-      //           child: Column(
-      //             children: [
-      //               const CategoriesHeaderSection(),
-      //               const CategoriesBalanceOverviewSection(
-      //                 totalBalance: 7783.00,
-      //                 totalExpense: 1187.40,
-      //               ),
-      //               const CategoriesExpenseProgressBarWidgetSection(
-      //                 percentage: 0.3,
-      //                 limitAmount: 20000.00,
-      //               ),
-      //               CategoriesMainSection(categories: categoryItems),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     );
-      //   }
-      // }
+
       child: BlocBuilder<CategoriesBloc, CategoriesState>(
         builder: (context, state) {
           Widget bodyContent;
@@ -66,6 +45,7 @@ class CategoriesScreen extends StatelessWidget {
                 bodyContent = Column(
                   children: [
                     const CategoriesHeaderSection(),
+                    const SizedBox(height: 40),
                     const CategoriesSelectedCategoryAddExpenses(),
                   ],
                 );

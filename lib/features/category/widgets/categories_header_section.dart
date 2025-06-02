@@ -53,7 +53,7 @@ class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
               );
               if (state is CategoriesAddExpenseState) {}
               return Text(
-                'Add Expanses',
+                'Add Expenses',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
