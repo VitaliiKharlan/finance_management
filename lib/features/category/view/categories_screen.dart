@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
 import '../data/category_items.dart';
+import '../expenses_bloc/expenses_bloc.dart';
+import '../repository/expensese_repository.dart';
 import '../widgets/categories_balance_overview_section.dart';
 import '../widgets/categories_expenxe_progress_bar_widget_section.dart';
 import '../widgets/categories_header_section.dart';
@@ -17,9 +19,12 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CategoriesBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CategoriesBloc()),
 
+        BlocProvider(create: (_) => ExpensesBloc(ExpensesRepository())),
+      ],
       child: BlocBuilder<CategoriesBloc, CategoriesState>(
         builder: (context, state) {
           Widget bodyContent;
