@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finance_management/core/constants/firestore_constants.dart';
 
 class ExpensesRepository {
   final FirebaseFirestore _firestore;
@@ -13,8 +14,8 @@ class ExpensesRepository {
     required String title,
     required String message,
   }) async {
-    final normalizedCategory = category.toLowerCase();
     final data = {
+      'category': category,
       'date': date.toIso8601String(),
       'formattedDate': _formatDate(date),
       'amount': amount,
@@ -23,7 +24,7 @@ class ExpensesRepository {
       'createdAt': Timestamp.now(),
     };
 
-    await _firestore.collection(normalizedCategory).add(data);
+    await _firestore.collection(FirestoreCollections.transactions).add(data);
   }
 
   String _formatDate(DateTime date) {
