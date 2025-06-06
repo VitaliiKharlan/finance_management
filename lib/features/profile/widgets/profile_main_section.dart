@@ -1,11 +1,9 @@
+import 'package:finance_management/features/profile/widgets/profile_edit_profile.dart';
+import 'package:finance_management/features/profile/widgets/profile_menu_items_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/theme/app_icons.dart';
-import '../../../core/widgets/show_confirmation_dialog.dart';
-import '../../auth/auth_bloc/auth_bloc.dart';
 import '../profile_bloc/profile_bloc.dart';
-import '../widgets/profile_menu_item.dart';
 
 class ProfileMainSection extends StatelessWidget {
   final String fullName;
@@ -74,50 +72,18 @@ class ProfileMainSection extends StatelessWidget {
               const SizedBox(height: 30),
               BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
-                  if (state is ProfileEditState) {
-                    return ProfileMenuItem(
-                      iconAsset: AppIcons.iconProfileEditProfile,
-                      title: 'Edit Profile',
-                      onTap: () {
-                        context.read<ProfileBloc>().add(EditProfileEvent());
-                      },
-                    );
+                  if (state is ProfileViewState) {
+                    return ProfileMenuItemsWidget();
+                  } else if (state is ProfileEditState) {
+                    return ProfileEditProfileView();
                   } else {
-                    return const SizedBox.shrink();
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
               ),
-              ProfileMenuItem(
-                iconAsset: AppIcons.iconProfileSecurity,
-                title: 'Security',
-                onTap: () {},
-              ),
-              ProfileMenuItem(
-                iconAsset: AppIcons.iconProfileSettings,
-                title: 'Setting',
-                onTap: () {},
-              ),
-              ProfileMenuItem(
-                iconAsset: AppIcons.iconProfileHelp,
-                title: 'Help',
-                onTap: () {},
-              ),
-              ProfileMenuItem(
-                iconAsset: AppIcons.iconProfileLogout,
-                title: 'Logout',
-                onTap: () {
-                  showConfirmationDialog(
-                    context: context,
-                    title: 'Confirm Logout',
-                    message: 'Are you sure you want to log out?',
-                    confirmText: 'Logout',
-                    cancelText: 'Cancel',
-                    onConfirmed: () {
-                      context.read<AuthBloc>().add(LogoutRequested());
-                    },
-                  );
-                },
-              ),
+
             ],
           ),
         ),

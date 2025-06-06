@@ -1,138 +1,145 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/theme/app_icons.dart';
-import '../../../core/theme/app_images.dart';
-import '../profile_bloc/profile_bloc.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../create_account/widgets/custom_text_field.dart';
 
-class ProfileEditProfileView extends StatelessWidget {
+class ProfileEditProfileView extends StatefulWidget {
   const ProfileEditProfileView({super.key});
 
   @override
+  State<ProfileEditProfileView> createState() => _ProfileEditProfileViewState();
+}
+
+class _ProfileEditProfileViewState extends State<ProfileEditProfileView> {
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailAddressController = TextEditingController();
+
+  bool pushNotificationsEnabled = true;
+  bool darkThemeEnabled = false;
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    phoneController.dispose();
+    emailAddressController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF00D09E),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap:
-                        () =>
-                            context.read<ProfileBloc>().add(ProfileViewEvent()),
-                    child: SvgPicture.asset(AppIcons.iconProfileBringBack),
-                  ),
-                  const Spacer(),
-                  const Text(
-                    'Edit My Profile',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF093030),
-                    ),
-                  ),
-                  const Spacer(),
-                  SvgPicture.asset(AppIcons.iconHomeNotifications),
-                ],
-              ),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.only(left: 24, top: 4, right: 24, bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Account Settings',
+            style: GoogleFonts.poppins(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: AppColors.lettersAndIcons,
             ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFF1FFF3),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
-                  ),
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage: AssetImage(AppImages.userAvatar),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'John Smith',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0xFF0E3E3E),
-                        ),
-                      ),
-                      const Text(
-                        'ID: 25030024',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Color(0xFF093030),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      _buildTextField(label: 'Username', value: 'John Smith'),
-                      _buildTextField(label: 'Phone', value: '+44 555 5555 55'),
-                      _buildTextField(
-                        label: 'Email Address',
-                        value: 'example@example.com',
-                      ),
-                      const SizedBox(height: 12),
-                      _buildSwitch(label: 'Push Notifications'),
-                      _buildSwitch(label: 'Turn Dark Theme'),
-                      const SizedBox(height: 24),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF00D09E),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 32,
-                            vertical: 12,
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: const Text(
-                          'Update Profile',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({required String label, required String value}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: label,
-          hintText: value,
-          filled: true,
-          fillColor: const Color(0xFFEFFCF3),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
           ),
-        ),
+
+          const SizedBox(height: 16),
+          CustomTextField(
+            label: 'Username',
+            hint: 'John Smith',
+            controller: userNameController,
+          ),
+          CustomTextField(
+            label: 'Phone',
+            hint: 'example@example.com',
+            controller: phoneController,
+          ),
+          CustomTextField(
+            label: 'Email Address',
+            hint: 'example@example.com',
+            controller: emailAddressController,
+          ),
+          SettingsToggleCard(
+            title: 'Push Notifications',
+            value: true,
+            onChanged: (value) {
+              setState(() => pushNotificationsEnabled = value);
+            },
+          ),
+          SettingsToggleCard(
+            title: 'Turn Dark Theme',
+            value: true,
+            onChanged: (value) {
+              setState(() => darkThemeEnabled = value);
+            },
+          ),
+          Center(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.mainGreen,
+                foregroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                minimumSize: const Size(172, 36),
+                padding: EdgeInsets.zero,
+              ),
+              onPressed: () {},
+              child: Text(
+                'Update Profile',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+}
 
-  Widget _buildSwitch({required String label}) {
-    return SwitchListTile(value: true, onChanged: (_) {}, title: Text(label));
+class SettingsToggleCard extends StatelessWidget {
+  const SettingsToggleCard({
+    super.key,
+    required this.title,
+    required this.value,
+    this.onChanged,
+  });
+
+  final String title;
+  final bool value;
+  final ValueChanged<bool>? onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: AppColors.lettersAndIcons,
+            ),
+          ),
+          Transform(
+            transform: Matrix4.diagonal3Values(1.2, 1.0, 1.0),
+            alignment: Alignment.center,
+            child: CupertinoSwitch(
+              value: value,
+              onChanged: onChanged,
+              activeTrackColor: AppColors.mainGreen,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

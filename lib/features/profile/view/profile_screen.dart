@@ -17,7 +17,9 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProfileBloc(),
+      create: (_) =>
+      ProfileBloc()
+        ..add(ProfileViewEvent()),
       child: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is Unauthenticated) {
@@ -40,7 +42,26 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       const ProfileHeaderSection(),
                       const SizedBox(height: 52),
-                      ProfileMainSection(fullName: fullName, userId: userId),
+                      ProfileMainSection(
+                        fullName: fullName,
+                        userId: userId,
+                      ),
+                      // BlocBuilder<ProfileBloc, ProfileState>(
+                      //   builder: (context, state) {
+                      //     if (state is ProfileViewState) {
+                      //       return ProfileMainSection(
+                      //         fullName: fullName,
+                      //         userId: userId,
+                      //       );
+                      //     } else if (state is ProfileEditState) {
+                      //       return ProfileEditProfileView();
+                      //     } else {
+                      //       return const Center(
+                      //         child: CircularProgressIndicator(),
+                      //       );
+                      //     }
+                      //   },
+                      // ),
                     ],
                   ),
                   Positioned(
