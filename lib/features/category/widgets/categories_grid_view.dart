@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/enums/category_enum.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
 
 class CategoriesGridView extends StatelessWidget {
-  final List<Map<String, String>> categories;
+  final List<CategoryEnum> categories;
 
   const CategoriesGridView({super.key, required this.categories});
 
@@ -23,9 +24,9 @@ class CategoriesGridView extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        final item = categories[index];
-        final iconPath = item['icon']!;
-        final label = item['label']!;
+        final category = categories[index];
+        final iconPath = category.iconPath;
+        final label = category.label;
         final blocState = context.watch<CategoriesBloc>().state;
         final isSelected =
             blocState is CategoriesLoadedState &&
@@ -34,7 +35,7 @@ class CategoriesGridView extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             context.read<CategoriesBloc>().add(
-              CategorySelectedEvent(index, label),
+              CategorySelectedEvent(index, category),
             );
           },
           child: Column(

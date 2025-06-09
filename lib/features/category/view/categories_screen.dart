@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:finance_management/core/enums/category_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
-import '../data/category_items.dart';
 import '../expenses_bloc/expenses_bloc.dart';
 import '../repository/expensese_repository.dart';
 import '../widgets/categories_balance_overview_section.dart';
@@ -42,7 +42,7 @@ class CategoriesScreen extends StatelessWidget {
                   percentage: 0.3,
                   limitAmount: 20000.00,
                 ),
-                CategoriesMainSection(categories: categoryItems),
+                CategoriesMainSection(categories: CategoryEnum.values),
               ],
             );
           } else if (state is CategoriesAddExpenseState) {

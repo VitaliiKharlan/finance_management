@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
@@ -10,7 +11,7 @@ import 'categories_selected_category.dart';
 class CategoriesMainSection extends StatelessWidget {
   const CategoriesMainSection({super.key, required this.categories});
 
-  final List<Map<String, String>> categories;
+  final List<CategoryEnum> categories;
 
   @override
   Widget build(BuildContext context) {

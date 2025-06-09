@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../core/theme/app_colors.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   const ProfileMenuItem({
@@ -23,11 +26,14 @@ class ProfileMenuItem extends StatelessWidget {
         child: Row(
           children: [
             SvgPicture.asset(iconAsset, width: 57, height: 53),
-
             const SizedBox(width: 20),
             Text(
               title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: AppColors.lettersAndIcons,
+              ),
             ),
           ],
         ),

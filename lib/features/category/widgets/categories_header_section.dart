@@ -41,7 +41,7 @@ class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
               String title = 'Categories';
 
               if (state is CategoriesLoadedState) {
-                title = state.selectedCategory;
+                title = state.selectedCategory.label;
               }
               Text(
                 title,

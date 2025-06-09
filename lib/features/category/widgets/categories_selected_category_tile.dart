@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
 
 class CategoriesSelectedCategoryTile extends StatelessWidget {
   final String svgAsset;
   final String title;
   final String timeAndDate;
-  final String category;
+  final CategoryEnum category;
 
   final String amount;
   final bool isExpense;
@@ -19,7 +20,6 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
     required this.title,
     required this.timeAndDate,
     required this.category,
-
     required this.amount,
     this.isExpense = false,
   });

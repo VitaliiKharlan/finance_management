@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../expenses_bloc/expenses_bloc.dart';
@@ -28,7 +29,7 @@ class _CategoriesSelectedCategoryAddExpensesState
   final TextEditingController messageController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
-  String? selectedCategory;
+  CategoryEnum? selectedCategory;
 
   @override
   void initState() {
@@ -57,7 +58,7 @@ class _CategoriesSelectedCategoryAddExpensesState
 
     context.read<ExpensesBloc>().add(
       SaveExpenseEvent(
-        category: selectedCategory!,
+        category: selectedCategory!.label,
         date: selectedDate,
         amount: double.tryParse(amountController.text) ?? 0,
         title: titleController.text,

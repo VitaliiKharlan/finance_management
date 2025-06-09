@@ -104,7 +104,7 @@ class CategoriesLoadedState implements CategoriesState {
 
 
   final int selectedIndex;
-  final String selectedCategory;
+  final CategoryEnum selectedCategory;
   final List<CategoryTransactionModel> _filteredTransactions;
 
   List<CategoryTransactionModel> get filteredTransactions {
@@ -161,7 +161,7 @@ abstract mixin class $CategoriesLoadedStateCopyWith<$Res>
 
   @useResult
   $Res call({
-    int selectedIndex, String selectedCategory, List<
+    int selectedIndex, CategoryEnum selectedCategory, List<
         CategoryTransactionModel> filteredTransactions, bool showTransactions
   });
 
@@ -187,7 +187,7 @@ class _$CategoriesLoadedStateCopyWithImpl<$Res>
       selectedCategory: null == selectedCategory
           ? _self.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
-      as String,
+      as CategoryEnum,
       filteredTransactions: null == filteredTransactions
           ? _self._filteredTransactions
           : filteredTransactions // ignore: cast_nullable_to_non_nullable

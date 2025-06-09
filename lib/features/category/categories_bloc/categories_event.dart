@@ -9,12 +9,12 @@ abstract class CategoriesEvent extends Equatable {
 
 class CategorySelectedEvent extends CategoriesEvent {
   final int index;
-  final String label;
+  final CategoryEnum category;
 
-  const CategorySelectedEvent(this.index, this.label);
+  const CategorySelectedEvent(this.index, this.category);
 
   @override
-  List<Object?> get props => [index, label];
+  List<Object?> get props => [index, category];
 }
 
 class CategoryBackEvent extends CategoriesEvent {}

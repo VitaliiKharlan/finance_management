@@ -1,8 +1,9 @@
+import '../../../core/enums/category_enum.dart';
 import '../models/category_transaction_model.dart';
 
 final List<CategoryTransactionModel> dummyTransactions = [
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Dinner',
     timeAndDate: '18:27 - April 30',
     amount: '-\$26.00',
@@ -10,7 +11,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Delivery Pizza',
     timeAndDate: '15:00 - April 24',
     amount: '-\$18.35',
@@ -18,7 +19,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Lunch',
     timeAndDate: '12:30 - April 15',
     amount: '-\$15.40',
@@ -26,7 +27,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - April 8',
     amount: '-\$12.13',
@@ -34,7 +35,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 31',
     amount: '-\$12.13',
@@ -42,7 +43,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 20',
     amount: '-\$12.13',
@@ -50,7 +51,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 12',
     amount: '-\$12.13',
@@ -58,7 +59,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Food',
+    category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 8',
     amount: '-\$12.13',
@@ -66,7 +67,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Transport',
+    category: CategoryEnum.transport,
     title: 'Bus',
     timeAndDate: '18:00 - April 30',
     amount: '-\$3.50',
@@ -74,7 +75,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Medicine',
+    category: CategoryEnum.medicine,
     title: 'Pharmacy',
     timeAndDate: '18:27 - March 30',
     amount: '-\$25.00',
@@ -82,7 +83,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     isExpense: true,
   ),
   CategoryTransactionModel(
-    category: 'Rent',
+    category: CategoryEnum.rent,
     title: 'Car rental',
     timeAndDate: '18:27 - February 28',
     amount: '-\$142.00',

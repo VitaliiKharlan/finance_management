@@ -1,5 +1,7 @@
+import '../../../core/enums/category_enum.dart';
+
 class CategoryTransactionModel {
-  final String category;
+  final CategoryEnum category;
   final String title;
   final String timeAndDate;
   final String amount;

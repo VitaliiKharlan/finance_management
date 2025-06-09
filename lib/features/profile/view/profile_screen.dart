@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../core/router/router.dart';
 import '../../../core/theme/app_images.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
 import '../../auth/auth_bloc/auth_state.dart';
@@ -17,18 +16,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-      ProfileBloc()
-        ..add(ProfileViewEvent()),
-      child: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state is Unauthenticated) {
-            context.router.replaceAll([WelcomeRoute()]);
-          }
-          if (state is Authenticated) {
-            context.read<ProfileBloc>().add(ProfileViewEvent());
-          }
-        },
+      create: (_) => ProfileBloc()..add(ProfileViewEvent()),
+      child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           final fullName = state is Authenticated ? state.user.name : 'Guest';
           final userId = state is Authenticated ? state.user.id : 'Unknown';
@@ -42,26 +31,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       const ProfileHeaderSection(),
                       const SizedBox(height: 52),
-                      ProfileMainSection(
-                        fullName: fullName,
-                        userId: userId,
-                      ),
-                      // BlocBuilder<ProfileBloc, ProfileState>(
-                      //   builder: (context, state) {
-                      //     if (state is ProfileViewState) {
-                      //       return ProfileMainSection(
-                      //         fullName: fullName,
-                      //         userId: userId,
-                      //       );
-                      //     } else if (state is ProfileEditState) {
-                      //       return ProfileEditProfileView();
-                      //     } else {
-                      //       return const Center(
-                      //         child: CircularProgressIndicator(),
-                      //       );
-                      //     }
-                      //   },
-                      // ),
+                      ProfileMainSection(fullName: fullName, userId: userId),
                     ],
                   ),
                   Positioned(

@@ -22,17 +22,7 @@ class ProfileHeaderSection extends StatelessWidget {
               context.read<ProfileBloc>().add(ProfileViewEvent());
             },
           ),
-          //
-          // IconButton(
-          //   icon: SvgPicture.asset(
-          //     AppIcons.iconProfileBringBack,
-          //     width: 24,
-          //     height: 24,
-          //   ),
-          //   onPressed: () {
-          //     context.maybePop();
-          //   },
-          // ),
+
           const Spacer(),
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {

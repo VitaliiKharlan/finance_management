@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/enums/category_enum.dart';
 import '../data/category_mock_transactions.dart';
 import 'categories_state.dart';
 
@@ -20,16 +21,12 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   ) {
     try {
       final filtered =
-          dummyTransactions
-              .where(
-                (t) => t.category.toLowerCase() == event.label.toLowerCase(),
-              )
-              .toList();
+          dummyTransactions.where((t) => t.category == event.category).toList();
 
       emit(
         CategoriesLoadedState(
           selectedIndex: event.index,
-          selectedCategory: event.label,
+          selectedCategory: event.category,
           filteredTransactions: filtered,
         ),
       );

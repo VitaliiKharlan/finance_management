@@ -12,7 +12,6 @@ part of 'expenses_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$ExpensesState {
 
@@ -168,7 +167,6 @@ abstract mixin class $ExpensesFailureCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class _$ExpensesFailureCopyWithImpl<$Res>
     implements $ExpensesFailureCopyWith<$Res> {

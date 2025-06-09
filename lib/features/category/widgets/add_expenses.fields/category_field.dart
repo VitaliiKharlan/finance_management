@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/enums/category_enum.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class CategoryField extends StatelessWidget {
-  final String? selectedCategory;
-  final ValueChanged<String?> onChanged;
+  final CategoryEnum? selectedCategory;
+  final ValueChanged<CategoryEnum?> onChanged;
 
   const CategoryField({
     super.key,
@@ -15,15 +16,7 @@ class CategoryField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      '🍔 Food',
-      '🚌 Transport',
-      '🏠 Rent',
-      '🛍️ Shopping',
-      '🎮 Entertainment',
-      '💊 Health',
-      '💡 Utilities',
-    ];
+    final categories = CategoryEnum.values;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +49,7 @@ class CategoryField extends StatelessWidget {
                   final size = renderBox.size;
                   final screenSize = overlay.size;
 
-                  final selected = await showMenu<String>(
+                  final selected = await showMenu<CategoryEnum>(
                     context: context,
                     position: RelativeRect.fromLTRB(
                       offset.dx,
@@ -75,10 +68,10 @@ class CategoryField extends StatelessWidget {
                     items:
                         categories
                             .map(
-                              (cat) => PopupMenuItem<String>(
+                              (cat) => PopupMenuItem<CategoryEnum>(
                                 value: cat,
                                 child: Text(
-                                  cat,
+                                  cat.label,
                                   style: GoogleFonts.poppins(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
@@ -102,7 +95,7 @@ class CategoryField extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        selectedCategory ?? 'Select the category',
+                        selectedCategory?.label ?? 'Select the category',
                         style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w500,
                           fontSize: 14,

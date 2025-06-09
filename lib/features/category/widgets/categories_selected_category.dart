@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_icons.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../models/category_transaction_model.dart';
 import '../utils/category_group_transactions_by_month.dart';
@@ -74,14 +73,14 @@ class CategoriesSelectedCategory extends StatelessWidget {
                         ),
 
                       ...monthTransactions.map((transaction) {
-                        final svgAsset = getCategoryIconPath(
-                            transaction.category);
+                        final categoryEnum = transaction.category;
+                        final svgAsset = transaction.category.iconPath;
                         return CategoriesSelectedCategoryTile(
                           svgAsset: svgAsset,
                           title: transaction.title,
                           timeAndDate: transaction.timeAndDate,
                           amount: transaction.amount,
-                          category: transaction.category,
+                          category: categoryEnum,
                           isExpense: transaction.isExpense,
                         );
                       }),
@@ -124,26 +123,5 @@ class CategoriesSelectedCategory extends StatelessWidget {
     );
   }
 
-  String getCategoryIconPath(String category) {
-    switch (category.toLowerCase()) {
-      case 'food':
-        return AppIcons.iconCategoriesFood;
-      case 'transport':
-        return AppIcons.iconCategoriesTransport;
-      case 'medicine':
-        return AppIcons.iconCategoriesMedicine;
-      case 'groceries':
-        return AppIcons.iconCategoriesGroceries;
-      case 'rent':
-        return AppIcons.iconCategoriesRent;
-      case 'gifts':
-        return AppIcons.iconCategoriesGifts;
-      case 'savings':
-        return AppIcons.iconCategoriesSavings;
-      case 'entertainment':
-        return AppIcons.iconCategoriesEntertainment;
-      default:
-        return AppIcons.iconCategoriesMore;
-    }
-  }
+
 }
