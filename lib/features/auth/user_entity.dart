@@ -10,6 +10,7 @@ class UserEntity {
     required this.email,
     required this.mobileNumber,
     required this.dateOfBirth,
+    required this.displayId,
   });
 
   final String id;
@@ -17,6 +18,7 @@ class UserEntity {
   final String email;
   final String mobileNumber;
   final String dateOfBirth;
+  final String displayId;
 
   factory UserEntity.fromJson(Map<String, dynamic> json) =>
       _$UserEntityFromJson(json);
@@ -29,6 +31,7 @@ class UserEntity {
     String? email,
     String? mobileNumber,
     String? dateOfBirth,
+    String? displayId,
   }) {
     return UserEntity(
       id: id ?? this.id,
@@ -36,6 +39,7 @@ class UserEntity {
       email: email ?? this.email,
       mobileNumber: mobileNumber ?? this.mobileNumber,
       dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+      displayId: displayId ?? this.displayId,
     );
   }
 
@@ -47,6 +51,7 @@ class UserEntity {
         'email: $email, '
         'mobileNumber: $mobileNumber, '
         'dateOfBirth: $dateOfBirth, '
+        'displayId: $displayId, '
         '}';
   }
 }

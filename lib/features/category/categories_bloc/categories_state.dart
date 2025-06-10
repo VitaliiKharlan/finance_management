@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/enums/category_enum.dart';
-import '../models/category_transaction_model.dart';
+import '../models/category_transaction_dto.dart';
 
 part 'categories_state.freezed.dart';
 
@@ -14,7 +14,7 @@ class CategoriesState with _$CategoriesState {
   const factory CategoriesState.loaded({
     required int selectedIndex,
     required CategoryEnum selectedCategory,
-    required List<CategoryTransactionModel> filteredTransactions,
+    required List<CategoryTransactionDto> filteredTransactions,
     @Default(false) bool showTransactions,
   }) = CategoriesLoadedState;
 

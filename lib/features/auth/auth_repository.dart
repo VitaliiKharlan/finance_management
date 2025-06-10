@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/features/auth/user_entity.dart';
 
@@ -21,7 +23,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
     required FirebaseFirestore firestore,
     required AuthService authService,
   }) : _firestore = firestore,
-       _authService = authService;
+        _authService = authService;
 
   final FirebaseFirestore _firestore;
   final AuthService _authService;
@@ -30,10 +32,10 @@ class AuthRepository implements IAuthRepository<UserEntity> {
   Future<UserEntity> getUser(String uid) async {
     try {
       final response =
-          await _firestore
-              .collection(FirestoreCollections.users)
-              .doc(uid)
-              .get();
+      await _firestore
+          .collection(FirestoreCollections.users)
+          .doc(uid)
+          .get();
 
       final data = response.data();
       if (response.exists && data != null) {
@@ -65,6 +67,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
       );
 
       final firebaseUser = userCredential.user!;
+      final displayId = await _generateUniqueDisplayId();
 
       final newUser = UserEntity(
         id: firebaseUser.uid,
@@ -72,6 +75,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
         email: user.email,
         mobileNumber: user.mobileNumber,
         dateOfBirth: user.dateOfBirth,
+        displayId: displayId,
       );
 
       await _firestore
@@ -83,6 +87,7 @@ class AuthRepository implements IAuthRepository<UserEntity> {
         id: firebaseUser.uid,
         name: user.name,
         email: user.email,
+        displayId: displayId,
       );
 
       await _firestore
@@ -97,6 +102,25 @@ class AuthRepository implements IAuthRepository<UserEntity> {
         logLevel: LogLevel.error,
       );
       rethrow;
+    }
+  }
+
+  Future<String> _generateUniqueDisplayId() async {
+    final random = Random();
+
+    while (true) {
+      final id = (10000000 + random.nextInt(90000000)).toString();
+
+      final querySnapshot =
+          await _firestore
+              .collection(FirestoreCollections.users)
+              .where('displayId', isEqualTo: id)
+              .limit(1)
+              .get();
+
+      if (querySnapshot.docs.isEmpty) {
+        return id;
+      }
     }
   }
 }

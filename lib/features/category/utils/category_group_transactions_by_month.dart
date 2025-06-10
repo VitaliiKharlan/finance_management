@@ -1,9 +1,9 @@
-import '../models/category_transaction_model.dart';
+import '../models/category_transaction_dto.dart';
 
-Map<String, List<CategoryTransactionModel>> groupTransactionsByMonth(
-  List<CategoryTransactionModel> transactions,
+Map<String, List<CategoryTransactionDto>> groupTransactionsByMonth(
+  List<CategoryTransactionDto> transactions,
 ) {
-  final Map<String, List<CategoryTransactionModel>> grouped = {};
+  final Map<String, List<CategoryTransactionDto>> grouped = {};
 
   for (final transaction in transactions) {
     final month = extractMonth(transaction.timeAndDate);

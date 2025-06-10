@@ -15,11 +15,13 @@ UserRegistrationDto _$UserRegistrationDtoFromJson(Map<String, dynamic> json) =>
       dateOfBirth: json['dateOfBirth'] as String?,
       password: json['password'] as String?,
       confirmPassword: json['confirmPassword'] as String?,
+      displayId: json['displayId'] as String,
     );
 
 Map<String, dynamic> _$UserRegistrationDtoToJson(
   UserRegistrationDto instance,
-) => <String, dynamic>{
+) =>
+    <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'email': instance.email,
@@ -27,4 +29,5 @@ Map<String, dynamic> _$UserRegistrationDtoToJson(
   'dateOfBirth': instance.dateOfBirth,
   'password': instance.password,
   'confirmPassword': instance.confirmPassword,
+  'displayId': instance.displayId,
 };

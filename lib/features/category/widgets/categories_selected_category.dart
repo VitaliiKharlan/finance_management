@@ -5,13 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../categories_bloc/categories_bloc.dart';
-import '../models/category_transaction_model.dart';
+import '../models/category_transaction_dto.dart';
 import '../utils/category_group_transactions_by_month.dart';
 import 'categories_selected_category_header_with_calendar.dart';
 import 'categories_selected_category_tile.dart';
 
 class CategoriesSelectedCategory extends StatelessWidget {
-  final List<CategoryTransactionModel> transactions;
+  final List<CategoryTransactionDto> transactions;
 
   const CategoriesSelectedCategory({super.key, required this.transactions});
 
@@ -27,9 +27,8 @@ class CategoriesSelectedCategory extends StatelessWidget {
           child: ListView(
             children: [
               CategoriesSelectedCategoryHeaderWithCalendar(
-                monthName: groupedEntries.isNotEmpty
-                    ? groupedEntries[0].key
-                    : 'April',
+                monthName:
+                    groupedEntries.isNotEmpty ? groupedEntries[0].key : 'April',
                 onCalendarPressed: () async {
                   final selectedDate = await showDatePicker(
                     context: context,
@@ -62,7 +61,9 @@ class CategoriesSelectedCategory extends StatelessWidget {
                       if (index != 0)
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           child: Text(
                             month,
                             style: const TextStyle(
@@ -108,7 +109,8 @@ class CategoriesSelectedCategory extends StatelessWidget {
             onPressed: () {
               // TODO: add action
               context.read<CategoriesBloc>().add(
-                  AddExpenseButtonPressedEvent());
+                AddExpenseButtonPressedEvent(),
+              );
             },
             child: Text(
               'Add Expenses',
@@ -122,6 +124,4 @@ class CategoriesSelectedCategory extends StatelessWidget {
       ],
     );
   }
-
-
 }

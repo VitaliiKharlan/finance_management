@@ -1,8 +1,8 @@
 import '../../../core/enums/category_enum.dart';
-import '../models/category_transaction_model.dart';
+import '../models/category_transaction_dto.dart';
 
-final List<CategoryTransactionModel> dummyTransactions = [
-  CategoryTransactionModel(
+final List<CategoryTransactionDto> dummyTransactions = [
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Dinner',
     timeAndDate: '18:27 - April 30',
@@ -10,7 +10,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Delivery Pizza',
     timeAndDate: '15:00 - April 24',
@@ -18,7 +18,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Lunch',
     timeAndDate: '12:30 - April 15',
@@ -26,7 +26,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - April 8',
@@ -34,7 +34,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 31',
@@ -42,7 +42,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 20',
@@ -50,7 +50,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 12',
@@ -58,7 +58,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.food,
     title: 'Brunch',
     timeAndDate: '09:30 - March 8',
@@ -66,7 +66,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/food.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.transport,
     title: 'Bus',
     timeAndDate: '18:00 - April 30',
@@ -74,7 +74,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/transport.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.medicine,
     title: 'Pharmacy',
     timeAndDate: '18:27 - March 30',
@@ -82,7 +82,7 @@ final List<CategoryTransactionModel> dummyTransactions = [
     icon: 'assets/icons/medicine.svg',
     isExpense: true,
   ),
-  CategoryTransactionModel(
+  CategoryTransactionDto(
     category: CategoryEnum.rent,
     title: 'Car rental',
     timeAndDate: '18:27 - February 28',

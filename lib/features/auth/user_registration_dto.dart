@@ -12,6 +12,7 @@ class UserRegistrationDto {
     this.dateOfBirth,
     this.password,
     this.confirmPassword,
+    required this.displayId,
   });
 
   final String id;
@@ -21,6 +22,7 @@ class UserRegistrationDto {
   String? dateOfBirth;
   String? password;
   String? confirmPassword;
+  final String displayId;
 
   factory UserRegistrationDto.fromJson(Map<String, dynamic> json) =>
       _$UserRegistrationDtoFromJson(json);
@@ -35,6 +37,7 @@ class UserRegistrationDto {
     String? dateOfBirth,
     String? password,
     String? confirmPassword,
+    String? displayId,
   }) => UserRegistrationDto(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -43,6 +46,7 @@ class UserRegistrationDto {
     dateOfBirth: dateOfBirth ?? this.dateOfBirth,
     password: password ?? this.password,
     confirmPassword: confirmPassword ?? this.confirmPassword,
+    displayId: displayId ?? this.displayId,
   );
 
   @override
@@ -55,6 +59,7 @@ class UserRegistrationDto {
         'dateOfBirth: $dateOfBirth, '
         'password: $password, '
         'confirmPassword: $confirmPassword, '
+        'displayId: $displayId, '
         '}';
   }
 }

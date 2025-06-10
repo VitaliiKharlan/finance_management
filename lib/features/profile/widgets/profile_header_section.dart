@@ -14,8 +14,6 @@ class ProfileHeaderSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Row(
         children: [
-          // SvgPicture.asset(AppIcons.iconProfileBringBack),
-          //
           GestureDetector(
             child: SvgPicture.asset(AppIcons.iconProfileBringBack),
             onTap: () {

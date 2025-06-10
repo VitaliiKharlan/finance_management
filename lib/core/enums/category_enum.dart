@@ -1,16 +1,3 @@
-// enum CategoryEnum {
-//   food('🍔 Food'),
-//   transport('🚌 Transport'),
-//   medicine('💊 Medicine'),
-//   groceries('🛒 Groceries'),
-//   rent('🏠 Rent'),
-//   gifts('🎁 Gifts'),
-//   entertainment('🎮 Entertainment');
-//
-//   final String label;
-//   const CategoryEnum(this.label);
-// }
-
 import '../theme/app_icons.dart';
 
 enum CategoryEnum {
@@ -25,6 +12,29 @@ enum CategoryEnum {
   more;
 
   String get label {
+    switch (this) {
+      case CategoryEnum.food:
+        return '🍔 Food';
+      case CategoryEnum.transport:
+        return '🚌 Transport';
+      case CategoryEnum.medicine:
+        return '💊 Medicine';
+      case CategoryEnum.groceries:
+        return '🛒 Groceries';
+      case CategoryEnum.rent:
+        return '🏠 Rent';
+      case CategoryEnum.gifts:
+        return '🎁 Gifts';
+      case CategoryEnum.savings:
+        return '💰 Savings';
+      case CategoryEnum.entertainment:
+        return '🎮 Entertainment';
+      case CategoryEnum.more:
+        return '➕ More';
+    }
+  }
+
+  String get shortLabel {
     switch (this) {
       case CategoryEnum.food:
         return 'Food';

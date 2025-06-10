@@ -26,7 +26,7 @@ class CategoriesGridView extends StatelessWidget {
       itemBuilder: (context, index) {
         final category = categories[index];
         final iconPath = category.iconPath;
-        final label = category.label;
+        final label = category.shortLabel;
         final blocState = context.watch<CategoriesBloc>().state;
         final isSelected =
             blocState is CategoriesLoadedState &&
@@ -35,7 +35,7 @@ class CategoriesGridView extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             context.read<CategoriesBloc>().add(
-              CategorySelectedEvent(index, category),
+              CategorySelectedEvent(category, index),
             );
           },
           child: Column(

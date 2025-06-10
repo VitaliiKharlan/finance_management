@@ -20,7 +20,8 @@ class ProfileScreen extends StatelessWidget {
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           final fullName = state is Authenticated ? state.user.name : 'Guest';
-          final userId = state is Authenticated ? state.user.id : 'Unknown';
+          final displayId =
+              state is Authenticated ? state.user.displayId : '00000000';
 
           return Scaffold(
             backgroundColor: const Color(0xFF00D09E),
@@ -31,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       const ProfileHeaderSection(),
                       const SizedBox(height: 52),
-                      ProfileMainSection(fullName: fullName, userId: userId),
+                      ProfileMainSection(fullName: fullName, userId: displayId),
                     ],
                   ),
                   Positioned(

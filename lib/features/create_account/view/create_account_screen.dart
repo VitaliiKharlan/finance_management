@@ -74,6 +74,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           email: email,
           mobileNumber: mobile,
           dateOfBirth: dob,
+          displayId: '',
         ),
 
         password: password,

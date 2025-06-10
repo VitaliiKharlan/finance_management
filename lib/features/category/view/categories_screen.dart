@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/core/enums/category_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,11 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => CategoriesBloc()),
+        BlocProvider(
+          create:
+              (context) =>
+                  CategoriesBloc(firestore: FirebaseFirestore.instance),
+        ),
 
         BlocProvider(create: (_) => ExpensesBloc(ExpensesRepository())),
       ],

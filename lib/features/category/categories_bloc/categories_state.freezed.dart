@@ -99,15 +99,15 @@ class CategoriesLoadingState implements CategoriesState {
 class CategoriesLoadedState implements CategoriesState {
   const CategoriesLoadedState(
       {required this.selectedIndex, required this.selectedCategory, required final List<
-          CategoryTransactionModel> filteredTransactions, this.showTransactions = false})
+          CategoryTransactionDto> filteredTransactions, this.showTransactions = false})
       : _filteredTransactions = filteredTransactions;
 
 
   final int selectedIndex;
   final CategoryEnum selectedCategory;
-  final List<CategoryTransactionModel> _filteredTransactions;
+  final List<CategoryTransactionDto> _filteredTransactions;
 
-  List<CategoryTransactionModel> get filteredTransactions {
+  List<CategoryTransactionDto> get filteredTransactions {
     if (_filteredTransactions is EqualUnmodifiableListView)
       return _filteredTransactions;
     // ignore: implicit_dynamic_type
@@ -162,7 +162,7 @@ abstract mixin class $CategoriesLoadedStateCopyWith<$Res>
   @useResult
   $Res call({
     int selectedIndex, CategoryEnum selectedCategory, List<
-        CategoryTransactionModel> filteredTransactions, bool showTransactions
+        CategoryTransactionDto> filteredTransactions, bool showTransactions
   });
 
 
@@ -191,7 +191,7 @@ class _$CategoriesLoadedStateCopyWithImpl<$Res>
       filteredTransactions: null == filteredTransactions
           ? _self._filteredTransactions
           : filteredTransactions // ignore: cast_nullable_to_non_nullable
-      as List<CategoryTransactionModel>,
+      as List<CategoryTransactionDto>,
       showTransactions: null == showTransactions
           ? _self.showTransactions
           : showTransactions // ignore: cast_nullable_to_non_nullable

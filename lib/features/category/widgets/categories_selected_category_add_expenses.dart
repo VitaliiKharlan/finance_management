@@ -60,7 +60,7 @@ class _CategoriesSelectedCategoryAddExpensesState
       SaveExpenseEvent(
         category: selectedCategory!.label,
         date: selectedDate,
-        amount: double.tryParse(amountController.text) ?? 0,
+        amount: amountController.text,
         title: titleController.text,
         message: messageController.text,
       ),
