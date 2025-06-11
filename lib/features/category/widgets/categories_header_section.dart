@@ -41,19 +41,12 @@ class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
               String title = 'Categories';
 
               if (state is CategoriesLoadedState) {
-                title = state.selectedCategory.label;
+                title = state.selectedCategory.shortLabel;
+              } else if (state is CategoriesAddExpenseState) {
+                title = 'Add Expenses';
               }
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF093030),
-                ),
-              );
-              if (state is CategoriesAddExpenseState) {}
               return Text(
-                'Add Expenses',
+                title,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

@@ -12,7 +12,7 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
   final DateTime timeAndDate;
   final CategoryEnum category;
 
-  final String amount;
+  final double amount;
   final bool isExpense;
 
   const CategoriesSelectedCategoryTile({
@@ -22,7 +22,7 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
     required this.timeAndDate,
     required this.category,
     required this.amount,
-    this.isExpense = false,
+    this.isExpense = true,
   });
 
   static const double _leadingWidth = 60;
@@ -43,9 +43,9 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
               height: 53,
               decoration: BoxDecoration(
                 color:
-                isExpense
-                    ? const Color(0xFF6DB6FE)
-                    : const Color(0xFF0068FF),
+                    isExpense
+                        ? const Color(0xFF6DB6FE)
+                        : const Color(0xFF0068FF),
                 borderRadius: BorderRadius.circular(22),
               ),
               padding: const EdgeInsets.all(12),
@@ -85,7 +85,7 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
           SizedBox(
             width: _amountWidth,
             child: Text(
-              amount,
+              '${isExpense ? '-' : ''}${NumberFormat.currency(symbol: '\$', decimalDigits: 2).format(amount)}',
               style: TextStyle(
                 color: isExpense ? Colors.blue : Colors.black,
                 fontWeight: FontWeight.bold,

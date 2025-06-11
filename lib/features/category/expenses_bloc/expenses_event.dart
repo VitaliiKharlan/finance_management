@@ -10,7 +10,7 @@ abstract class ExpensesEvent extends Equatable {
 class SaveExpenseEvent extends ExpensesEvent {
   final String category;
   final DateTime timeAndDate;
-  final String amount;
+  final double amount;
   final String title;
   final String message;
 

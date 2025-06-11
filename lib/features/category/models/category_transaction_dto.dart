@@ -5,19 +5,6 @@ import '../../../core/enums/category_enum.dart';
 
 part 'category_transaction_dto.g.dart';
 
-DateTime _dateTimeFromJson(dynamic timestamp) {
-  if (timestamp == null) {
-    return DateTime.now();
-  }
-  if (timestamp is Timestamp) {
-    return timestamp.toDate();
-  }
-  if (timestamp is String) {
-    return DateTime.parse(timestamp);
-  }
-  throw Exception('Unexpected date format');
-}
-
 @JsonSerializable()
 class CategoryTransactionDto {
   final CategoryEnum category;
@@ -26,7 +13,7 @@ class CategoryTransactionDto {
   @JsonKey(name: 'date', fromJson: _dateTimeFromJson)
   final DateTime? timeAndDate;
 
-  final String amount;
+  final double amount;
   final String? icon;
   final bool isExpense;
 
@@ -36,7 +23,7 @@ class CategoryTransactionDto {
     required this.timeAndDate,
     required this.amount,
     required this.icon,
-    this.isExpense = false,
+    this.isExpense = true,
   });
 
   factory CategoryTransactionDto.fromJson(Map<String, dynamic> json) =>
@@ -48,7 +35,7 @@ class CategoryTransactionDto {
     CategoryEnum? category,
     String? title,
     DateTime? timeAndDate,
-    String? amount,
+    double? amount,
     String? icon,
     bool? isExpense,
   }) {
@@ -61,4 +48,17 @@ class CategoryTransactionDto {
       isExpense: isExpense ?? this.isExpense,
     );
   }
+}
+
+DateTime _dateTimeFromJson(dynamic timestamp) {
+  if (timestamp == null) {
+    return DateTime.now();
+  }
+  if (timestamp is Timestamp) {
+    return timestamp.toDate();
+  }
+  if (timestamp is String) {
+    return DateTime.parse(timestamp);
+  }
+  throw Exception('Unexpected date format');
 }

@@ -42,9 +42,9 @@ class ProfileMenuItemsWidget extends StatelessWidget {
           onTap: () {
             showConfirmationDialog(
               context: context,
-              title: 'Confirm Logout',
+              title: 'End Session',
               message: 'Are you sure you want to log out?',
-              confirmText: 'Logout',
+              confirmText: 'Yes, End Session',
               cancelText: 'Cancel',
               onConfirmed: () {
                 context.read<AuthBloc>().add(LogoutRequested());

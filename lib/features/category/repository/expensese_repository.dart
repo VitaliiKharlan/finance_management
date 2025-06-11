@@ -12,7 +12,7 @@ class ExpensesRepository {
   Future<void> addExpenseToCategory({
     required String category,
     required DateTime timeAndDate,
-    required String amount,
+    required double amount,
     required String title,
     required String message,
   }) async {

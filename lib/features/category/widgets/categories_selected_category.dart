@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/theme/app_colors.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../models/category_transaction_dto.dart';
+import '../utils/category_get_current_month_name.dart';
 import '../utils/category_group_transactions_by_month.dart';
 import 'categories_selected_category_header_with_calendar.dart';
 import 'categories_selected_category_tile.dart';
@@ -28,7 +29,11 @@ class CategoriesSelectedCategory extends StatelessWidget {
             children: [
               CategoriesSelectedCategoryHeaderWithCalendar(
                 monthName:
-                    groupedEntries.isNotEmpty ? groupedEntries[0].key : 'April',
+                    transactions.isEmpty
+                        ? getCurrentMonthName()
+                        : (groupedEntries.isNotEmpty
+                            ? groupedEntries[0].key
+                            : getCurrentMonthName()),
                 onCalendarPressed: () async {
                   final selectedDate = await showDatePicker(
                     context: context,

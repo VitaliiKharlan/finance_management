@@ -8,79 +8,46 @@ import 'categories_state.dart';
 
 part 'categories_event.dart';
 
-// class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-//   CategoriesBloc() : super(CategoriesInitialState()) {
-//     on<CategorySelectedEvent>(_onCategorySelected);
-//     on<CategoryBackEvent>(_onCategoryBack);
-//     on<AddExpenseButtonPressedEvent>(_onAddExpensePressed);
-//   }
-//
-//   void _onCategorySelected(
-//     CategorySelectedEvent event,
-//     Emitter<CategoriesState> emit,
-//   ) {
-//     try {
-//       final filtered =
-//           dummyTransactions.where((t) => t.category == event.category).toList();
-//
-//       emit(
-//         CategoriesLoadedState(
-//           selectedIndex: event.index,
-//           selectedCategory: event.category,
-//           filteredTransactions: filtered,
-//         ),
-//       );
-//     } catch (e, s) {
-//       debugPrint('Error filtering categories: $e');
-//       debugPrintStack(stackTrace: s);
-//       emit(CategoriesFailureState(e.toString()));
-//     }
-//   }
-//
-//   void _onCategoryBack(CategoryBackEvent event, Emitter<CategoriesState> emit) {
-//     emit(CategoriesInitialState());
-//   }
-//
-//   void _onAddExpensePressed(
-//     AddExpenseButtonPressedEvent event,
-//     Emitter<CategoriesState> emit,
-//   ) {
-//     emit(CategoriesAddExpenseState());
-//   }
-// }
-
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final FirebaseFirestore _firestore;
 
   CategoriesBloc({required FirebaseFirestore firestore})
-      : _firestore = firestore,
-        super(CategoriesInitialState()) {
+    : _firestore = firestore,
+      super(CategoriesInitialState()) {
     on<CategorySelectedEvent>(_onCategorySelected);
     on<CategoryBackEvent>(_onCategoryBack);
     on<AddExpenseButtonPressedEvent>(_onAddExpensePressed);
     on<LoadCategoriesEvent>(_onLoadCategories);
   }
 
-  Future<void> _onCategorySelected(CategorySelectedEvent event,
-      Emitter<CategoriesState> emit,) async {
+  Future<void> _onCategorySelected(
+    CategorySelectedEvent event,
+    Emitter<CategoriesState> emit,
+  ) async {
     emit(const CategoriesState.loading());
 
     try {
-      final querySnapshot = await _firestore
-          .collection('transactions')
-          .where('category', isEqualTo: event.category.name)
-          .get();
+      final querySnapshot =
+          await _firestore
+              .collection('transactions')
+              .where('category', isEqualTo: event.category.name)
+              .get();
 
-      final transactions = querySnapshot.docs.map((doc) {
-        final data = doc.data();
-        return CategoryTransactionDto.fromJson(data);
-      }).toList();
+      final transactions =
+          querySnapshot.docs.map((doc) {
+            final data = doc.data();
+            return CategoryTransactionDto.fromJson(data);
+          }).toList();
 
-      emit(CategoriesState.loaded(
-        selectedIndex: event.index,
-        selectedCategory: event.category,
-        filteredTransactions: transactions,
-      ));
+      transactions.sort((a, b) => b.timeAndDate!.compareTo(a.timeAndDate!));
+
+      emit(
+        CategoriesState.loaded(
+          selectedIndex: event.index,
+          selectedCategory: event.category,
+          filteredTransactions: transactions,
+        ),
+      );
     } catch (e, s) {
       debugPrint('Error loading transactions: $e');
       debugPrintStack(stackTrace: s);
@@ -88,40 +55,43 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     }
   }
 
-
   void _onCategoryBack(CategoryBackEvent event, Emitter<CategoriesState> emit) {
     emit(CategoriesInitialState());
   }
 
-  void _onAddExpensePressed(AddExpenseButtonPressedEvent event,
-      Emitter<CategoriesState> emit,) {
+  void _onAddExpensePressed(
+    AddExpenseButtonPressedEvent event,
+    Emitter<CategoriesState> emit,
+  ) {
     emit(CategoriesAddExpenseState());
   }
 
-  Future<void> _onLoadCategories(LoadCategoriesEvent event,
-      Emitter<CategoriesState> emit,) async {
+  Future<void> _onLoadCategories(
+    LoadCategoriesEvent event,
+    Emitter<CategoriesState> emit,
+  ) async {
     emit(const CategoriesState.loading());
 
     try {
-
       final querySnapshot = await _firestore.collection('categories').get();
 
+      final List<CategoryTransactionDto> transactions =
+          querySnapshot.docs.map((doc) {
+            final data = doc.data();
+            return CategoryTransactionDto.fromJson(data);
+          }).toList();
 
-      final List<CategoryTransactionDto> transactions = querySnapshot.docs.map((
-          doc) {
-        final data = doc.data();
-        return CategoryTransactionDto.fromJson(data);
-      }).toList();
+      transactions.sort((a, b) => b.timeAndDate!.compareTo(a.timeAndDate!));
 
-
-      emit(CategoriesState.loaded(
-        selectedIndex: -1,
-        selectedCategory: CategoryEnum.more,
-        filteredTransactions: transactions,
-      ));
+      emit(
+        CategoriesState.loaded(
+          selectedIndex: -1,
+          selectedCategory: CategoryEnum.more,
+          filteredTransactions: transactions,
+        ),
+      );
     } catch (e) {
       emit(CategoriesState.failure(e.toString()));
     }
   }
-
 }
