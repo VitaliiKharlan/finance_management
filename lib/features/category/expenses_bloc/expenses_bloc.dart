@@ -22,7 +22,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     try {
       await repository.addExpenseToCategory(
         category: event.category,
-        date: event.date,
+        timeAndDate: event.timeAndDate,
         amount: event.amount,
         title: event.title,
         message: event.message,

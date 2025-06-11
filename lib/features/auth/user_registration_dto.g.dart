@@ -20,8 +20,7 @@ UserRegistrationDto _$UserRegistrationDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UserRegistrationDtoToJson(
   UserRegistrationDto instance,
-) =>
-    <String, dynamic>{
+) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'email': instance.email,

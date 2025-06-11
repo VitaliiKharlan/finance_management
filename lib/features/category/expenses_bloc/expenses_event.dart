@@ -9,19 +9,19 @@ abstract class ExpensesEvent extends Equatable {
 
 class SaveExpenseEvent extends ExpensesEvent {
   final String category;
-  final DateTime date;
+  final DateTime timeAndDate;
   final String amount;
   final String title;
   final String message;
 
   const SaveExpenseEvent({
     required this.category,
-    required this.date,
+    required this.timeAndDate,
     required this.amount,
     required this.title,
     required this.message,
   });
 
   @override
-  List<Object?> get props => [category, date, amount, title, message];
+  List<Object?> get props => [category, timeAndDate, amount, title, message];
 }

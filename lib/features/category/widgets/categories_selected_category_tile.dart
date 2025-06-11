@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +9,7 @@ import '../../../core/theme/app_colors.dart';
 class CategoriesSelectedCategoryTile extends StatelessWidget {
   final String svgAsset;
   final String title;
-  final String timeAndDate;
+  final DateTime timeAndDate;
   final CategoryEnum category;
 
   final String amount;
@@ -42,9 +43,9 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
               height: 53,
               decoration: BoxDecoration(
                 color:
-                    isExpense
-                        ? const Color(0xFF6DB6FE)
-                        : const Color(0xFF0068FF),
+                isExpense
+                    ? const Color(0xFF6DB6FE)
+                    : const Color(0xFF0068FF),
                 borderRadius: BorderRadius.circular(22),
               ),
               padding: const EdgeInsets.all(12),
@@ -70,7 +71,7 @@ class CategoriesSelectedCategoryTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  timeAndDate,
+                  DateFormat('dd MMM yyyy, HH:mm').format(timeAndDate),
                   style: GoogleFonts.poppins(
                     color: AppColors.oceanBlueButton,
                     fontSize: 12,

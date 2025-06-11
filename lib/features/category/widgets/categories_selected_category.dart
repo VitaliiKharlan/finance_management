@@ -79,7 +79,7 @@ class CategoriesSelectedCategory extends StatelessWidget {
                         return CategoriesSelectedCategoryTile(
                           svgAsset: svgAsset,
                           title: transaction.title,
-                          timeAndDate: transaction.timeAndDate,
+                          timeAndDate: transaction.timeAndDate!,
                           amount: transaction.amount,
                           category: categoryEnum,
                           isExpense: transaction.isExpense,

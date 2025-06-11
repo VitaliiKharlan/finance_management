@@ -59,7 +59,7 @@ class _CategoriesSelectedCategoryAddExpensesState
     context.read<ExpensesBloc>().add(
       SaveExpenseEvent(
         category: selectedCategory!.label,
-        date: selectedDate,
+        timeAndDate: selectedDate,
         amount: amountController.text,
         title: titleController.text,
         message: messageController.text,

@@ -1,11 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:json_annotation/json_annotation.dart';
+
 import '../../../core/enums/category_enum.dart';
 
+part 'category_transaction_dto.g.dart';
+
+DateTime _dateTimeFromJson(dynamic timestamp) {
+  if (timestamp == null) {
+    return DateTime.now();
+  }
+  if (timestamp is Timestamp) {
+    return timestamp.toDate();
+  }
+  if (timestamp is String) {
+    return DateTime.parse(timestamp);
+  }
+  throw Exception('Unexpected date format');
+}
+
+@JsonSerializable()
 class CategoryTransactionDto {
   final CategoryEnum category;
   final String title;
-  final String timeAndDate;
+
+  @JsonKey(name: 'date', fromJson: _dateTimeFromJson)
+  final DateTime? timeAndDate;
+
   final String amount;
-  final String icon;
+  final String? icon;
   final bool isExpense;
 
   CategoryTransactionDto({
@@ -17,25 +39,26 @@ class CategoryTransactionDto {
     this.isExpense = false,
   });
 
-  factory CategoryTransactionDto.fromMap(Map<String, dynamic> map) {
-    return CategoryTransactionDto(
-      category: CategoryEnum.fromString(map['category'] ?? 'more'),
-      title: map['title'] ?? '',
-      timeAndDate: map['timeAndDate'] ?? '',
-      amount: map['amount'] ?? '',
-      icon: map['icon'] ?? '',
-      isExpense: map['isExpense'] ?? false,
-    );
-  }
+  factory CategoryTransactionDto.fromJson(Map<String, dynamic> json) =>
+      _$CategoryTransactionDtoFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return {
-      'category': category.name,
-      'title': title,
-      'timeAndDate': timeAndDate,
-      'amount': amount,
-      'icon': icon,
-      'isExpense': isExpense,
-    };
+  Map<String, dynamic> toJson() => _$CategoryTransactionDtoToJson(this);
+
+  CategoryTransactionDto copyWith({
+    CategoryEnum? category,
+    String? title,
+    DateTime? timeAndDate,
+    String? amount,
+    String? icon,
+    bool? isExpense,
+  }) {
+    return CategoryTransactionDto(
+      category: category ?? this.category,
+      title: title ?? this.title,
+      timeAndDate: timeAndDate ?? this.timeAndDate,
+      amount: amount ?? this.amount,
+      icon: icon ?? this.icon,
+      isExpense: isExpense ?? this.isExpense,
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import '../models/category_transaction_dto.dart';
 
 Map<String, List<CategoryTransactionDto>> groupTransactionsByMonth(
@@ -7,19 +9,20 @@ Map<String, List<CategoryTransactionDto>> groupTransactionsByMonth(
 
   for (final transaction in transactions) {
     final month = extractMonth(transaction.timeAndDate);
+
     if (!grouped.containsKey(month)) {
       grouped[month] = [];
     }
+
     grouped[month]!.add(transaction);
   }
 
   return grouped;
 }
 
-String extractMonth(String timeAndDate) {
+String extractMonth(DateTime? timeAndDate) {
   try {
-    final parts = timeAndDate.split(' - ');
-    return parts.length > 1 ? parts[1].split(' ')[0] : 'Unknown';
+    return DateFormat.MMMM().format(timeAndDate!);
   } catch (_) {
     return 'Unknown';
   }

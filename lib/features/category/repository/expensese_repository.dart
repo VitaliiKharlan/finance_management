@@ -11,12 +11,12 @@ class ExpensesRepository {
 
   Future<void> addExpenseToCategory({
     required String category,
-    required DateTime date,
+    required DateTime timeAndDate,
     required String amount,
     required String title,
     required String message,
   }) async {
-    final catEnum = CategoryEnum.values.firstWhere(
+    final categoryEnum = CategoryEnum.values.firstWhere(
       (e) =>
           e.label.toLowerCase() == category.toLowerCase() ||
           e.name.toLowerCase() == category.toLowerCase(),
@@ -24,9 +24,8 @@ class ExpensesRepository {
     );
 
     final data = {
-      'category': catEnum.name,
-      'date': date.toIso8601String(),
-      'formattedDate': _formatDate(date),
+      'category': categoryEnum.name,
+      'date': Timestamp.fromDate(timeAndDate),
       'amount': amount,
       'title': title,
       'message': message,
@@ -34,27 +33,5 @@ class ExpensesRepository {
     };
 
     await _firestore.collection(FirestoreCollections.transactions).add(data);
-  }
-
-  String _formatDate(DateTime date) {
-    return '${_monthName(date.month)} ${date.day}, ${date.year}';
-  }
-
-  String _monthName(int month) {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return months[month - 1];
   }
 }

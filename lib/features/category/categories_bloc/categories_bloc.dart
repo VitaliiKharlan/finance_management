@@ -73,7 +73,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
 
       final transactions = querySnapshot.docs.map((doc) {
         final data = doc.data();
-        return CategoryTransactionDto.fromMap(data); // Твой метод из DTO
+        return CategoryTransactionDto.fromJson(data);
       }).toList();
 
       emit(CategoriesState.loaded(
@@ -103,20 +103,20 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     emit(const CategoriesState.loading());
 
     try {
-      // Здесь загрузка данных из Firestore
+
       final querySnapshot = await _firestore.collection('categories').get();
 
-      // Например, парсим документы в список CategoryTransactionDto
+
       final List<CategoryTransactionDto> transactions = querySnapshot.docs.map((
           doc) {
         final data = doc.data();
-        return CategoryTransactionDto.fromMap(data);
+        return CategoryTransactionDto.fromJson(data);
       }).toList();
 
-      // Отправляем состояние с загруженными данными, например без выбранной категории
+
       emit(CategoriesState.loaded(
         selectedIndex: -1,
-        selectedCategory: CategoryEnum.more, // или другое значение по умолчанию
+        selectedCategory: CategoryEnum.more,
         filteredTransactions: transactions,
       ));
     } catch (e) {
