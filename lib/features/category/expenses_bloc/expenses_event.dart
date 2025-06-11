@@ -25,3 +25,10 @@ class SaveExpenseEvent extends ExpensesEvent {
   @override
   List<Object?> get props => [category, timeAndDate, amount, title, message];
 }
+
+class LoadTotalExpenseEvent extends ExpensesEvent {
+  const LoadTotalExpenseEvent();
+
+  @override
+  List<Object?> get props => [];
+}

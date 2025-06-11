@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
 import '../expenses_bloc/expenses_bloc.dart';
+import '../expenses_bloc/expenses_state.dart';
 import '../repository/expensese_repository.dart';
 import '../widgets/categories_balance_overview_section.dart';
 import '../widgets/categories_expenxe_progress_bar_widget_section.dart';
@@ -28,46 +29,56 @@ class CategoriesScreen extends StatelessWidget {
                   CategoriesBloc(firestore: FirebaseFirestore.instance),
         ),
 
-        BlocProvider(create: (_) => ExpensesBloc(ExpensesRepository())),
+        BlocProvider(
+          create:
+              (_) =>
+                  ExpensesBloc(ExpensesRepository())
+                    ..add(const LoadTotalExpenseEvent()),
+        ),
       ],
       child: BlocBuilder<CategoriesBloc, CategoriesState>(
         builder: (context, state) {
-          Widget bodyContent;
+          return BlocBuilder<ExpensesBloc, ExpensesState>(
+            builder: (context, expensesState) {
+              final totalExpense = expensesState.totalExpense;
+              Widget bodyContent;
 
-          if (state is CategoriesInitialState ||
-              state is CategoriesLoadedState) {
-            bodyContent = Column(
-              children: [
-                const CategoriesHeaderSection(),
-                const CategoriesBalanceOverviewSection(
-                  totalBalance: 7783.00,
-                  totalExpense: 1187.40,
-                ),
-                const CategoriesExpenseProgressBarWidgetSection(
-                  percentage: 0.3,
-                  limitAmount: 20000.00,
-                ),
-                CategoriesMainSection(categories: CategoryEnum.values),
-              ],
-            );
-          } else if (state is CategoriesAddExpenseState) {
-            bodyContent =
+              if (state is CategoriesInitialState ||
+                  state is CategoriesLoadedState) {
                 bodyContent = Column(
                   children: [
                     const CategoriesHeaderSection(),
-                    const SizedBox(height: 40),
-                    const CategoriesSelectedCategoryAddExpenses(),
+                    CategoriesBalanceOverviewSection(
+                      totalBalance: 7783.00,
+                      totalExpense: totalExpense,
+                    ),
+                    const CategoriesExpenseProgressBarWidgetSection(
+                      percentage: 0.3,
+                      limitAmount: 20000.00,
+                    ),
+                    CategoriesMainSection(categories: CategoryEnum.values),
                   ],
                 );
-          } else if (state is CategoriesFailureState) {
-            bodyContent = Center(child: Text('Error: ${state.message}'));
-          } else {
-            bodyContent = const Center(child: CircularProgressIndicator());
-          }
+              } else if (state is CategoriesAddExpenseState) {
+                bodyContent =
+                    bodyContent = Column(
+                      children: [
+                        const CategoriesHeaderSection(),
+                        const SizedBox(height: 40),
+                        const CategoriesSelectedCategoryAddExpenses(),
+                      ],
+                    );
+              } else if (state is CategoriesFailureState) {
+                bodyContent = Center(child: Text('Error: ${state.message}'));
+              } else {
+                bodyContent = const Center(child: CircularProgressIndicator());
+              }
 
-          return Scaffold(
-            backgroundColor: const Color(0xFF00D09E),
-            body: SafeArea(child: bodyContent),
+              return Scaffold(
+                backgroundColor: const Color(0xFF00D09E),
+                body: SafeArea(child: bodyContent),
+              );
+            },
           );
         },
       ),

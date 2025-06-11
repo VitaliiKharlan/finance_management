@@ -3,12 +3,21 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'expenses_state.freezed.dart';
 
 @freezed
-class ExpensesState with _$ExpensesState {
-  const factory ExpensesState.initial() = ExpensesInitial;
+abstract class ExpensesState with _$ExpensesState {
+  @override
+  double get totalExpense;
 
-  const factory ExpensesState.saving() = ExpensesSaving;
+  const factory ExpensesState.initial({@Default(0.0) double totalExpense}) =
+      ExpensesInitial;
 
-  const factory ExpensesState.saved() = ExpensesSaved;
+  const factory ExpensesState.saving({@Default(0.0) double totalExpense}) =
+      ExpensesSaving;
 
-  const factory ExpensesState.failure(String message) = ExpensesFailure;
+  const factory ExpensesState.saved({@Default(0.0) double totalExpense}) =
+      ExpensesSaved;
+
+  const factory ExpensesState.failure(
+    String message, {
+    @Default(0.0) double totalExpense,
+  }) = ExpensesFailure;
 }

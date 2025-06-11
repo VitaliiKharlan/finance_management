@@ -34,4 +34,18 @@ class ExpensesRepository {
 
     await _firestore.collection(FirestoreCollections.transactions).add(data);
   }
+
+  Future<double> getTotalExpense() async {
+    final querySnapshot =
+        await _firestore.collection(FirestoreCollections.transactions).get();
+
+    double total = 0;
+    for (var doc in querySnapshot.docs) {
+      final amount = doc.data()['amount'];
+      if (amount is num) {
+        total += amount.toDouble();
+      }
+    }
+    return total;
+  }
 }
