@@ -8,9 +8,9 @@ import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
 import '../expenses_bloc/expenses_bloc.dart';
 import '../expenses_bloc/expenses_state.dart';
-import '../repository/expensese_repository.dart';
+import '../repository/expenses_repository.dart';
 import '../widgets/categories_balance_overview_section.dart';
-import '../widgets/categories_expenxe_progress_bar_widget_section.dart';
+import '../widgets/categories_expense_progress_bar_widget_section.dart';
 import '../widgets/categories_header_section.dart';
 import '../widgets/categories_main_section.dart';
 import '../widgets/categories_selected_category_add_expenses.dart';
@@ -28,7 +28,6 @@ class CategoriesScreen extends StatelessWidget {
               (context) =>
                   CategoriesBloc(firestore: FirebaseFirestore.instance),
         ),
-
         BlocProvider(
           create:
               (_) =>
@@ -37,14 +36,14 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: (context, state) {
+        builder: (context, categoriesState) {
           return BlocBuilder<ExpensesBloc, ExpensesState>(
             builder: (context, expensesState) {
               final totalExpense = expensesState.totalExpense;
               Widget bodyContent;
 
-              if (state is CategoriesInitialState ||
-                  state is CategoriesLoadedState) {
+              if (categoriesState is CategoriesInitialState ||
+                  categoriesState is CategoriesLoadedState) {
                 bodyContent = Column(
                   children: [
                     const CategoriesHeaderSection(),
@@ -59,17 +58,18 @@ class CategoriesScreen extends StatelessWidget {
                     CategoriesMainSection(categories: CategoryEnum.values),
                   ],
                 );
-              } else if (state is CategoriesAddExpenseState) {
-                bodyContent =
-                    bodyContent = Column(
-                      children: [
-                        const CategoriesHeaderSection(),
-                        const SizedBox(height: 40),
-                        const CategoriesSelectedCategoryAddExpenses(),
-                      ],
-                    );
-              } else if (state is CategoriesFailureState) {
-                bodyContent = Center(child: Text('Error: ${state.message}'));
+              } else if (categoriesState is CategoriesAddExpenseState) {
+                bodyContent = Column(
+                  children: [
+                    const CategoriesHeaderSection(),
+                    const SizedBox(height: 40),
+                    const CategoriesSelectedCategoryAddExpenses(),
+                  ],
+                );
+              } else if (categoriesState is CategoriesFailureState) {
+                bodyContent = Center(
+                  child: Text('Error: ${categoriesState.message}'),
+                );
               } else {
                 bodyContent = const Center(child: CircularProgressIndicator());
               }

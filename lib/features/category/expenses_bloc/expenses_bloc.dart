@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../repository/expensese_repository.dart';
+import '../repository/expenses_repository.dart';
 import 'expenses_state.dart';
 
 part 'expenses_event.dart';
