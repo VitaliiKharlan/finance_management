@@ -6,6 +6,7 @@ import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../expenses_bloc/expenses_bloc.dart';
+import '../models/category_transaction_dto.dart';
 import 'add_expenses.fields/amount_field.dart';
 import 'add_expenses.fields/category_field.dart';
 import 'add_expenses.fields/date_field.dart';
@@ -14,7 +15,12 @@ import 'add_expenses.fields/message_field.dart';
 import 'add_expenses.fields/save_expenses_button.dart';
 
 class CategoriesSelectedCategoryAddExpenses extends StatefulWidget {
-  const CategoriesSelectedCategoryAddExpenses({super.key});
+  final CategoryTransactionDto? transactionToEdit;
+
+  const CategoriesSelectedCategoryAddExpenses({
+    super.key,
+    this.transactionToEdit,
+  });
 
   @override
   State<CategoriesSelectedCategoryAddExpenses> createState() =>
@@ -34,6 +40,16 @@ class _CategoriesSelectedCategoryAddExpensesState
   @override
   void initState() {
     super.initState();
+
+    if (widget.transactionToEdit != null) {
+      final t = widget.transactionToEdit!;
+      selectedDate = t.timeAndDate ?? DateTime.now();
+      selectedCategory = t.category;
+      titleController.text = t.title;
+      amountController.text = t.amount.toString();
+      // messageController.text = t.message ?? '';
+    }
+
     dateController.text = DateFormat('MMMM d, y').format(selectedDate);
   }
 
@@ -71,53 +87,46 @@ class _CategoriesSelectedCategoryAddExpensesState
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.backgroundGreenWhiteAndLetters,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(60),
-            topRight: Radius.circular(60),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.backgroundGreenWhiteAndLetters,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(60),
+          topRight: Radius.circular(60),
         ),
-        padding: const EdgeInsets.only(
-          left: 48,
-          top: 24,
-          right: 48,
-          bottom: 12,
-        ),
-        child: SafeArea(
-          child: Stack(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DateField(
-                    controller: dateController,
-                    initialDate: selectedDate,
-                    onDateChanged: (date) {
-                      setState(() {
-                        selectedDate = date;
-                        dateController.text = DateFormat(
-                          'MMMM d, y',
-                        ).format(date);
-                      });
-                    },
-                  ),
-                  CategoryField(
-                    selectedCategory: selectedCategory,
-                    onChanged: (value) {
-                      setState(() => selectedCategory = value);
-                    },
-                  ),
-                  AmountField(controller: amountController),
-                  ExpenseTitleField(controller: titleController),
-                  MessageField(controller: messageController),
-                ],
-              ),
-              SaveExpenseButton(onPressed: _onSavePressed),
-            ],
-          ),
+      ),
+      padding: const EdgeInsets.only(left: 48, top: 24, right: 48, bottom: 12),
+      child: SafeArea(
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DateField(
+                  controller: dateController,
+                  initialDate: selectedDate,
+                  onDateChanged: (date) {
+                    setState(() {
+                      selectedDate = date;
+                      dateController.text = DateFormat(
+                        'MMMM d, y',
+                      ).format(date);
+                    });
+                  },
+                ),
+                CategoryField(
+                  selectedCategory: selectedCategory,
+                  onChanged: (value) {
+                    setState(() => selectedCategory = value);
+                  },
+                ),
+                AmountField(controller: amountController),
+                ExpenseTitleField(controller: titleController),
+                MessageField(controller: messageController),
+              ],
+            ),
+            SaveExpenseButton(onPressed: _onSavePressed),
+          ],
         ),
       ),
     );

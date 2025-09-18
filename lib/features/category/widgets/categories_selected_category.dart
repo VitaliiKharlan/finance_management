@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -81,14 +82,88 @@ class CategoriesSelectedCategory extends StatelessWidget {
                       ...monthTransactions.map((transaction) {
                         final categoryEnum = transaction.category;
                         final svgAsset = transaction.category.iconPath;
-                        return CategoriesSelectedCategoryTile(
-                          svgAsset: svgAsset,
-                          title: transaction.title,
-                          timeAndDate: transaction.timeAndDate!,
-                          amount: transaction.amount,
-                          category: categoryEnum,
-                          isExpense: transaction.isExpense,
+                        return Slidable(
+                          key: ValueKey(transaction.id),
+                          endActionPane: ActionPane(
+                            motion: const StretchMotion(),
+                            children: [
+                              CustomSlidableAction(
+                                onPressed: (context) {
+                                  context.read<CategoriesBloc>().add(
+                                    EditTransactionEvent(transaction),
+                                  );
+                                },
+                                backgroundColor: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(12),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(Icons.edit, color: Colors.white),
+                                    SizedBox(height: 4),
+                                    Flexible(
+                                      child: Text(
+                                        'Edit',
+                                        style: TextStyle(color: Colors.white),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              CustomSlidableAction(
+                                onPressed: (context) {
+                                  context.read<CategoriesBloc>().add(
+                                    DeleteTransactionEvent(transaction.id),
+                                  );
+                                },
+                                backgroundColor: Colors.redAccent,
+                                borderRadius: BorderRadius.circular(12),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(Icons.delete, color: Colors.white),
+                                    SizedBox(height: 4),
+
+                                    Flexible(
+                                      child: Text(
+                                        'Delete',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          child: CategoriesSelectedCategoryTile(
+                            svgAsset: svgAsset,
+                            title: transaction.title,
+                            timeAndDate: transaction.timeAndDate!,
+                            amount: transaction.amount,
+                            category: categoryEnum,
+                            isExpense: transaction.isExpense,
+                          ),
                         );
+
+                        // return CategoriesSelectedCategoryTile(
+                        //   svgAsset: svgAsset,
+                        //   title: transaction.title,
+                        //   timeAndDate: transaction.timeAndDate!,
+                        //   amount: transaction.amount,
+                        //   category: categoryEnum,
+                        //   isExpense: transaction.isExpense,
+                        // );
                       }),
                     ],
                   );

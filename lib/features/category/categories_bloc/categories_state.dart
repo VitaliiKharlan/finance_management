@@ -20,6 +20,10 @@ class CategoriesState with _$CategoriesState {
 
   const factory CategoriesState.addExpense() = CategoriesAddExpenseState;
 
+  const factory CategoriesState.editExpense(
+      CategoryTransactionDto transaction) =
+  CategoriesEditExpenseState;
+
   const factory CategoriesState.failure(String message) =
-      CategoriesFailureState;
+  CategoriesFailureState;
 }
