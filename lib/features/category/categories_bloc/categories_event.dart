@@ -15,21 +15,20 @@ class CategoryBackEvent extends CategoriesEvent {}
 
 class AddExpenseButtonPressedEvent extends CategoriesEvent {}
 
-class DeleteTransactionEvent extends CategoriesEvent {
-  final String id;
-
-  DeleteTransactionEvent(this.id);
-}
-
-class EditTransactionEvent extends CategoriesEvent {
+class EditTransactionInCategoryEvent extends CategoriesEvent {
   final CategoryTransactionDto transaction;
 
-  EditTransactionEvent(this.transaction);
+  EditTransactionInCategoryEvent(this.transaction);
 }
 
-class UpdateTransactionEvent extends CategoriesEvent {
+class DeleteTransactionInCategoryEvent extends CategoriesEvent {
   final String id;
-  final Map<String, dynamic> updatedData;
 
-  UpdateTransactionEvent({required this.id, required this.updatedData});
+  DeleteTransactionInCategoryEvent(this.id);
+}
+
+class UpdateTransactionInCategoryEvent extends CategoriesEvent {
+  final CategoryTransactionDto updatedTransaction;
+
+  UpdateTransactionInCategoryEvent(this.updatedTransaction);
 }

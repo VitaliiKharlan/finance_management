@@ -90,7 +90,7 @@ class CategoriesSelectedCategory extends StatelessWidget {
                               CustomSlidableAction(
                                 onPressed: (context) {
                                   context.read<CategoriesBloc>().add(
-                                    EditTransactionEvent(transaction),
+                                    EditTransactionInCategoryEvent(transaction),
                                   );
                                 },
                                 backgroundColor: Colors.blueAccent,
@@ -117,7 +117,8 @@ class CategoriesSelectedCategory extends StatelessWidget {
                               CustomSlidableAction(
                                 onPressed: (context) {
                                   context.read<CategoriesBloc>().add(
-                                    DeleteTransactionEvent(transaction.id),
+                                    DeleteTransactionInCategoryEvent(
+                                        transaction.id),
                                   );
                                 },
                                 backgroundColor: Colors.redAccent,

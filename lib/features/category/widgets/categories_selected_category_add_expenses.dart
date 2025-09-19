@@ -74,6 +74,7 @@ class _CategoriesSelectedCategoryAddExpensesState
 
     context.read<ExpensesBloc>().add(
       SaveExpenseEvent(
+        id: widget.transactionToEdit?.id,
         category: selectedCategory!.label,
         timeAndDate: selectedDate,
         amount: double.tryParse(amountController.text) ?? 0,

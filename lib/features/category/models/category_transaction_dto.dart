@@ -7,8 +7,7 @@ part 'category_transaction_dto.g.dart';
 
 @JsonSerializable()
 class CategoryTransactionDto {
-  @JsonKey(
-      includeFromJson: false, includeToJson: false) // id игнорируем при JSON
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final String id;
   final CategoryEnum category;
   final String title;
@@ -32,13 +31,11 @@ class CategoryTransactionDto {
     this.message,
   });
 
-
   factory CategoryTransactionDto.fromJson(Map<String, dynamic> json) =>
       _$CategoryTransactionDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoryTransactionDtoToJson(this);
 
-  /// Создаем новый объект с измененными полями
   CategoryTransactionDto copyWith({
     String? id,
     CategoryEnum? category,
@@ -47,6 +44,7 @@ class CategoryTransactionDto {
     double? amount,
     String? icon,
     bool? isExpense,
+    String? message,
   }) {
     return CategoryTransactionDto(
       id: id ?? this.id,
@@ -56,23 +54,24 @@ class CategoryTransactionDto {
       amount: amount ?? this.amount,
       icon: icon ?? this.icon,
       isExpense: isExpense ?? this.isExpense,
+      message: message ?? this.message,
     );
   }
 }
 
-/// Конструктор из Firestore, где doc.id всегда есть
 extension CategoryTransactionDtoFirestore on CategoryTransactionDto {
   static CategoryTransactionDto fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> doc,) {
+    DocumentSnapshot<Map<String, dynamic>> doc,
+  ) {
     final data = doc.data()!;
-    // Создаем DTO из JSON
+
     final dto = _$CategoryTransactionDtoFromJson(data);
 
-    // Возвращаем DTO с doc.id
     return dto.copyWith(
       id: doc.id,
       title: dto.title.isNotEmpty ? dto.title : 'No title',
       category: dto.category,
+      message: dto.message,
     );
   }
 }

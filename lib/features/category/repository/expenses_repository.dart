@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/core/constants/firestore_constants.dart';
 
 import '../../../core/enums/category_enum.dart';
+import '../models/category_transaction_dto.dart';
 
 class ExpensesRepository {
   final FirebaseFirestore _firestore;
@@ -70,6 +71,18 @@ class ExpensesRepository {
         .collection(FirestoreCollections.transactions)
         .doc(id)
         .delete();
+  }
+
+  Future<CategoryTransactionDto?> getTransactionById(String id) async {
+    final doc =
+        await _firestore
+            .collection(FirestoreCollections.transactions)
+            .doc(id)
+            .get();
+
+    if (!doc.exists) return null;
+
+    return CategoryTransactionDtoFirestore.fromFirestore(doc);
   }
 
   Future<double> getTotalExpense() async {

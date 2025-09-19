@@ -18,8 +18,10 @@ class CategoriesState with _$CategoriesState {
     @Default(false) bool showTransactions,
   }) = CategoriesLoadedState;
 
-  const factory CategoriesState.addExpense() = CategoriesAddExpenseState;
+  const factory CategoriesState.addExpense({
+    CategoryTransactionDto? transactionToEdit,
+  }) = CategoriesAddExpenseState;
 
   const factory CategoriesState.failure(String message) =
-  CategoriesFailureState;
+      CategoriesFailureState;
 }

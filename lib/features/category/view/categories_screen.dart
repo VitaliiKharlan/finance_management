@@ -21,18 +21,19 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoriesBloc = CategoriesBloc(
+      firestore: FirebaseFirestore.instance,
+    );
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        BlocProvider<CategoriesBloc>.value(value: categoriesBloc),
+
+        BlocProvider<ExpensesBloc>(
           create:
-              (context) =>
-                  CategoriesBloc(firestore: FirebaseFirestore.instance),
-        ),
-        BlocProvider(
-          create:
-              (_) =>
-                  ExpensesBloc(ExpensesRepository())
-                    ..add(const LoadTotalExpenseEvent()),
+              (_) => ExpensesBloc(
+                repository: ExpensesRepository(),
+                categoriesBloc: categoriesBloc,
+              )..add(const LoadTotalExpenseEvent()),
         ),
       ],
       child: BlocBuilder<CategoriesBloc, CategoriesState>(
@@ -63,7 +64,9 @@ class CategoriesScreen extends StatelessWidget {
                   children: [
                     const CategoriesHeaderSection(),
                     const SizedBox(height: 40),
-                    const CategoriesSelectedCategoryAddExpenses(),
+                    CategoriesSelectedCategoryAddExpenses(
+                      transactionToEdit: categoriesState.transactionToEdit,
+                    ),
                   ],
                 );
               } else if (categoriesState is CategoriesFailureState) {
