@@ -19,6 +19,7 @@ class CategoryTransactionDto {
   final double amount;
   final String? icon;
   final bool isExpense;
+  final String? message;
 
   CategoryTransactionDto({
     this.id = '',
@@ -28,6 +29,7 @@ class CategoryTransactionDto {
     required this.amount,
     required this.icon,
     this.isExpense = true,
+    this.message,
   });
 
 

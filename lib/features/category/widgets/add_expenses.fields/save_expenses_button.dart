@@ -10,25 +10,20 @@ class SaveExpenseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: 80,
-      right: 80,
-      bottom: 8,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.mainGreen,
-          foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          minimumSize: const Size(172, 36),
-          padding: EdgeInsets.zero,
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.mainGreen,
+        foregroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
         ),
-        onPressed: onPressed,
-        child: Text(
-          'Save',
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
-        ),
+        minimumSize: const Size(172, 36),
+        padding: EdgeInsets.zero,
+      ),
+      onPressed: onPressed,
+      child: Text(
+        'Save',
+        style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 16),
       ),
     );
   }

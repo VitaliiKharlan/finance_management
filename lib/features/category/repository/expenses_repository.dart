@@ -14,7 +14,7 @@ class ExpensesRepository {
     required DateTime timeAndDate,
     required double amount,
     required String title,
-    required String message,
+    String? message,
   }) async {
     final categoryEnum = CategoryEnum.values.firstWhere(
       (e) =>
@@ -33,6 +33,43 @@ class ExpensesRepository {
     };
 
     await _firestore.collection(FirestoreCollections.transactions).add(data);
+  }
+
+  Future<void> updateExpense({
+    required String id,
+    required String category,
+    required DateTime timeAndDate,
+    required double amount,
+    required String title,
+    String? message,
+  }) async {
+    final categoryEnum = CategoryEnum.values.firstWhere(
+      (e) =>
+          e.label.toLowerCase() == category.toLowerCase() ||
+          e.name.toLowerCase() == category.toLowerCase(),
+      orElse: () => CategoryEnum.more,
+    );
+
+    final data = {
+      'category': categoryEnum.name,
+      'date': Timestamp.fromDate(timeAndDate),
+      'amount': amount,
+      'title': title,
+      'message': message ?? '',
+      'updatedAt': Timestamp.now(),
+    };
+
+    await _firestore
+        .collection(FirestoreCollections.transactions)
+        .doc(id)
+        .update(data);
+  }
+
+  Future<void> deleteExpense(String id) async {
+    await _firestore
+        .collection(FirestoreCollections.transactions)
+        .doc(id)
+        .delete();
   }
 
   Future<double> getTotalExpense() async {

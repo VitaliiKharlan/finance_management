@@ -47,7 +47,7 @@ class _CategoriesSelectedCategoryAddExpensesState
       selectedCategory = t.category;
       titleController.text = t.title;
       amountController.text = t.amount.toString();
-      // messageController.text = t.message ?? '';
+      messageController.text = t.message ?? '';
     }
 
     dateController.text = DateFormat('MMMM d, y').format(selectedDate);
@@ -87,46 +87,60 @@ class _CategoriesSelectedCategoryAddExpensesState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.backgroundGreenWhiteAndLetters,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(60),
-          topRight: Radius.circular(60),
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.backgroundGreenWhiteAndLetters,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(60),
+            topRight: Radius.circular(60),
+          ),
         ),
-      ),
-      padding: const EdgeInsets.only(left: 48, top: 24, right: 48, bottom: 12),
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DateField(
-                  controller: dateController,
-                  initialDate: selectedDate,
-                  onDateChanged: (date) {
-                    setState(() {
-                      selectedDate = date;
-                      dateController.text = DateFormat(
-                        'MMMM d, y',
-                      ).format(date);
-                    });
-                  },
+        padding: const EdgeInsets.only(
+          left: 48,
+          top: 24,
+          right: 48,
+          bottom: 12,
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    DateField(
+                      controller: dateController,
+                      initialDate: selectedDate,
+                      onDateChanged: (date) {
+                        setState(() {
+                          selectedDate = date;
+                          dateController.text = DateFormat(
+                            'MMMM d, y',
+                          ).format(date);
+                        });
+                      },
+                    ),
+                    CategoryField(
+                      selectedCategory: selectedCategory,
+                      onChanged: (value) {
+                        setState(() => selectedCategory = value);
+                      },
+                    ),
+                    AmountField(controller: amountController),
+                    ExpenseTitleField(controller: titleController),
+                    MessageField(controller: messageController),
+                  ],
                 ),
-                CategoryField(
-                  selectedCategory: selectedCategory,
-                  onChanged: (value) {
-                    setState(() => selectedCategory = value);
-                  },
-                ),
-                AmountField(controller: amountController),
-                ExpenseTitleField(controller: titleController),
-                MessageField(controller: messageController),
-              ],
-            ),
-            SaveExpenseButton(onPressed: _onSavePressed),
-          ],
+              ),
+              Positioned(
+                left: 80,
+                right: 80,
+                bottom: 8,
+                child: SaveExpenseButton(onPressed: _onSavePressed),
+              ),
+            ],
+          ),
         ),
       ),
     );

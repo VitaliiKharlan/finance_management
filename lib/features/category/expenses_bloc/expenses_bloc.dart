@@ -11,35 +11,59 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
 
   ExpensesBloc(this.repository) : super(ExpensesState.initial()) {
     on<SaveExpenseEvent>(_onSaveExpense);
+    on<DeleteExpenseEvent>(_onDeleteExpense);
     on<LoadTotalExpenseEvent>(_onLoadTotalExpense);
   }
 
-  Future<void> _onSaveExpense(
-    SaveExpenseEvent event,
-    Emitter<ExpensesState> emit,
-  ) async {
-    emit(ExpensesState.saving());
+  Future<void> _onSaveExpense(SaveExpenseEvent event,
+      Emitter<ExpensesState> emit,) async {
+    emit(ExpensesState.saving(totalExpense: state.totalExpense));
 
     try {
-      await repository.addExpenseToCategory(
-        category: event.category,
-        timeAndDate: event.timeAndDate,
-        amount: event.amount,
-        title: event.title,
-        message: event.message,
-      );
-      final updatedTotal = await repository.getTotalExpense();
+      if (event.id != null) {
+        await repository.updateExpense(
+          id: event.id!,
+          category: event.category,
+          timeAndDate: event.timeAndDate,
+          amount: event.amount,
+          title: event.title,
+          message: event.message,
+        );
+      } else {
+        await repository.addExpenseToCategory(
+          category: event.category,
+          timeAndDate: event.timeAndDate,
+          amount: event.amount,
+          title: event.title,
+          message: event.message,
+        );
+      }
 
+      final updatedTotal = await repository.getTotalExpense();
       emit(ExpensesState.saved(totalExpense: updatedTotal));
     } catch (e) {
-      emit(ExpensesState.failure(e.toString()));
+      emit(ExpensesState.failure(
+          e.toString(), totalExpense: state.totalExpense));
+    }
+  }
+
+  Future<void> _onDeleteExpense(DeleteExpenseEvent event,
+      Emitter<ExpensesState> emit,) async {
+    emit(ExpensesState.saving(totalExpense: state.totalExpense));
+
+    try {
+      await repository.deleteExpense(event.id);
+      final updatedTotal = await repository.getTotalExpense();
+      emit(ExpensesState.saved(totalExpense: updatedTotal));
+    } catch (e) {
+      emit(ExpensesState.failure(
+          e.toString(), totalExpense: state.totalExpense));
     }
   }
 
   Future<void> _onLoadTotalExpense(LoadTotalExpenseEvent event,
       Emitter<ExpensesState> emit,) async {
-    emit(ExpensesState.saving(
-        totalExpense: state.totalExpense)); // можно показать загрузку
+    emit(ExpensesState.saving(totalExpense: state.totalExpense));
 
     try {
       final total = await repository.getTotalExpense();

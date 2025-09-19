@@ -135,9 +135,7 @@ class CategoriesSelectedCategory extends StatelessWidget {
                                     Flexible(
                                       child: Text(
                                         'Delete',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
+                                        style: TextStyle(color: Colors.white),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
@@ -155,15 +153,6 @@ class CategoriesSelectedCategory extends StatelessWidget {
                             isExpense: transaction.isExpense,
                           ),
                         );
-
-                        // return CategoriesSelectedCategoryTile(
-                        //   svgAsset: svgAsset,
-                        //   title: transaction.title,
-                        //   timeAndDate: transaction.timeAndDate!,
-                        //   amount: transaction.amount,
-                        //   category: categoryEnum,
-                        //   isExpense: transaction.isExpense,
-                        // );
                       }),
                     ],
                   );

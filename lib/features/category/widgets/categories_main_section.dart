@@ -39,27 +39,15 @@ class CategoriesMainSection extends StatelessWidget {
               // return CategoriesSelectedCategory(
               //   transactions: state.filteredTransactions,
               // );
-              return BlocListener<CategoriesBloc, CategoriesState>(
-                listenWhen: (previous,
-                    current) => current is CategoriesEditExpenseState,
-                listener: (context, state) {
-                  final transaction = (state as CategoriesEditExpenseState)
-                      .transaction;
-
-                  // context.router.push(
-                  //   CategoriesAddExpenseRoute(transactionToEdit: transaction),
-                  // );
-                },
-                child: CategoriesSelectedCategory(
-                  transactions: context.select(
-                        (CategoriesBloc bloc) {
-                      final state = bloc.state;
-                      if (state is CategoriesLoadedState) {
-                        return state.filteredTransactions;
-                      }
-                      return <CategoryTransactionDto>[];
-                    },
-                  ),
+              return CategoriesSelectedCategory(
+                transactions: context.select(
+                      (CategoriesBloc bloc) {
+                    final state = bloc.state;
+                    if (state is CategoriesLoadedState) {
+                      return state.filteredTransactions;
+                    }
+                    return <CategoryTransactionDto>[];
+                  },
                 ),
               );
             } else if (state is CategoriesFailureState) {
