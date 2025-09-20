@@ -27,10 +27,7 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: AnalysisRoute.page, path: 'analysis'),
           AutoRoute(page: TransactionRoute.page, path: 'transaction'),
           AutoRoute(page: CategoriesRoute.page, path: 'categories'),
-          // AutoRoute(
-          //   page: CategoriesAddExpenseRoute.page,
-          //   path: 'add_expense',
-          // ),
+
           AutoRoute(page: ProfileRoute.page, path: 'profile'),
         ],
       ),

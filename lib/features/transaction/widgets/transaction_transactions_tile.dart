@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -6,7 +7,7 @@ class TransactionTransactionsTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final String category;
-  final String amount;
+  final double amount;
   final bool isExpense;
 
   const TransactionTransactionsTile({
@@ -39,9 +40,9 @@ class TransactionTransactionsTile extends StatelessWidget {
               height: 53,
               decoration: BoxDecoration(
                 color:
-                    isExpense
-                        ? const Color(0xFF6DB6FE)
-                        : const Color(0xFF0068FF),
+                isExpense
+                    ? const Color(0xFF6DB6FE)
+                    : const Color(0xFF0068FF),
                 borderRadius: BorderRadius.circular(22),
               ),
               padding: const EdgeInsets.all(12),
@@ -103,7 +104,8 @@ class TransactionTransactionsTile extends StatelessWidget {
           SizedBox(
             width: _amountWidth,
             child: Text(
-              amount,
+              '${isExpense ? '-' : ''}${NumberFormat.currency(symbol: '\$', decimalDigits: 2).format(amount)}',
+              // amount,
               style: TextStyle(
                 color: isExpense ? Colors.blue : Colors.black,
                 fontWeight: FontWeight.bold,
@@ -119,3 +121,18 @@ class TransactionTransactionsTile extends StatelessWidget {
     );
   }
 }
+
+// SizedBox(
+// width: _amountWidth,
+// child: Text(
+// '${isExpense ? '-' : ''}${NumberFormat.currency(symbol: '\$', decimalDigits: 2).format(amount)}',
+// style: TextStyle(
+// color: isExpense ? Colors.blue : Colors.black,
+// fontWeight: FontWeight.bold,
+// fontSize: 14,
+// ),
+// textAlign: TextAlign.right,
+// maxLines: 1,
+// overflow: TextOverflow.ellipsis,
+// ),
+// ),

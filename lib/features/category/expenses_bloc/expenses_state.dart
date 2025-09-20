@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../models/category_transaction_dto.dart';
+
 part 'expenses_state.freezed.dart';
 
 @freezed
@@ -20,4 +22,14 @@ abstract class ExpensesState with _$ExpensesState {
     String message, {
     @Default(0.0) double totalExpense,
   }) = ExpensesFailure;
+
+  const factory ExpensesState.loading({
+    @Default(0.0) double totalExpense,
+    @Default([]) List<CategoryTransactionDto> transactions,
+  }) = ExpensesLoading;
+
+  const factory ExpensesState.loaded({
+    @Default(0.0) double totalExpense,
+    @Default([]) List<CategoryTransactionDto> transactions,
+  }) = ExpensesLoaded;
 }

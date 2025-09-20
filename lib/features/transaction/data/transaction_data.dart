@@ -3,7 +3,7 @@ class TransactionData {
   final String title;
   final String subtitle;
   final String category;
-  final String amount;
+  final double amount;
   final bool isExpense;
 
   const TransactionData({

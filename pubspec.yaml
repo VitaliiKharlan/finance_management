@@ -29,6 +29,7 @@ dependencies:
   easy_localization: ^3.0.3
   locale_gen: ^12.1.4
   flutter_slidable: ^4.0.1
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

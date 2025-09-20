@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'transaction_data.dart';
+import '../data/transaction_data.dart';
 import 'transaction_transactions_tile.dart';
 
 class TransactionTransactionsMonth extends StatelessWidget {

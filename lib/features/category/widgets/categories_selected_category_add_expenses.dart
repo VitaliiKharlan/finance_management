@@ -37,6 +37,8 @@ class _CategoriesSelectedCategoryAddExpensesState
   DateTime selectedDate = DateTime.now();
   CategoryEnum? selectedCategory;
 
+  String? selectedIcon;
+
   @override
   void initState() {
     super.initState();
@@ -72,16 +74,18 @@ class _CategoriesSelectedCategoryAddExpensesState
       return;
     }
 
-    context.read<ExpensesBloc>().add(
-      SaveExpenseEvent(
-        id: widget.transactionToEdit?.id,
-        category: selectedCategory!.label,
-        timeAndDate: selectedDate,
-        amount: double.tryParse(amountController.text) ?? 0,
-        title: titleController.text,
-        message: messageController.text,
-      ),
+    final dto = CategoryTransactionDto(
+      id: widget.transactionToEdit?.id ?? '',
+      category: selectedCategory!,
+      amount: double.tryParse(amountController.text) ?? 0,
+      title: titleController.text,
+      message:
+          messageController.text.isNotEmpty ? messageController.text : null,
+      timeAndDate: selectedDate,
+      icon: selectedIcon,
     );
+
+    context.read<ExpensesBloc>().add(SaveExpenseEvent(dto));
 
     context.read<CategoriesBloc>().add(CategoryBackEvent());
   }

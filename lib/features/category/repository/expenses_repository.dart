@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/core/constants/firestore_constants.dart';
 
-import '../../../core/enums/category_enum.dart';
 import '../models/category_transaction_dto.dart';
 
 class ExpensesRepository {
@@ -10,60 +9,24 @@ class ExpensesRepository {
   ExpensesRepository({FirebaseFirestore? firestore})
     : _firestore = firestore ?? FirebaseFirestore.instance;
 
-  Future<void> addExpenseToCategory({
-    required String category,
-    required DateTime timeAndDate,
-    required double amount,
-    required String title,
-    String? message,
-  }) async {
-    final categoryEnum = CategoryEnum.values.firstWhere(
-      (e) =>
-          e.label.toLowerCase() == category.toLowerCase() ||
-          e.name.toLowerCase() == category.toLowerCase(),
-      orElse: () => CategoryEnum.more,
-    );
+  Future<CategoryTransactionDto> addExpense(CategoryTransactionDto dto) async {
+    final docRef = await _firestore
+        .collection(FirestoreCollections.transactions)
+        .add(dto.toJson()..['createdAt'] = Timestamp.now());
 
-    final data = {
-      'category': categoryEnum.name,
-      'date': Timestamp.fromDate(timeAndDate),
-      'amount': amount,
-      'title': title,
-      'message': message,
-      'createdAt': Timestamp.now(),
-    };
-
-    await _firestore.collection(FirestoreCollections.transactions).add(data);
+    return dto.copyWith(id: docRef.id);
   }
 
-  Future<void> updateExpense({
-    required String id,
-    required String category,
-    required DateTime timeAndDate,
-    required double amount,
-    required String title,
-    String? message,
-  }) async {
-    final categoryEnum = CategoryEnum.values.firstWhere(
-      (e) =>
-          e.label.toLowerCase() == category.toLowerCase() ||
-          e.name.toLowerCase() == category.toLowerCase(),
-      orElse: () => CategoryEnum.more,
-    );
-
-    final data = {
-      'category': categoryEnum.name,
-      'date': Timestamp.fromDate(timeAndDate),
-      'amount': amount,
-      'title': title,
-      'message': message ?? '',
-      'updatedAt': Timestamp.now(),
-    };
-
+  Future<CategoryTransactionDto> updateExpense(
+    String id,
+    CategoryTransactionDto dto,
+  ) async {
     await _firestore
         .collection(FirestoreCollections.transactions)
         .doc(id)
-        .update(data);
+        .update(dto.toJson()..['updatedAt'] = Timestamp.now());
+
+    return dto.copyWith(id: id);
   }
 
   Future<void> deleteExpense(String id) async {
@@ -83,6 +46,18 @@ class ExpensesRepository {
     if (!doc.exists) return null;
 
     return CategoryTransactionDtoFirestore.fromFirestore(doc);
+  }
+
+  Future<List<CategoryTransactionDto>> getAllTransactions() async {
+    final querySnapshot =
+        await _firestore
+            .collection(FirestoreCollections.transactions)
+            .orderBy('date', descending: true)
+            .get();
+
+    return querySnapshot.docs
+        .map((doc) => CategoryTransactionDtoFirestore.fromFirestore(doc))
+        .toList();
   }
 
   Future<double> getTotalExpense() async {
