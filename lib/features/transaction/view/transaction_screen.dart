@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../category/categories_bloc/categories_bloc.dart';
 import '../../category/expenses_bloc/expenses_bloc.dart';
 import '../../category/expenses_bloc/expenses_state.dart';
-import '../../category/repository/expenses_repository.dart';
 import '../widgets/transaction_balance_section.dart';
 import '../widgets/transaction_header_section.dart';
 import '../widgets/transaction_transactions_list_section.dart';
@@ -68,6 +66,7 @@ class TransactionScreen extends StatelessWidget {
           ],
         ),
       ),
+      // ),
     );
   }
 }

@@ -41,7 +41,7 @@ class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
               String title = 'Categories';
 
               if (state is CategoriesLoadedState) {
-                title = state.selectedCategory.shortLabel;
+                title = state.selectedCategory?.shortLabel ?? 'Categories';
               } else if (state is CategoriesAddExpenseState) {
                 title =
                     state.transactionToEdit != null

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/core/enums/category_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
 import '../expenses_bloc/expenses_bloc.dart';
 import '../expenses_bloc/expenses_state.dart';
-import '../repository/expenses_repository.dart';
 import '../widgets/categories_balance_overview_section.dart';
 import '../widgets/categories_expense_progress_bar_widget_section.dart';
 import '../widgets/categories_header_section.dart';

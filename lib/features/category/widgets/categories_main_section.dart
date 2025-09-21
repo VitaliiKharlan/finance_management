@@ -5,7 +5,6 @@ import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
-import '../models/category_transaction_dto.dart';
 import 'categories_grid_view.dart';
 import 'categories_selected_category.dart';
 
@@ -36,19 +35,13 @@ class CategoriesMainSection extends StatelessWidget {
             if (state is CategoriesInitialState) {
               return CategoriesGridView(categories: categories);
             } else if (state is CategoriesLoadedState) {
-              // return CategoriesSelectedCategory(
-              //   transactions: state.filteredTransactions,
-              // );
+              // Если категория не выбрана (null) — показываем Grid
+              if (state.selectedCategory == null) {
+                return CategoriesGridView(categories: categories);
+              }
+              // Иначе — выбранная категория
               return CategoriesSelectedCategory(
-                transactions: context.select(
-                      (CategoriesBloc bloc) {
-                    final state = bloc.state;
-                    if (state is CategoriesLoadedState) {
-                      return state.filteredTransactions;
-                    }
-                    return <CategoryTransactionDto>[];
-                  },
-                ),
+                transactions: state.filteredTransactions,
               );
             } else if (state is CategoriesFailureState) {
               return Center(
