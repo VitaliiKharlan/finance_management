@@ -13,7 +13,7 @@ class CategoriesState with _$CategoriesState {
 
   const factory CategoriesState.loaded({
     required int selectedIndex,
-    required CategoryEnum selectedCategory,
+    CategoryEnum? selectedCategory,
     required List<CategoryTransactionDto> filteredTransactions,
     @Default(false) bool showTransactions,
   }) = CategoriesLoadedState;

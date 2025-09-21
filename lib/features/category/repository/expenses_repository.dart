@@ -73,4 +73,16 @@ class ExpensesRepository {
     }
     return total;
   }
+
+
+  Stream<List<CategoryTransactionDto>> getTransactionsStream() {
+    return _firestore
+        .collection(FirestoreCollections.transactions)
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map((snapshot) =>
+        snapshot.docs
+            .map((doc) => CategoryTransactionDtoFirestore.fromFirestore(doc))
+            .toList());
+  }
 }

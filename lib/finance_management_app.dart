@@ -10,6 +10,8 @@ import 'features/auth/auth_bloc/auth_bloc.dart';
 import 'features/auth/auth_repository.dart';
 import 'features/auth/auth_service.dart';
 import 'features/category/categories_bloc/categories_bloc.dart';
+import 'features/category/expenses_bloc/expenses_bloc.dart';
+import 'features/category/repository/expenses_repository.dart';
 
 class FinanceManagementApp extends StatefulWidget {
   const FinanceManagementApp({super.key});
@@ -50,9 +52,19 @@ class _FinanceManagementAppState extends State<FinanceManagementApp> {
           BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
           BlocProvider<CategoriesBloc>(
             create:
-                (_) =>
+                (context) =>
                     CategoriesBloc(firestore: FirebaseFirestore.instance)
                       ..add(LoadCategoriesEvent()),
+          ),
+          BlocProvider(
+            create:
+                (context) =>
+                    ExpensesBloc(
+                        repository: ExpensesRepository(),
+                        // categoriesBloc: context.read<CategoriesBloc>(),
+                      )
+                      ..add(LoadExpensesEvent())
+                      ..add(LoadTotalExpenseEvent()),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(
