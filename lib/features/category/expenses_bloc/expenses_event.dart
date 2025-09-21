@@ -18,11 +18,10 @@ class SaveExpenseEvent extends ExpensesEvent {
 
 class DeleteExpenseEvent extends ExpensesEvent {
   final String id;
-
   const DeleteExpenseEvent(this.id);
 
   @override
-  List<Object> get props => [id];
+  List<Object?> get props => [id];
 }
 
 class LoadTotalExpenseEvent extends ExpensesEvent {
@@ -33,3 +32,12 @@ class LoadTotalExpenseEvent extends ExpensesEvent {
 }
 
 class LoadExpensesEvent extends ExpensesEvent {}
+
+class _TransactionsUpdated extends ExpensesEvent {
+  final List<CategoryTransactionDto> transactions;
+
+  const _TransactionsUpdated(this.transactions);
+
+  @override
+  List<Object?> get props => [transactions];
+}

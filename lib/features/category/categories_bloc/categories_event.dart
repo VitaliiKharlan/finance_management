@@ -32,3 +32,9 @@ class UpdateTransactionInCategoryEvent extends CategoriesEvent {
 
   UpdateTransactionInCategoryEvent(this.updatedTransaction);
 }
+
+class _TransactionsUpdatedEvent extends CategoriesEvent {
+  final List<CategoryTransactionDto> transactions;
+
+  _TransactionsUpdatedEvent(this.transactions);
+}

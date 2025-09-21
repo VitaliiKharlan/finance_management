@@ -61,7 +61,6 @@ class _FinanceManagementAppState extends State<FinanceManagementApp> {
                 (context) =>
                     ExpensesBloc(
                         repository: ExpensesRepository(),
-                        // categoriesBloc: context.read<CategoriesBloc>(),
                       )
                       ..add(LoadExpensesEvent())
                       ..add(LoadTotalExpenseEvent()),
@@ -84,3 +83,4 @@ class _FinanceManagementAppState extends State<FinanceManagementApp> {
     );
   }
 }
+

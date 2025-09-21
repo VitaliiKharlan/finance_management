@@ -188,8 +188,4 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   }
 }
 
-class _TransactionsUpdatedEvent extends CategoriesEvent {
-  final List<CategoryTransactionDto> transactions;
 
-  _TransactionsUpdatedEvent(this.transactions);
-}
