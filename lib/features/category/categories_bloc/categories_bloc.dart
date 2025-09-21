@@ -61,7 +61,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       emit(
         currentState.copyWith(
           selectedIndex: -1,
-          selectedCategory: null, // null = все категории
+          selectedCategory: null,
         ),
       );
     } else {

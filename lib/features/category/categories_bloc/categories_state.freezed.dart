@@ -131,7 +131,68 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( int selectedIndex,  CategoryEnum selectedCategory,  List<CategoryTransactionDto> filteredTransactions,  bool showTransactions)?  loaded,TResult Function( CategoryTransactionDto? transactionToEdit)?  addExpense,TResult Function( String message)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen
+<
+TResult extends Object?>(
+{
+TResult
+Function
+(
+)
+?
+initial
+,
+TResult
+Function
+(
+)
+?
+loading
+,
+TResult
+Function
+(
+int
+selectedIndex
+,
+CategoryEnum
+?
+selectedCategory
+,
+List
+<
+CategoryTransactionDto
+>
+filteredTransactions
+,
+bool
+showTransactions
+)
+?
+loaded
+,
+TResult
+Function
+(
+CategoryTransactionDto
+?
+transactionToEdit
+)
+?
+addExpense
+,
+TResult
+Function
+(
+String
+message
+)
+?
+failure
+,
+required
+TResult
+orElse(),}) {final _that = this;
 switch (_that) {
 case CategoriesInitialState() when initial != null:
 return initial();case CategoriesLoadingState() when loading != null:
@@ -139,7 +200,7 @@ return loading();case CategoriesLoadedState() when loaded != null:
 return loaded(_that.selectedIndex,_that.selectedCategory,_that.filteredTransactions,_that.showTransactions);case CategoriesAddExpenseState() when addExpense != null:
 return addExpense(_that.transactionToEdit);case CategoriesFailureState() when failure != null:
 return failure(_that.message);case _:
-  return orElse();
+return orElse();
 
 }
 }
@@ -156,7 +217,7 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( int selectedIndex,  CategoryEnum selectedCategory,  List<CategoryTransactionDto> filteredTransactions,  bool showTransactions)  loaded,required TResult Function( CategoryTransactionDto? transactionToEdit)  addExpense,required TResult Function( String message)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function() initial,required TResult Function() loading,required TResult Function( int selectedIndex, CategoryEnum? selectedCategory, List<CategoryTransactionDto> filteredTransactions, bool showTransactions) loaded,required TResult Function( CategoryTransactionDto? transactionToEdit) addExpense,required TResult Function( String message) failure,}) {final _that = this;
 switch (_that) {
 case CategoriesInitialState():
 return initial();case CategoriesLoadingState():
@@ -164,7 +225,7 @@ return loading();case CategoriesLoadedState():
 return loaded(_that.selectedIndex,_that.selectedCategory,_that.filteredTransactions,_that.showTransactions);case CategoriesAddExpenseState():
 return addExpense(_that.transactionToEdit);case CategoriesFailureState():
 return failure(_that.message);case _:
-  throw StateError('Unexpected subclass');
+throw StateError('Unexpected subclass');
 
 }
 }
@@ -180,7 +241,7 @@ return failure(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( int selectedIndex,  CategoryEnum selectedCategory,  List<CategoryTransactionDto> filteredTransactions,  bool showTransactions)?  loaded,TResult? Function( CategoryTransactionDto? transactionToEdit)?  addExpense,TResult? Function( String message)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()? initial,TResult? Function()? loading,TResult? Function( int selectedIndex, CategoryEnum? selectedCategory, List<CategoryTransactionDto> filteredTransactions, bool showTransactions)? loaded,TResult? Function( CategoryTransactionDto? transactionToEdit)? addExpense,TResult? Function( String message)? failure,}) {final _that = this;
 switch (_that) {
 case CategoriesInitialState() when initial != null:
 return initial();case CategoriesLoadingState() when loading != null:
@@ -188,7 +249,7 @@ return loading();case CategoriesLoadedState() when loaded != null:
 return loaded(_that.selectedIndex,_that.selectedCategory,_that.filteredTransactions,_that.showTransactions);case CategoriesAddExpenseState() when addExpense != null:
 return addExpense(_that.transactionToEdit);case CategoriesFailureState() when failure != null:
 return failure(_that.message);case _:
-  return null;
+return null;
 
 }
 }
@@ -263,16 +324,16 @@ String toString() {
 
 
 class CategoriesLoadedState implements CategoriesState {
-  const CategoriesLoadedState({required this.selectedIndex, required this.selectedCategory, required final  List<CategoryTransactionDto> filteredTransactions, this.showTransactions = false}): _filteredTransactions = filteredTransactions;
-  
+const CategoriesLoadedState({required this.selectedIndex, this.selectedCategory, required final List<CategoryTransactionDto> filteredTransactions, this.showTransactions = false}): _filteredTransactions = filteredTransactions;
 
- final  int selectedIndex;
- final  CategoryEnum selectedCategory;
- final  List<CategoryTransactionDto> _filteredTransactions;
- List<CategoryTransactionDto> get filteredTransactions {
-  if (_filteredTransactions is EqualUnmodifiableListView) return _filteredTransactions;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_filteredTransactions);
+
+final int selectedIndex;
+final CategoryEnum? selectedCategory;
+final List<CategoryTransactionDto> _filteredTransactions;
+List<CategoryTransactionDto> get filteredTransactions {
+if (_filteredTransactions is EqualUnmodifiableListView) return _filteredTransactions;
+// ignore: implicit_dynamic_type
+return EqualUnmodifiableListView(_filteredTransactions);
 }
 
 @JsonKey() final  bool showTransactions;
@@ -307,7 +368,7 @@ abstract mixin class $CategoriesLoadedStateCopyWith<$Res> implements $Categories
   factory $CategoriesLoadedStateCopyWith(CategoriesLoadedState value, $Res Function(CategoriesLoadedState) _then) = _$CategoriesLoadedStateCopyWithImpl;
 @useResult
 $Res call({
- int selectedIndex, CategoryEnum selectedCategory, List<CategoryTransactionDto> filteredTransactions, bool showTransactions
+int selectedIndex, CategoryEnum? selectedCategory, List<CategoryTransactionDto> filteredTransactions, bool showTransactions
 });
 
 
@@ -317,21 +378,21 @@ $Res call({
 /// @nodoc
 class _$CategoriesLoadedStateCopyWithImpl<$Res>
     implements $CategoriesLoadedStateCopyWith<$Res> {
-  _$CategoriesLoadedStateCopyWithImpl(this._self, this._then);
+_$CategoriesLoadedStateCopyWithImpl(this._self, this._then);
 
-  final CategoriesLoadedState _self;
-  final $Res Function(CategoriesLoadedState) _then;
+final CategoriesLoadedState _self;
+final $Res Function(CategoriesLoadedState) _then;
 
 /// Create a copy of CategoriesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? selectedIndex = null,Object? selectedCategory = null,Object? filteredTransactions = null,Object? showTransactions = null,}) {
-  return _then(CategoriesLoadedState(
+@pragma('vm:prefer-inline') $Res call({Object? selectedIndex = null,Object? selectedCategory = freezed,Object? filteredTransactions = null,Object? showTransactions = null,}) {
+return _then(CategoriesLoadedState(
 selectedIndex: null == selectedIndex ? _self.selectedIndex : selectedIndex // ignore: cast_nullable_to_non_nullable
-as int,selectedCategory: null == selectedCategory ? _self.selectedCategory : selectedCategory // ignore: cast_nullable_to_non_nullable
-as CategoryEnum,filteredTransactions: null == filteredTransactions ? _self._filteredTransactions : filteredTransactions // ignore: cast_nullable_to_non_nullable
+as int,selectedCategory: freezed == selectedCategory ? _self.selectedCategory : selectedCategory // ignore: cast_nullable_to_non_nullable
+as CategoryEnum?,filteredTransactions: null == filteredTransactions ? _self._filteredTransactions : filteredTransactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,showTransactions: null == showTransactions ? _self.showTransactions : showTransactions // ignore: cast_nullable_to_non_nullable
 as bool,
-  ));
+));
 }
 
 
