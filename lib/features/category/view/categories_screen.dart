@@ -21,70 +21,54 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoriesBloc = CategoriesBloc(
-      firestore: FirebaseFirestore.instance,
-    );
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CategoriesBloc>.value(value: categoriesBloc),
+    return BlocBuilder<CategoriesBloc, CategoriesState>(
+      builder: (context, categoriesState) {
+        return BlocBuilder<ExpensesBloc, ExpensesState>(
+          builder: (context, expensesState) {
+            final totalExpense = expensesState.totalExpense;
+            Widget bodyContent;
 
-        BlocProvider<ExpensesBloc>(
-          create:
-              (_) => ExpensesBloc(
-                repository: ExpensesRepository(),
-                categoriesBloc: categoriesBloc,
-              )..add(const LoadTotalExpenseEvent()),
-        ),
-      ],
-      child: BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: (context, categoriesState) {
-          return BlocBuilder<ExpensesBloc, ExpensesState>(
-            builder: (context, expensesState) {
-              final totalExpense = expensesState.totalExpense;
-              Widget bodyContent;
-
-              if (categoriesState is CategoriesInitialState ||
-                  categoriesState is CategoriesLoadedState) {
-                bodyContent = Column(
-                  children: [
-                    const CategoriesHeaderSection(),
-                    CategoriesBalanceOverviewSection(
-                      totalBalance: 7783.00,
-                      totalExpense: totalExpense,
-                    ),
-                    const CategoriesExpenseProgressBarWidgetSection(
-                      percentage: 0.3,
-                      limitAmount: 20000.00,
-                    ),
-                    CategoriesMainSection(categories: CategoryEnum.values),
-                  ],
-                );
-              } else if (categoriesState is CategoriesAddExpenseState) {
-                bodyContent = Column(
-                  children: [
-                    const CategoriesHeaderSection(),
-                    const SizedBox(height: 40),
-                    CategoriesSelectedCategoryAddExpenses(
-                      transactionToEdit: categoriesState.transactionToEdit,
-                    ),
-                  ],
-                );
-              } else if (categoriesState is CategoriesFailureState) {
-                bodyContent = Center(
-                  child: Text('Error: ${categoriesState.message}'),
-                );
-              } else {
-                bodyContent = const Center(child: CircularProgressIndicator());
-              }
-
-              return Scaffold(
-                backgroundColor: const Color(0xFF00D09E),
-                body: SafeArea(child: bodyContent),
+            if (categoriesState is CategoriesInitialState ||
+                categoriesState is CategoriesLoadedState) {
+              bodyContent = Column(
+                children: [
+                  const CategoriesHeaderSection(),
+                  CategoriesBalanceOverviewSection(
+                    totalBalance: 7783.00,
+                    totalExpense: totalExpense,
+                  ),
+                  const CategoriesExpenseProgressBarWidgetSection(
+                    percentage: 0.3,
+                    limitAmount: 20000.00,
+                  ),
+                  CategoriesMainSection(categories: CategoryEnum.values),
+                ],
               );
-            },
-          );
-        },
-      ),
+            } else if (categoriesState is CategoriesAddExpenseState) {
+              bodyContent = Column(
+                children: [
+                  const CategoriesHeaderSection(),
+                  const SizedBox(height: 40),
+                  CategoriesSelectedCategoryAddExpenses(
+                    transactionToEdit: categoriesState.transactionToEdit,
+                  ),
+                ],
+              );
+            } else if (categoriesState is CategoriesFailureState) {
+              bodyContent = Center(
+                child: Text('Error: ${categoriesState.message}'),
+              );
+            } else {
+              bodyContent = const Center(child: CircularProgressIndicator());
+            }
+
+            return Scaffold(
+              backgroundColor: const Color(0xFF00D09E),
+              body: SafeArea(child: bodyContent),
+            );
+          },
+        );
+      },
     );
   }
 }

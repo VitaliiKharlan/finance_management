@@ -10,6 +10,8 @@ import 'features/auth/auth_bloc/auth_bloc.dart';
 import 'features/auth/auth_repository.dart';
 import 'features/auth/auth_service.dart';
 import 'features/category/categories_bloc/categories_bloc.dart';
+import 'features/category/expenses_bloc/expenses_bloc.dart';
+import 'features/category/repository/expenses_repository.dart';
 
 class FinanceManagementApp extends StatefulWidget {
   const FinanceManagementApp({super.key});
@@ -35,39 +37,50 @@ class _FinanceManagementAppState extends State<FinanceManagementApp> {
               ),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthBloc>(
-            create: (context) {
-              final bloc = AuthBloc(
-                authRepository: context.read<AuthRepository>(),
-                authService: _authService,
-              );
-              bloc.add(AuthStarted());
-              return bloc;
-            },
-          ),
-          BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
-          BlocProvider<CategoriesBloc>(
-            create:
-                (_) =>
-                    CategoriesBloc(firestore: FirebaseFirestore.instance)
-                      ..add(LoadCategoriesEvent()),
-          ),
-        ],
-        child: BlocBuilder<ThemeCubit, ThemeState>(
-          builder: (context, state) {
-            return MaterialApp.router(
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              debugShowCheckedModeBanner: false,
-              title: 'Finance Management',
-              theme: state.isLight ? lightTheme : darkTheme,
-              routerConfig: _router.config(),
-            );
-          },
-        ),
+      child: Builder(
+        builder: (context) {
+          final categoriesBloc = CategoriesBloc(
+            firestore: FirebaseFirestore.instance,
+          );
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<AuthBloc>(
+                create: (context) {
+                  final bloc = AuthBloc(
+                    authRepository: context.read<AuthRepository>(),
+                    authService: _authService,
+                  );
+                  bloc.add(AuthStarted());
+                  return bloc;
+                },
+              ),
+              BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
+              BlocProvider<CategoriesBloc>(
+                create: (_) => categoriesBloc..add(LoadCategoriesEvent()),
+              ),
+              BlocProvider<ExpensesBloc>(
+                create:
+                    (_) => ExpensesBloc(
+                      repository: ExpensesRepository(),
+                      categoriesBloc: categoriesBloc,
+                    )..add(LoadExpensesEvent()),
+              ),
+            ],
+            child: BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, state) {
+                return MaterialApp.router(
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  debugShowCheckedModeBanner: false,
+                  title: 'Finance Management',
+                  theme: state.isLight ? lightTheme : darkTheme,
+                  routerConfig: _router.config(),
+                );
+              },
+            ),
+          );
+        },
       ),
     );
   }

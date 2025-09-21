@@ -17,62 +17,55 @@ class TransactionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:
-          (_) => ExpensesBloc(
-            repository: ExpensesRepository(),
-            categoriesBloc: context.read<CategoriesBloc>(),
-          )..add(LoadExpensesEvent()),
-      child: Scaffold(
-        backgroundColor: AppColors.mainGreen,
-        body: SafeArea(
-          child: Column(
-            children: [
-              TransactionsHeaderSection(),
-              TransactionsBalanceSection(),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.backgroundGreenWhiteAndLetters,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(60),
-                      topRight: Radius.circular(60),
-                    ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 8,
-                  ),
-                  child: BlocBuilder<ExpensesBloc, ExpensesState>(
-                    builder: (context, state) {
-                      if (state is ExpensesLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-
-                      if (state is ExpensesFailure) {
-                        return Center(child: Text('Error: ${state.message}'));
-                      }
-
-                      if (state is ExpensesLoaded) {
-                        final transactions = state.transactions;
-
-                        if (transactions.isEmpty) {
-                          return const Center(
-                            child: Text('No transactions found'),
-                          );
-                        }
-
-                        return TransactionTransactionsListSection(
-                          transactions: transactions,
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
+    return Scaffold(
+      backgroundColor: AppColors.mainGreen,
+      body: SafeArea(
+        child: Column(
+          children: [
+            TransactionsHeaderSection(),
+            TransactionsBalanceSection(),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundGreenWhiteAndLetters,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
                   ),
                 ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 8,
+                ),
+                child: BlocBuilder<ExpensesBloc, ExpensesState>(
+                  builder: (context, state) {
+                    if (state is ExpensesLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (state is ExpensesFailure) {
+                      return Center(child: Text('Error: ${state.message}'));
+                    }
+
+                    if (state is ExpensesLoaded) {
+                      final transactions = state.transactions;
+
+                      if (transactions.isEmpty) {
+                        return const Center(
+                          child: Text('No transactions found'),
+                        );
+                      }
+
+                      return TransactionTransactionsListSection(
+                        transactions: transactions,
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
