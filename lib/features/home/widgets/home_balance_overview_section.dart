@@ -1,6 +1,10 @@
 import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../category/expenses_bloc/expenses_bloc.dart';
+import '../../category/expenses_bloc/expenses_state.dart';
 
 class HomeBalanceOverviewSection extends StatelessWidget {
   const HomeBalanceOverviewSection({
@@ -14,31 +18,42 @@ class HomeBalanceOverviewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 48, top: 20, right: 48),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _BalanceOverviewItem(
-            icon: AppIcons.iconHomeIncome,
-            label: 'Total Balance',
-            value: '\$${totalBalance.toStringAsFixed(2)}',
-            valueColor: Colors.white,
+    return BlocBuilder<ExpensesBloc, ExpensesState>(
+      builder: (context, state) {
+        double totalExpense = 0.0;
+        double totalBalance = 0.0;
+
+        if (state is ExpensesLoaded) {
+          totalExpense = state.totalExpense;
+          totalBalance = 10000.0 - totalExpense;
+        }
+        return Padding(
+          padding: const EdgeInsets.only(left: 48, top: 20, right: 48),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _BalanceOverviewItem(
+                icon: AppIcons.iconHomeIncome,
+                label: 'Total Balance',
+                value: '\$${totalBalance.toStringAsFixed(2)}',
+                valueColor: Colors.white,
+              ),
+              Container(
+                height: 40,
+                width: 2,
+                color: Colors.white24,
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+              ),
+              _BalanceOverviewItem(
+                icon: AppIcons.iconHomeExpense,
+                label: 'Total Expense',
+                value: '-\$${totalExpense.toStringAsFixed(2)}',
+                valueColor: const Color(0xFF5050FF),
+              ),
+            ],
           ),
-          Container(
-            height: 40,
-            width: 2,
-            color: Colors.white24,
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-          ),
-          _BalanceOverviewItem(
-            icon: AppIcons.iconHomeExpense,
-            label: 'Total Expense',
-            value: '-\$${totalExpense.toStringAsFixed(2)}',
-            valueColor: const Color(0xFF5050FF),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
