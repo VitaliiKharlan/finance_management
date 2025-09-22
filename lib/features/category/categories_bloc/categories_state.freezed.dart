@@ -336,7 +336,7 @@ if (_filteredTransactions is EqualUnmodifiableListView) return _filteredTransact
 return EqualUnmodifiableListView(_filteredTransactions);
 }
 
-@JsonKey() final  bool showTransactions;
+@JsonKey() final bool showTransactions;
 
 /// Create a copy of CategoriesState
 /// with the given fields replaced by the non-null parameter values.

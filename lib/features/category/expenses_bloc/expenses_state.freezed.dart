@@ -77,26 +77,142 @@ extension ExpensesStatePatterns on ExpensesState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( ExpensesInitial value)?  initial,TResult Function( ExpensesSaving value)?  saving,TResult Function( ExpensesSaved value)?  saved,TResult Function( ExpensesFailure value)?  failure,TResult Function( ExpensesLoading value)?  loading,TResult Function( ExpensesLoaded value)?  loaded,required TResult orElse(),}){
+  @optionalTypeArgs TResult maybeMap
+
+  <
+
+  TResult
+
+  extends
+
+  Object?
+
+  >
+
+  (
+
+  {
+
+  TResult
+
+  Function
+
+  (
+
+  ExpensesInitial
+
+  value
+
+  )
+
+  ?
+
+  initial
+
+  ,
+
+  TResult
+
+  Function
+
+  (
+
+  ExpensesSaved
+
+  value
+
+  )
+
+  ?
+
+  saved
+
+  ,
+
+  TResult
+
+  Function
+
+  (
+
+  ExpensesFailure
+
+  value
+
+  )
+
+  ?
+
+  failure
+
+  ,
+
+  TResult
+
+  Function
+
+  (
+
+  ExpensesLoading
+
+  value
+
+  )
+
+  ?
+
+  loading
+
+  ,
+
+  TResult
+
+  Function
+
+  (
+
+  ExpensesLoaded
+
+  value
+
+  )
+
+  ?
+
+  loaded
+
+  ,
+
+  required
+
+  TResult
+
+  orElse
+
+  (
+
+  )
+
+  ,
+}){
 final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
-return initial(_that);case ExpensesSaving() when saving != null:
-return saving(_that);case ExpensesSaved() when saved != null:
+return initial(_that);case ExpensesSaved() when saved != null:
 return saved(_that);case ExpensesFailure() when failure != null:
 return failure(_that);case ExpensesLoading() when loading != null:
 return loading(_that);case ExpensesLoaded() when loaded != null:
 return loaded(_that);case _:
-  return orElse();
+return orElse();
 
 }
 }
@@ -113,19 +229,24 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( ExpensesInitial value)  initial,required TResult Function( ExpensesSaving value)  saving,required TResult Function( ExpensesSaved value)  saved,required TResult Function( ExpensesFailure value)  failure,required TResult Function( ExpensesLoading value)  loading,required TResult Function( ExpensesLoaded value)  loaded,}){
-final _that = this;
-switch (_that) {
-case ExpensesInitial():
-return initial(_that);case ExpensesSaving():
-return saving(_that);case ExpensesSaved():
-return saved(_that);case ExpensesFailure():
-return failure(_that);case ExpensesLoading():
-return loading(_that);case ExpensesLoaded():
-return loaded(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+@optionalTypeArgs
+TResult map<TResult extends Object?>(
+    {required TResult Function( ExpensesInitial value) initial, required TResult Function( ExpensesSaved value) saved, required TResult Function( ExpensesFailure value) failure, required TResult Function( ExpensesLoading value) loading, required TResult Function( ExpensesLoaded value) loaded,}) {
+  final _that = this;
+  switch (_that) {
+    case ExpensesInitial():
+      return initial(_that);
+    case ExpensesSaved():
+      return saved(_that);
+    case ExpensesFailure():
+      return failure(_that);
+    case ExpensesLoading():
+      return loading(_that);
+    case ExpensesLoaded():
+      return loaded(_that);
+    case _:
+      throw StateError('Unexpected subclass');
+  }
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -139,19 +260,24 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( ExpensesInitial value)?  initial,TResult? Function( ExpensesSaving value)?  saving,TResult? Function( ExpensesSaved value)?  saved,TResult? Function( ExpensesFailure value)?  failure,TResult? Function( ExpensesLoading value)?  loading,TResult? Function( ExpensesLoaded value)?  loaded,}){
-final _that = this;
-switch (_that) {
-case ExpensesInitial() when initial != null:
-return initial(_that);case ExpensesSaving() when saving != null:
-return saving(_that);case ExpensesSaved() when saved != null:
-return saved(_that);case ExpensesFailure() when failure != null:
-return failure(_that);case ExpensesLoading() when loading != null:
-return loading(_that);case ExpensesLoaded() when loaded != null:
-return loaded(_that);case _:
-  return null;
-
-}
+@optionalTypeArgs
+TResult? mapOrNull<TResult extends Object?>(
+    {TResult? Function( ExpensesInitial value)? initial, TResult? Function( ExpensesSaved value)? saved, TResult? Function( ExpensesFailure value)? failure, TResult? Function( ExpensesLoading value)? loading, TResult? Function( ExpensesLoaded value)? loaded,}) {
+  final _that = this;
+  switch (_that) {
+    case ExpensesInitial() when initial != null:
+      return initial(_that);
+    case ExpensesSaved() when saved != null:
+      return saved(_that);
+    case ExpensesFailure() when failure != null:
+      return failure(_that);
+    case ExpensesLoading() when loading != null:
+      return loading(_that);
+    case ExpensesLoaded() when loaded != null:
+      return loaded(_that);
+    case _:
+      return null;
+  }
 }
 /// A variant of `when` that fallback to an `orElse` callback.
 ///
@@ -165,16 +291,87 @@ return loaded(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( double totalExpense)?  initial,TResult Function( double totalExpense)?  saving,TResult Function( double totalExpense)?  saved,TResult Function( String message,  double totalExpense)?  failure,TResult Function( double totalExpense,  List<CategoryTransactionDto> transactions)?  loading,TResult Function( double totalExpense,  List<CategoryTransactionDto> transactions)?  loaded,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen
+<
+TResult extends Object?>(
+{
+TResult
+Function
+(
+double
+totalExpense
+)
+?
+initial
+,
+TResult
+Function
+(
+double
+totalExpense
+)
+?
+saved
+,
+TResult
+Function
+(
+String
+message
+,
+double
+totalExpense
+)
+?
+failure
+,
+TResult
+Function
+(
+double
+totalExpense
+,
+List
+<
+CategoryTransactionDto
+>
+transactions
+)
+?
+loading
+,
+TResult
+Function
+(
+double
+totalExpense
+,
+List
+<
+CategoryTransactionDto
+>
+transactions
+,
+List
+<
+CategoryTransactionDto
+>
+filteredTransactions
+)
+?
+loaded
+,
+required
+TResult
+orElse(),}) {final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
-return initial(_that.totalExpense);case ExpensesSaving() when saving != null:
-return saving(_that.totalExpense);case ExpensesSaved() when saved != null:
+return initial(_that.totalExpense);case ExpensesSaved() when saved != null:
 return saved(_that.totalExpense);case ExpensesFailure() when failure != null:
 return failure(_that.message,_that.totalExpense);case ExpensesLoading() when loading != null:
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded() when loaded != null:
-return loaded(_that.totalExpense,_that.transactions);case _:
-  return orElse();
+return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case _:
+return orElse();
 
 }
 }
@@ -191,16 +388,15 @@ return loaded(_that.totalExpense,_that.transactions);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double totalExpense)  initial,required TResult Function( double totalExpense)  saving,required TResult Function( double totalExpense)  saved,required TResult Function( String message,  double totalExpense)  failure,required TResult Function( double totalExpense,  List<CategoryTransactionDto> transactions)  loading,required TResult Function( double totalExpense,  List<CategoryTransactionDto> transactions)  loaded,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double totalExpense) initial,required TResult Function( double totalExpense) saved,required TResult Function( String message, double totalExpense) failure,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions) loading,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions) loaded,}) {final _that = this;
 switch (_that) {
 case ExpensesInitial():
-return initial(_that.totalExpense);case ExpensesSaving():
-return saving(_that.totalExpense);case ExpensesSaved():
+return initial(_that.totalExpense);case ExpensesSaved():
 return saved(_that.totalExpense);case ExpensesFailure():
 return failure(_that.message,_that.totalExpense);case ExpensesLoading():
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded():
-return loaded(_that.totalExpense,_that.transactions);case _:
-  throw StateError('Unexpected subclass');
+return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case _:
+throw StateError('Unexpected subclass');
 
 }
 }
@@ -216,16 +412,15 @@ return loaded(_that.totalExpense,_that.transactions);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double totalExpense)?  initial,TResult? Function( double totalExpense)?  saving,TResult? Function( double totalExpense)?  saved,TResult? Function( String message,  double totalExpense)?  failure,TResult? Function( double totalExpense,  List<CategoryTransactionDto> transactions)?  loading,TResult? Function( double totalExpense,  List<CategoryTransactionDto> transactions)?  loaded,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double totalExpense)? initial,TResult? Function( double totalExpense)? saved,TResult? Function( String message, double totalExpense)? failure,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions)? loading,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions)? loaded,}) {final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
-return initial(_that.totalExpense);case ExpensesSaving() when saving != null:
-return saving(_that.totalExpense);case ExpensesSaved() when saved != null:
+return initial(_that.totalExpense);case ExpensesSaved() when saved != null:
 return saved(_that.totalExpense);case ExpensesFailure() when failure != null:
 return failure(_that.message,_that.totalExpense);case ExpensesLoading() when loading != null:
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded() when loaded != null:
-return loaded(_that.totalExpense,_that.transactions);case _:
-  return null;
+return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case _:
+return null;
 
 }
 }
@@ -290,72 +485,6 @@ class _$ExpensesInitialCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,}) {
   return _then(ExpensesInitial(
-totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
-as double,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class ExpensesSaving implements ExpensesState {
-  const ExpensesSaving({this.totalExpense = 0.0});
-  
-
-@override@JsonKey() final  double totalExpense;
-
-/// Create a copy of ExpensesState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ExpensesSavingCopyWith<ExpensesSaving> get copyWith => _$ExpensesSavingCopyWithImpl<ExpensesSaving>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesSaving&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,totalExpense);
-
-@override
-String toString() {
-  return 'ExpensesState.saving(totalExpense: $totalExpense)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $ExpensesSavingCopyWith<$Res> implements $ExpensesStateCopyWith<$Res> {
-  factory $ExpensesSavingCopyWith(ExpensesSaving value, $Res Function(ExpensesSaving) _then) = _$ExpensesSavingCopyWithImpl;
-@override @useResult
-$Res call({
- double totalExpense
-});
-
-
-
-
-}
-/// @nodoc
-class _$ExpensesSavingCopyWithImpl<$Res>
-    implements $ExpensesSavingCopyWith<$Res> {
-  _$ExpensesSavingCopyWithImpl(this._self, this._then);
-
-  final ExpensesSaving _self;
-  final $Res Function(ExpensesSaving) _then;
-
-/// Create a copy of ExpensesState
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,}) {
-  return _then(ExpensesSaving(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,
   ));
@@ -576,15 +705,22 @@ as List<CategoryTransactionDto>,
 
 
 class ExpensesLoaded implements ExpensesState {
-  const ExpensesLoaded({this.totalExpense = 0.0, final  List<CategoryTransactionDto> transactions = const []}): _transactions = transactions;
-  
+const ExpensesLoaded({this.totalExpense = 0.0, final List<CategoryTransactionDto> transactions = const [], required final List<CategoryTransactionDto> filteredTransactions}): _transactions = transactions,_filteredTransactions = filteredTransactions;
 
-@override@JsonKey() final  double totalExpense;
- final  List<CategoryTransactionDto> _transactions;
+
+@override@JsonKey() final double totalExpense;
+final List<CategoryTransactionDto> _transactions;
 @JsonKey() List<CategoryTransactionDto> get transactions {
-  if (_transactions is EqualUnmodifiableListView) return _transactions;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_transactions);
+if (_transactions is EqualUnmodifiableListView) return _transactions;
+// ignore: implicit_dynamic_type
+return EqualUnmodifiableListView(_transactions);
+}
+
+final List<CategoryTransactionDto> _filteredTransactions;
+List<CategoryTransactionDto> get filteredTransactions {
+if (_filteredTransactions is EqualUnmodifiableListView) return _filteredTransactions;
+// ignore: implicit_dynamic_type
+return EqualUnmodifiableListView(_filteredTransactions);
 }
 
 
@@ -595,19 +731,18 @@ class ExpensesLoaded implements ExpensesState {
 $ExpensesLoadedCopyWith<ExpensesLoaded> get copyWith => _$ExpensesLoadedCopyWithImpl<ExpensesLoaded>(this, _$identity);
 
 
-
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoaded&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoaded&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions)&&const DeepCollectionEquality().equals(other._filteredTransactions, _filteredTransactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,totalExpense,const DeepCollectionEquality().hash(_transactions));
+int get hashCode => Object.hash(runtimeType,totalExpense,const DeepCollectionEquality().hash(_transactions),const DeepCollectionEquality().hash(_filteredTransactions));
 
 @override
 String toString() {
-  return 'ExpensesState.loaded(totalExpense: $totalExpense, transactions: $transactions)';
+return 'ExpensesState.loaded(totalExpense: $totalExpense, transactions: $transactions, filteredTransactions: $filteredTransactions)';
 }
 
 
@@ -618,7 +753,7 @@ abstract mixin class $ExpensesLoadedCopyWith<$Res> implements $ExpensesStateCopy
   factory $ExpensesLoadedCopyWith(ExpensesLoaded value, $Res Function(ExpensesLoaded) _then) = _$ExpensesLoadedCopyWithImpl;
 @override @useResult
 $Res call({
- double totalExpense, List<CategoryTransactionDto> transactions
+double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions
 });
 
 
@@ -627,20 +762,21 @@ $Res call({
 }
 /// @nodoc
 class _$ExpensesLoadedCopyWithImpl<$Res>
-    implements $ExpensesLoadedCopyWith<$Res> {
-  _$ExpensesLoadedCopyWithImpl(this._self, this._then);
+implements $ExpensesLoadedCopyWith<$Res> {
+_$ExpensesLoadedCopyWithImpl(this._self, this._then);
 
-  final ExpensesLoaded _self;
-  final $Res Function(ExpensesLoaded) _then;
+final ExpensesLoaded _self;
+final $Res Function(ExpensesLoaded) _then;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,Object? transactions = null,}) {
-  return _then(ExpensesLoaded(
+@override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,Object? transactions = null,Object? filteredTransactions = null,}) {
+return _then(ExpensesLoaded(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
+as List<CategoryTransactionDto>,filteredTransactions: null == filteredTransactions ? _self._filteredTransactions : filteredTransactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,
-  ));
+));
 }
 
 

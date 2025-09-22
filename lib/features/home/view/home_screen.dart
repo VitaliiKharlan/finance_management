@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                           }
                           if (state is ExpensesLoaded) {
                             return HomeTransactionsListSection(
-                              transactions: state.transactions,
+                              transactions: state.filteredTransactions,
                             );
                           }
                           return const SizedBox.shrink();
