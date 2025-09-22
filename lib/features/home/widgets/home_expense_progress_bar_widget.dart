@@ -2,11 +2,11 @@ import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ExpenseProgressBarWidget extends StatelessWidget {
+class HomeExpenseProgressBarWidget extends StatelessWidget {
   final double percentage;
   final double limitAmount;
 
-  const ExpenseProgressBarWidget({
+  const HomeExpenseProgressBarWidget({
     super.key,
     required this.percentage,
     required this.limitAmount,

@@ -1,29 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class TransactionTransactionsTile extends StatelessWidget {
+import '../../../core/enums/category_enum.dart';
+import '../../../core/theme/app_colors.dart';
+
+class HomeTransactionsListTransactionTile extends StatelessWidget {
   final String svgAsset;
   final String title;
-  final String subtitle;
-  final String category;
+  final DateTime dateTime;
+  final CategoryEnum category;
   final double amount;
   final bool isExpense;
 
-  const TransactionTransactionsTile({
+  const HomeTransactionsListTransactionTile({
     super.key,
     required this.svgAsset,
     required this.title,
-    required this.subtitle,
+    required this.dateTime,
     required this.category,
     required this.amount,
     this.isExpense = true,
   });
 
   static const double _leadingWidth = 60;
-  static const double _titleWidth = 96;
-  static const double _dividerLeftMargin = 8;
-  static const double _categoryWidth = 60;
+  static const double _titleWidth = 180;
   static const double _amountWidth = 72;
 
   @override
@@ -40,9 +42,9 @@ class TransactionTransactionsTile extends StatelessWidget {
               height: 53,
               decoration: BoxDecoration(
                 color:
-                isExpense
-                    ? const Color(0xFF6DB6FE)
-                    : const Color(0xFF0068FF),
+                    isExpense
+                        ? const Color(0xFF6DB6FE)
+                        : const Color(0xFF0068FF),
                 borderRadius: BorderRadius.circular(22),
               ),
               padding: const EdgeInsets.all(12),
@@ -60,46 +62,24 @@ class TransactionTransactionsTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Color(0xFF052224),
+                  style: GoogleFonts.poppins(
+                    color: AppColors.backgroundDarkModeAndLetters,
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  subtitle,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Color(0xFF0068FF),
+                  DateFormat('dd MMM yyyy, HH:mm').format(dateTime),
+                  style: GoogleFonts.poppins(
+                    color: AppColors.oceanBlueButton,
                     fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-
-          const SizedBox(width: _dividerLeftMargin),
-
-          Container(width: 1, height: 32, color: Colors.grey.shade400),
-
-          const SizedBox(width: 6),
-
-          SizedBox(
-            width: _categoryWidth,
-            child: Text(
-              category,
-              style: const TextStyle(color: Colors.grey),
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-
-          const SizedBox(width: 6),
-
-          Container(width: 1, height: 32, color: Colors.grey.shade400),
-
-          const SizedBox(width: 8),
 
           SizedBox(
             width: _amountWidth,
@@ -107,7 +87,10 @@ class TransactionTransactionsTile extends StatelessWidget {
               '${isExpense ? '-' : ''}${NumberFormat.currency(symbol: '\$', decimalDigits: 2).format(amount)}',
               // amount,
               style: TextStyle(
-                color: isExpense ? Colors.blue : Colors.black,
+                color:
+                    isExpense
+                        ? AppColors.oceanBlueButton
+                        : AppColors.backgroundDarkModeAndLetters,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),

@@ -2,8 +2,8 @@ import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class BalanceOverviewSection extends StatelessWidget {
-  const BalanceOverviewSection({
+class HomeBalanceOverviewSection extends StatelessWidget {
+  const HomeBalanceOverviewSection({
     super.key,
     required this.totalBalance,
     required this.totalExpense,

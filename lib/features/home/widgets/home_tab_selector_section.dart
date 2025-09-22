@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class TabSelector extends StatefulWidget {
-  const TabSelector({super.key});
+class HomeTabSelectorSection extends StatefulWidget {
+  const HomeTabSelectorSection({super.key});
 
   @override
-  State<TabSelector> createState() => _TabSelectorState();
+  State<HomeTabSelectorSection> createState() => _HomeTabSelectorSectionState();
 }
 
-class _TabSelectorState extends State<TabSelector> {
+class _HomeTabSelectorSectionState extends State<HomeTabSelectorSection> {
   int _selectedIndex = 0;
 
   final List<String> _tabs = ['Daily', 'Weekly', 'Monthly'];

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_icons.dart';
 
-class SavingsSection extends StatelessWidget {
-  const SavingsSection({super.key});
+class HomeSavingsSection extends StatelessWidget {
+  const HomeSavingsSection({super.key});
 
   @override
   Widget build(BuildContext context) {

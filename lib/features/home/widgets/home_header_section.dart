@@ -7,14 +7,14 @@ import 'package:flutter_svg/svg.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
 import '../../auth/auth_bloc/auth_state.dart';
 
-class HeaderSection extends StatefulWidget {
-  const HeaderSection({super.key});
+class HomeHeaderSection extends StatefulWidget {
+  const HomeHeaderSection({super.key});
 
   @override
-  State<HeaderSection> createState() => _HeaderSectionState();
+  State<HomeHeaderSection> createState() => _HomeHeaderSectionState();
 }
 
-class _HeaderSectionState extends State<HeaderSection> {
+class _HomeHeaderSectionState extends State<HomeHeaderSection> {
   @override
   void initState() {
     super.initState();
