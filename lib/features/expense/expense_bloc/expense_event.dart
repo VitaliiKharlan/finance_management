@@ -1,13 +1,13 @@
-part of 'expenses_bloc.dart';
+part of 'expense_bloc.dart';
 
-abstract class ExpensesEvent extends Equatable {
-  const ExpensesEvent();
+abstract class ExpenseEvent extends Equatable {
+  const ExpenseEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class SaveExpenseEvent extends ExpensesEvent {
+class SaveExpenseEvent extends ExpenseEvent {
   final CategoryTransactionDto transaction;
 
   const SaveExpenseEvent(this.transaction);
@@ -16,7 +16,7 @@ class SaveExpenseEvent extends ExpensesEvent {
   List<Object?> get props => [transaction];
 }
 
-class DeleteExpenseEvent extends ExpensesEvent {
+class DeleteExpenseEvent extends ExpenseEvent {
   final String id;
 
   const DeleteExpenseEvent(this.id);
@@ -25,16 +25,16 @@ class DeleteExpenseEvent extends ExpensesEvent {
   List<Object?> get props => [id];
 }
 
-class LoadExpensesEvent extends ExpensesEvent {}
+class LoadExpensesEvent extends ExpenseEvent {}
 
-class LoadTotalExpenseEvent extends ExpensesEvent {
-  const LoadTotalExpenseEvent();
+class LoadTotalExpensesEvent extends ExpenseEvent {
+  const LoadTotalExpensesEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class ExpensesPeriodChanged extends ExpensesEvent {
+class ExpensesPeriodChanged extends ExpenseEvent {
   final int selectedPeriodIndex; // 0 = Daily, 1 = Weekly, 2 = Monthly
 
   const ExpensesPeriodChanged(this.selectedPeriodIndex);
@@ -43,7 +43,7 @@ class ExpensesPeriodChanged extends ExpensesEvent {
   List<Object?> get props => [selectedPeriodIndex];
 }
 
-class _TransactionsUpdated extends ExpensesEvent {
+class _TransactionsUpdated extends ExpenseEvent {
   final List<CategoryTransactionDto> transactions;
 
   const _TransactionsUpdated(this.transactions);

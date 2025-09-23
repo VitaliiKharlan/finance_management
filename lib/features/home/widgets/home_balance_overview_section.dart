@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../category/expenses_bloc/expenses_bloc.dart';
-import '../../category/expenses_bloc/expenses_state.dart';
+import '../../expense/expense_bloc/expense_bloc.dart';
+import '../../expense/expense_bloc/expense_state.dart';
 
 class HomeBalanceOverviewSection extends StatelessWidget {
   const HomeBalanceOverviewSection({
@@ -18,7 +18,7 @@ class HomeBalanceOverviewSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpensesBloc, ExpensesState>(
+    return BlocBuilder<ExpenseBloc, ExpenseState>(
       builder: (context, state) {
         double totalExpense = 0.0;
         double totalBalance = 0.0;

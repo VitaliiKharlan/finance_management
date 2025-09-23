@@ -34,6 +34,12 @@ abstract class AppIcons {
   static const iconHomeSavingSalary = '${_basePath}icon_home_saving_salary.svg';
   static const iconHomeSavingFood = '${_basePath}icon_home_saving_food.svg';
 
+  /// icons for NotificationScreen
+  static const iconNotificationBringBack =
+      '${_basePath}icon_notification_bring_back.svg';
+  static const iconNotificationNotifications =
+      '${_basePath}icon_notification_notifications.svg';
+
   /// icons for AnalysisScreen
   static const iconAnalysisBringBack =
       '${_basePath}icon_analysis_bring_back.svg';

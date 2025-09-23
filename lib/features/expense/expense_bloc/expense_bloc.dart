@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/enums/category_enum.dart';
-import '../models/category_transaction_dto.dart';
-import '../repository/expenses_repository.dart';
-import 'expenses_state.dart';
+import '../../category/models/category_transaction_dto.dart';
+import '../repository/expense_repository.dart';
+import 'expense_state.dart';
 
-part 'expenses_event.dart';
+part 'expense_event.dart';
 
-class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
-  final ExpensesRepository repository;
+class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
+  final ExpenseRepository repository;
 
   List<CategoryTransactionDto> _allTransactions = [];
   int _selectedPeriodIndex = 0;
@@ -18,11 +18,11 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   List<CategoryTransactionDto> get foodLastWeekTransactions =>
       _foodLastWeekTransactions;
 
-  ExpensesBloc({required this.repository}) : super(ExpensesState.initial()) {
+  ExpenseBloc({required this.repository}) : super(ExpenseState.initial()) {
     on<SaveExpenseEvent>(_onSaveExpense);
     on<DeleteExpenseEvent>(_onDeleteExpense);
     on<LoadExpensesEvent>(_onLoadExpenses);
-    on<LoadTotalExpenseEvent>(_onLoadTotalExpense);
+    on<LoadTotalExpensesEvent>(_onLoadTotalExpense);
     on<ExpensesPeriodChanged>(_onExpensesPeriodChanged);
     on<_TransactionsUpdated>(_onTransactionsUpdated);
 
@@ -33,7 +33,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
 
   Future<void> _onSaveExpense(
     SaveExpenseEvent event,
-    Emitter<ExpensesState> emit,
+    Emitter<ExpenseState> emit,
   ) async {
     try {
       if (event.transaction.id.isEmpty) {
@@ -47,30 +47,30 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       _emitFiltered(emit);
     } catch (e) {
       emit(
-        ExpensesState.failure(e.toString(), totalExpense: state.totalExpense),
+        ExpenseState.failure(e.toString(), totalExpense: state.totalExpense),
       );
     }
   }
 
   Future<void> _onDeleteExpense(
     DeleteExpenseEvent event,
-    Emitter<ExpensesState> emit,
+    Emitter<ExpenseState> emit,
   ) async {
     try {
       await repository.deleteExpense(event.id);
     } catch (e) {
       emit(
-        ExpensesState.failure(e.toString(), totalExpense: state.totalExpense),
+        ExpenseState.failure(e.toString(), totalExpense: state.totalExpense),
       );
     }
   }
 
   Future<void> _onLoadExpenses(
     LoadExpensesEvent event,
-    Emitter<ExpensesState> emit,
+    Emitter<ExpenseState> emit,
   ) async {
     emit(
-      ExpensesState.loading(
+      ExpenseState.loading(
         transactions:
             state is ExpensesLoaded
                 ? (state as ExpensesLoaded).transactions
@@ -83,13 +83,13 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
 
       _emitFiltered(emit);
     } catch (e) {
-      emit(ExpensesState.failure(e.toString()));
+      emit(ExpenseState.failure(e.toString()));
     }
   }
 
   Future<void> _onLoadTotalExpense(
-    LoadTotalExpenseEvent event,
-    Emitter<ExpensesState> emit,
+    LoadTotalExpensesEvent event,
+    Emitter<ExpenseState> emit,
   ) async {
     try {
       _allTransactions = await repository.getAllTransactions();
@@ -97,14 +97,14 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
       _emitFiltered(emit);
     } catch (e) {
       emit(
-        ExpensesState.failure(e.toString(), totalExpense: state.totalExpense),
+        ExpenseState.failure(e.toString(), totalExpense: state.totalExpense),
       );
     }
   }
 
   Future<void> _onExpensesPeriodChanged(
     ExpensesPeriodChanged event,
-    Emitter<ExpensesState> emit,
+    Emitter<ExpenseState> emit,
   ) async {
     _selectedPeriodIndex = event.selectedPeriodIndex;
     _emitFiltered(emit);
@@ -112,7 +112,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
 
   Future<void> _onTransactionsUpdated(
     _TransactionsUpdated event,
-    Emitter<ExpensesState> emit,
+    Emitter<ExpenseState> emit,
   ) async {
     _allTransactions = event.transactions;
     final total = _allTransactions.fold<double>(0, (sum, t) => sum + t.amount);
@@ -135,7 +135,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
         }).toList();
   }
 
-  void _emitFiltered(Emitter<ExpensesState> emit, {double? total}) {
+  void _emitFiltered(Emitter<ExpenseState> emit, {double? total}) {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
@@ -189,7 +189,7 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
     final total = _allTransactions.fold<double>(0, (sum, t) => sum + t.amount);
     _updateFoodLastWeek();
     emit(
-      ExpensesState.loaded(
+      ExpenseState.loaded(
         transactions: _allTransactions,
         filteredTransactions: filtered,
         totalExpense: total,

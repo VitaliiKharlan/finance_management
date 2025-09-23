@@ -1,0 +1,42 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../widgets/notification_header_section.dart';
+import '../widgets/notification_notifications_list_section.dart';
+
+@RoutePage()
+class NotificationScreen extends StatelessWidget {
+  const NotificationScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF00D09E),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const NotificationHeaderSection(),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundGreenWhiteAndLetters,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 8,
+                ),
+
+                child: NotificationNotificationsListSection(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

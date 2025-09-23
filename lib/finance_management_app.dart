@@ -10,8 +10,9 @@ import 'features/auth/auth_bloc/auth_bloc.dart';
 import 'features/auth/auth_repository.dart';
 import 'features/auth/auth_service.dart';
 import 'features/category/categories_bloc/categories_bloc.dart';
-import 'features/category/expenses_bloc/expenses_bloc.dart';
-import 'features/category/repository/expenses_repository.dart';
+import 'features/expense/expense_bloc/expense_bloc.dart';
+import 'features/expense/repository/expense_repository.dart';
+
 
 class FinanceManagementApp extends StatefulWidget {
   const FinanceManagementApp({super.key});
@@ -59,11 +60,10 @@ class _FinanceManagementAppState extends State<FinanceManagementApp> {
           BlocProvider(
             create:
                 (context) =>
-                    ExpensesBloc(
-                        repository: ExpensesRepository(),
-                      )
-                      ..add(LoadExpensesEvent())
-                      ..add(LoadTotalExpenseEvent()),
+            ExpenseBloc(
+              repository: ExpenseRepository(),
+            )
+              ..add(LoadExpensesEvent())..add(LoadTotalExpensesEvent()),
           ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeState>(

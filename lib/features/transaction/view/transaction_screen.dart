@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../category/expenses_bloc/expenses_bloc.dart';
-import '../../category/expenses_bloc/expenses_state.dart';
+import '../../expense/expense_bloc/expense_bloc.dart';
+import '../../expense/expense_bloc/expense_state.dart';
 import '../widgets/transaction_balance_section.dart';
 import '../widgets/transaction_header_section.dart';
 import '../widgets/transaction_transactions_list_section.dart';
@@ -35,7 +35,7 @@ class TransactionScreen extends StatelessWidget {
                   horizontal: 24,
                   vertical: 8,
                 ),
-                child: BlocBuilder<ExpensesBloc, ExpensesState>(
+                child: BlocBuilder<ExpenseBloc, ExpenseState>(
                   builder: (context, state) {
                     if (state is ExpensesLoading) {
                       return const Center(child: CircularProgressIndicator());

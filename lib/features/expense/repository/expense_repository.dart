@@ -1,18 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finance_management/core/constants/firestore_constants.dart';
 
-import '../models/category_transaction_dto.dart';
+import '../../category/models/category_transaction_dto.dart';
 
-class ExpensesRepository {
+
+class ExpenseRepository {
   final FirebaseFirestore _firestore;
 
-  ExpensesRepository({FirebaseFirestore? firestore})
-    : _firestore = firestore ?? FirebaseFirestore.instance;
+  ExpenseRepository({FirebaseFirestore? firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
   Future<CategoryTransactionDto> addExpense(CategoryTransactionDto dto) async {
     final docRef = await _firestore
         .collection(FirestoreCollections.transactions)
-        .add(dto.toJson()..['createdAt'] = Timestamp.now());
+        .add(dto.toJson()
+      ..['createdAt'] = Timestamp.now());
 
     return dto.copyWith(id: docRef.id);
   }

@@ -3,15 +3,15 @@ import 'package:finance_management/core/enums/category_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../expense/expense_bloc/expense_bloc.dart';
+import '../../expense/expense_bloc/expense_state.dart';
+import '../../expense/view/expense_add_expenses.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
-import '../expenses_bloc/expenses_bloc.dart';
-import '../expenses_bloc/expenses_state.dart';
 import '../widgets/categories_balance_overview_section.dart';
 import '../widgets/categories_expense_progress_bar_widget_section.dart';
 import '../widgets/categories_header_section.dart';
 import '../widgets/categories_main_section.dart';
-import '../widgets/categories_selected_category_add_expenses.dart';
 
 @RoutePage()
 class CategoriesScreen extends StatelessWidget {
@@ -21,7 +21,7 @@ class CategoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, categoriesState) {
-        return BlocBuilder<ExpensesBloc, ExpensesState>(
+        return BlocBuilder<ExpenseBloc, ExpenseState>(
           builder: (context, expensesState) {
             final totalExpense = expensesState.totalExpense;
             Widget bodyContent;
@@ -47,7 +47,7 @@ class CategoriesScreen extends StatelessWidget {
                 children: [
                   const CategoriesHeaderSection(),
                   const SizedBox(height: 40),
-                  CategoriesSelectedCategoryAddExpenses(
+                  ExpenseAddExpenses(
                     transactionToEdit: categoriesState.transactionToEdit,
                   ),
                 ],

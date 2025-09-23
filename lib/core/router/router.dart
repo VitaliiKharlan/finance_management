@@ -5,6 +5,7 @@ import '../../features/analysis/view/analysis_screen.dart';
 import '../../features/category/view/categories_screen.dart';
 import '../../features/create_account/view/create_account_screen.dart';
 import '../../features/home/view/home_screen.dart';
+import '../../features/notification/view/notification_screen.dart';
 import '../../features/profile/view/profile_screen.dart';
 import '../../features/transaction/view/transaction_screen.dart';
 import '../../features/welcome/view/welcome_screen.dart';
@@ -27,10 +28,10 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: AnalysisRoute.page, path: 'analysis'),
           AutoRoute(page: TransactionRoute.page, path: 'transaction'),
           AutoRoute(page: CategoriesRoute.page, path: 'categories'),
-
           AutoRoute(page: ProfileRoute.page, path: 'profile'),
         ],
       ),
+      AutoRoute(page: NotificationRoute.page, path: '/notification'),
     ];
   }
 }

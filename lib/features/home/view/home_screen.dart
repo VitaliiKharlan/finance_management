@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../category/expenses_bloc/expenses_bloc.dart';
-import '../../category/expenses_bloc/expenses_state.dart';
+import '../../expense/expense_bloc/expense_bloc.dart';
+import '../../expense/expense_bloc/expense_state.dart';
 import '../widgets/home_balance_overview_section.dart';
 import '../widgets/home_expense_progress_bar_widget.dart';
 import '../widgets/home_header_section.dart';
@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     Expanded(
-                      child: BlocBuilder<ExpensesBloc, ExpensesState>(
+                      child: BlocBuilder<ExpenseBloc, ExpenseState>(
                         builder: (context, state) {
                           if (state is ExpensesLoading) {
                             return const Center(

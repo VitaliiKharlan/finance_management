@@ -3,20 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/theme/app_icons.dart';
-import '../../category/expenses_bloc/expenses_bloc.dart';
-import '../../category/expenses_bloc/expenses_state.dart';
+import '../../expense/expense_bloc/expense_bloc.dart';
+import '../../expense/expense_bloc/expense_state.dart';
 
 class HomeSavingsSection extends StatelessWidget {
   const HomeSavingsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExpensesBloc, ExpensesState>(
+    return BlocBuilder<ExpenseBloc, ExpenseState>(
       builder: (context, state) {
         double revenueLastWeek = 0;
         double foodLastWeek = 0;
 
-        final bloc = context.read<ExpensesBloc>();
+        final bloc = context.read<ExpenseBloc>();
 
         if (state is ExpensesLoaded) {
           revenueLastWeek = state.totalExpense;

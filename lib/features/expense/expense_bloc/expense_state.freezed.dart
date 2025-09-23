@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'expenses_state.dart';
+part of 'expense_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -11,72 +11,83 @@ part of 'expenses_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$ExpensesState {
 
- double get totalExpense;
-/// Create a copy of ExpensesState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ExpensesStateCopyWith<ExpensesState> get copyWith => _$ExpensesStateCopyWithImpl<ExpensesState>(this as ExpensesState, _$identity);
+  double get totalExpense;
+
+  /// Create a copy of ExpensesState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ExpensesStateCopyWith<ExpenseState> get copyWith =>
+      _$ExpensesStateCopyWithImpl<ExpenseState>(
+          this as ExpenseState, _$identity);
 
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ExpenseState &&
+            (identical(other.totalExpense, totalExpense) ||
+                other.totalExpense == totalExpense));
+  }
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesState&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
-}
 
+  @override
+  int get hashCode => Object.hash(runtimeType, totalExpense);
 
-@override
-int get hashCode => Object.hash(runtimeType,totalExpense);
-
-@override
-String toString() {
-  return 'ExpensesState(totalExpense: $totalExpense)';
-}
+  @override
+  String toString() {
+    return 'ExpensesState(totalExpense: $totalExpense)';
+  }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ExpensesStateCopyWith<$Res>  {
-  factory $ExpensesStateCopyWith(ExpensesState value, $Res Function(ExpensesState) _then) = _$ExpensesStateCopyWithImpl;
-@useResult
-$Res call({
- double totalExpense
-});
+abstract mixin class $ExpensesStateCopyWith<$Res> {
+  factory $ExpensesStateCopyWith(ExpenseState value,
+      $Res Function(ExpenseState) _then) = _$ExpensesStateCopyWithImpl;
 
-
+  @useResult
+  $Res call({
+    double totalExpense
+  });
 
 
 }
+
 /// @nodoc
 class _$ExpensesStateCopyWithImpl<$Res>
     implements $ExpensesStateCopyWith<$Res> {
   _$ExpensesStateCopyWithImpl(this._self, this._then);
 
-  final ExpensesState _self;
-  final $Res Function(ExpensesState) _then;
+  final ExpenseState _self;
+  final $Res Function(ExpenseState) _then;
 
-/// Create a copy of ExpensesState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? totalExpense = null,}) {
-  return _then(_self.copyWith(
-totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
-as double,
-  ));
+  /// Create a copy of ExpensesState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? totalExpense = null,}) {
+    return _then(_self.copyWith(
+      totalExpense: null == totalExpense
+          ? _self.totalExpense
+          : totalExpense // ignore: cast_nullable_to_non_nullable
+      as double,
+    ));
+  }
+
 }
 
-}
 
-
-/// Adds pattern-matching-related methods to [ExpensesState].
-extension ExpensesStatePatterns on ExpensesState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
+/// Adds pattern-matching-related methods to [ExpenseState].
+extension ExpensesStatePatterns on ExpenseState {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
   /// ```dart
   /// switch (sealedClass) {
   ///   case final Subclass value:
@@ -248,6 +259,7 @@ TResult map<TResult extends Object?>(
       throw StateError('Unexpected subclass');
   }
 }
+
 /// A variant of `map` that fallback to returning `null`.
 ///
 /// It is equivalent to doing:
@@ -279,6 +291,7 @@ TResult? mapOrNull<TResult extends Object?>(
       return null;
   }
 }
+
 /// A variant of `when` that fallback to an `orElse` callback.
 ///
 /// It is equivalent to doing:
@@ -430,11 +443,11 @@ return null;
 /// @nodoc
 
 
-class ExpensesInitial implements ExpensesState {
-  const ExpensesInitial({this.totalExpense = 0.0});
-  
+class ExpensesInitial implements ExpenseState {
+const ExpensesInitial({this.totalExpense = 0.0});
 
-@override@JsonKey() final  double totalExpense;
+
+@override@JsonKey() final double totalExpense;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
@@ -443,10 +456,9 @@ class ExpensesInitial implements ExpensesState {
 $ExpensesInitialCopyWith<ExpensesInitial> get copyWith => _$ExpensesInitialCopyWithImpl<ExpensesInitial>(this, _$identity);
 
 
-
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesInitial&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesInitial&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
 }
 
 
@@ -455,7 +467,7 @@ int get hashCode => Object.hash(runtimeType,totalExpense);
 
 @override
 String toString() {
-  return 'ExpensesState.initial(totalExpense: $totalExpense)';
+return 'ExpensesState.initial(totalExpense: $totalExpense)';
 }
 
 
@@ -463,31 +475,29 @@ String toString() {
 
 /// @nodoc
 abstract mixin class $ExpensesInitialCopyWith<$Res> implements $ExpensesStateCopyWith<$Res> {
-  factory $ExpensesInitialCopyWith(ExpensesInitial value, $Res Function(ExpensesInitial) _then) = _$ExpensesInitialCopyWithImpl;
+factory $ExpensesInitialCopyWith(ExpensesInitial value, $Res Function(ExpensesInitial) _then) = _$ExpensesInitialCopyWithImpl;
 @override @useResult
 $Res call({
- double totalExpense
+double totalExpense
 });
-
-
 
 
 }
 /// @nodoc
 class _$ExpensesInitialCopyWithImpl<$Res>
-    implements $ExpensesInitialCopyWith<$Res> {
-  _$ExpensesInitialCopyWithImpl(this._self, this._then);
+implements $ExpensesInitialCopyWith<$Res> {
+_$ExpensesInitialCopyWithImpl(this._self, this._then);
 
-  final ExpensesInitial _self;
-  final $Res Function(ExpensesInitial) _then;
+final ExpensesInitial _self;
+final $Res Function(ExpensesInitial) _then;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,}) {
-  return _then(ExpensesInitial(
+return _then(ExpensesInitial(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,
-  ));
+));
 }
 
 
@@ -496,11 +506,11 @@ as double,
 /// @nodoc
 
 
-class ExpensesSaved implements ExpensesState {
-  const ExpensesSaved({this.totalExpense = 0.0});
-  
+class ExpensesSaved implements ExpenseState {
+const ExpensesSaved({this.totalExpense = 0.0});
 
-@override@JsonKey() final  double totalExpense;
+
+@override@JsonKey() final double totalExpense;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
@@ -509,10 +519,9 @@ class ExpensesSaved implements ExpensesState {
 $ExpensesSavedCopyWith<ExpensesSaved> get copyWith => _$ExpensesSavedCopyWithImpl<ExpensesSaved>(this, _$identity);
 
 
-
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesSaved&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesSaved&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
 }
 
 
@@ -521,7 +530,7 @@ int get hashCode => Object.hash(runtimeType,totalExpense);
 
 @override
 String toString() {
-  return 'ExpensesState.saved(totalExpense: $totalExpense)';
+return 'ExpensesState.saved(totalExpense: $totalExpense)';
 }
 
 
@@ -529,31 +538,29 @@ String toString() {
 
 /// @nodoc
 abstract mixin class $ExpensesSavedCopyWith<$Res> implements $ExpensesStateCopyWith<$Res> {
-  factory $ExpensesSavedCopyWith(ExpensesSaved value, $Res Function(ExpensesSaved) _then) = _$ExpensesSavedCopyWithImpl;
+factory $ExpensesSavedCopyWith(ExpensesSaved value, $Res Function(ExpensesSaved) _then) = _$ExpensesSavedCopyWithImpl;
 @override @useResult
 $Res call({
- double totalExpense
+double totalExpense
 });
-
-
 
 
 }
 /// @nodoc
 class _$ExpensesSavedCopyWithImpl<$Res>
-    implements $ExpensesSavedCopyWith<$Res> {
-  _$ExpensesSavedCopyWithImpl(this._self, this._then);
+implements $ExpensesSavedCopyWith<$Res> {
+_$ExpensesSavedCopyWithImpl(this._self, this._then);
 
-  final ExpensesSaved _self;
-  final $Res Function(ExpensesSaved) _then;
+final ExpensesSaved _self;
+final $Res Function(ExpensesSaved) _then;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,}) {
-  return _then(ExpensesSaved(
+return _then(ExpensesSaved(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,
-  ));
+));
 }
 
 
@@ -562,12 +569,12 @@ as double,
 /// @nodoc
 
 
-class ExpensesFailure implements ExpensesState {
-  const ExpensesFailure(this.message, {this.totalExpense = 0.0});
-  
+class ExpensesFailure implements ExpenseState {
+const ExpensesFailure(this.message, {this.totalExpense = 0.0});
 
- final  String message;
-@override@JsonKey() final  double totalExpense;
+
+final String message;
+@override@JsonKey() final double totalExpense;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
@@ -576,10 +583,9 @@ class ExpensesFailure implements ExpensesState {
 $ExpensesFailureCopyWith<ExpensesFailure> get copyWith => _$ExpensesFailureCopyWithImpl<ExpensesFailure>(this, _$identity);
 
 
-
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesFailure&&(identical(other.message, message) || other.message == message)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesFailure&&(identical(other.message, message) || other.message == message)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
 }
 
 
@@ -588,7 +594,7 @@ int get hashCode => Object.hash(runtimeType,message,totalExpense);
 
 @override
 String toString() {
-  return 'ExpensesState.failure(message: $message, totalExpense: $totalExpense)';
+return 'ExpensesState.failure(message: $message, totalExpense: $totalExpense)';
 }
 
 
@@ -596,32 +602,30 @@ String toString() {
 
 /// @nodoc
 abstract mixin class $ExpensesFailureCopyWith<$Res> implements $ExpensesStateCopyWith<$Res> {
-  factory $ExpensesFailureCopyWith(ExpensesFailure value, $Res Function(ExpensesFailure) _then) = _$ExpensesFailureCopyWithImpl;
+factory $ExpensesFailureCopyWith(ExpensesFailure value, $Res Function(ExpensesFailure) _then) = _$ExpensesFailureCopyWithImpl;
 @override @useResult
 $Res call({
- String message, double totalExpense
+String message, double totalExpense
 });
-
-
 
 
 }
 /// @nodoc
 class _$ExpensesFailureCopyWithImpl<$Res>
-    implements $ExpensesFailureCopyWith<$Res> {
-  _$ExpensesFailureCopyWithImpl(this._self, this._then);
+implements $ExpensesFailureCopyWith<$Res> {
+_$ExpensesFailureCopyWithImpl(this._self, this._then);
 
-  final ExpensesFailure _self;
-  final $Res Function(ExpensesFailure) _then;
+final ExpensesFailure _self;
+final $Res Function(ExpensesFailure) _then;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? totalExpense = null,}) {
-  return _then(ExpensesFailure(
+return _then(ExpensesFailure(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,
-  ));
+));
 }
 
 
@@ -630,16 +634,16 @@ as double,
 /// @nodoc
 
 
-class ExpensesLoading implements ExpensesState {
-  const ExpensesLoading({this.totalExpense = 0.0, final  List<CategoryTransactionDto> transactions = const []}): _transactions = transactions;
-  
+class ExpensesLoading implements ExpenseState {
+const ExpensesLoading({this.totalExpense = 0.0, final List<CategoryTransactionDto> transactions = const []}): _transactions = transactions;
 
-@override@JsonKey() final  double totalExpense;
- final  List<CategoryTransactionDto> _transactions;
+
+@override@JsonKey() final double totalExpense;
+final List<CategoryTransactionDto> _transactions;
 @JsonKey() List<CategoryTransactionDto> get transactions {
-  if (_transactions is EqualUnmodifiableListView) return _transactions;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_transactions);
+if (_transactions is EqualUnmodifiableListView) return _transactions;
+// ignore: implicit_dynamic_type
+return EqualUnmodifiableListView(_transactions);
 }
 
 
@@ -650,10 +654,9 @@ class ExpensesLoading implements ExpensesState {
 $ExpensesLoadingCopyWith<ExpensesLoading> get copyWith => _$ExpensesLoadingCopyWithImpl<ExpensesLoading>(this, _$identity);
 
 
-
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoading&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoading&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
 }
 
 
@@ -662,7 +665,7 @@ int get hashCode => Object.hash(runtimeType,totalExpense,const DeepCollectionEqu
 
 @override
 String toString() {
-  return 'ExpensesState.loading(totalExpense: $totalExpense, transactions: $transactions)';
+return 'ExpensesState.loading(totalExpense: $totalExpense, transactions: $transactions)';
 }
 
 
@@ -670,32 +673,30 @@ String toString() {
 
 /// @nodoc
 abstract mixin class $ExpensesLoadingCopyWith<$Res> implements $ExpensesStateCopyWith<$Res> {
-  factory $ExpensesLoadingCopyWith(ExpensesLoading value, $Res Function(ExpensesLoading) _then) = _$ExpensesLoadingCopyWithImpl;
+factory $ExpensesLoadingCopyWith(ExpensesLoading value, $Res Function(ExpensesLoading) _then) = _$ExpensesLoadingCopyWithImpl;
 @override @useResult
 $Res call({
- double totalExpense, List<CategoryTransactionDto> transactions
+double totalExpense, List<CategoryTransactionDto> transactions
 });
-
-
 
 
 }
 /// @nodoc
 class _$ExpensesLoadingCopyWithImpl<$Res>
-    implements $ExpensesLoadingCopyWith<$Res> {
-  _$ExpensesLoadingCopyWithImpl(this._self, this._then);
+implements $ExpensesLoadingCopyWith<$Res> {
+_$ExpensesLoadingCopyWithImpl(this._self, this._then);
 
-  final ExpensesLoading _self;
-  final $Res Function(ExpensesLoading) _then;
+final ExpensesLoading _self;
+final $Res Function(ExpensesLoading) _then;
 
 /// Create a copy of ExpensesState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,Object? transactions = null,}) {
-  return _then(ExpensesLoading(
+return _then(ExpensesLoading(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,
-  ));
+));
 }
 
 
@@ -704,7 +705,7 @@ as List<CategoryTransactionDto>,
 /// @nodoc
 
 
-class ExpensesLoaded implements ExpensesState {
+class ExpensesLoaded implements ExpenseState {
 const ExpensesLoaded({this.totalExpense = 0.0, final List<CategoryTransactionDto> transactions = const [], required final List<CategoryTransactionDto> filteredTransactions}): _transactions = transactions,_filteredTransactions = filteredTransactions;
 
 
@@ -750,13 +751,11 @@ return 'ExpensesState.loaded(totalExpense: $totalExpense, transactions: $transac
 
 /// @nodoc
 abstract mixin class $ExpensesLoadedCopyWith<$Res> implements $ExpensesStateCopyWith<$Res> {
-  factory $ExpensesLoadedCopyWith(ExpensesLoaded value, $Res Function(ExpensesLoaded) _then) = _$ExpensesLoadedCopyWithImpl;
+factory $ExpensesLoadedCopyWith(ExpensesLoaded value, $Res Function(ExpensesLoaded) _then) = _$ExpensesLoadedCopyWithImpl;
 @override @useResult
 $Res call({
 double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions
 });
-
-
 
 
 }

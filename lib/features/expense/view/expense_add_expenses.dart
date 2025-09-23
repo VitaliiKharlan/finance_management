@@ -4,31 +4,31 @@ import 'package:intl/intl.dart';
 
 import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
-import '../categories_bloc/categories_bloc.dart';
-import '../expenses_bloc/expenses_bloc.dart';
-import '../models/category_transaction_dto.dart';
-import 'add_expenses.fields/amount_field.dart';
-import 'add_expenses.fields/category_field.dart';
-import 'add_expenses.fields/date_field.dart';
-import 'add_expenses.fields/expense_title_field.dart';
-import 'add_expenses.fields/message_field.dart';
-import 'add_expenses.fields/save_expenses_button.dart';
+import '../../category/categories_bloc/categories_bloc.dart';
+import '../../category/models/category_transaction_dto.dart';
+import '../expense_bloc/expense_bloc.dart';
+import '../widgets/expense_add_expense_amount_field.dart';
+import '../widgets/expense_add_expense_category_field.dart';
+import '../widgets/expense_add_expense_date_field.dart';
+import '../widgets/expense_add_expense_expense_title_field.dart';
+import '../widgets/expense_add_expense_message_field.dart';
+import '../widgets/expense_add_expense_save_expenses_button.dart';
 
-class CategoriesSelectedCategoryAddExpenses extends StatefulWidget {
+
+class ExpenseAddExpenses extends StatefulWidget {
   final CategoryTransactionDto? transactionToEdit;
 
-  const CategoriesSelectedCategoryAddExpenses({
+  const ExpenseAddExpenses({
     super.key,
     this.transactionToEdit,
   });
 
   @override
-  State<CategoriesSelectedCategoryAddExpenses> createState() =>
-      _CategoriesSelectedCategoryAddExpensesState();
+  State<ExpenseAddExpenses> createState() =>
+      _ExpenseAddExpensesState();
 }
 
-class _CategoriesSelectedCategoryAddExpensesState
-    extends State<CategoriesSelectedCategoryAddExpenses> {
+class _ExpenseAddExpensesState extends State<ExpenseAddExpenses> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
@@ -80,12 +80,12 @@ class _CategoriesSelectedCategoryAddExpensesState
       amount: double.tryParse(amountController.text) ?? 0,
       title: titleController.text,
       message:
-          messageController.text.isNotEmpty ? messageController.text : null,
+      messageController.text.isNotEmpty ? messageController.text : null,
       timeAndDate: selectedDate,
       icon: selectedIcon,
     );
 
-    context.read<ExpensesBloc>().add(SaveExpenseEvent(dto));
+    context.read<ExpenseBloc>().add(SaveExpenseEvent(dto));
 
     context.read<CategoriesBloc>().add(CategoryBackEvent());
   }

@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../core/router/router.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
 import '../../auth/auth_bloc/auth_state.dart';
 
@@ -79,10 +81,15 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
             },
           ),
           const Spacer(),
-          SvgPicture.asset(
-            AppIcons.iconHomeNotifications,
-            width: 30,
-            height: 30,
+          InkWell(
+            onTap: () {
+              context.pushRoute(const NotificationRoute());
+            },
+            child: SvgPicture.asset(
+              AppIcons.iconHomeNotifications,
+              width: 30,
+              height: 30,
+            ),
           ),
         ],
       ),

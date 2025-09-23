@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../category/expenses_bloc/expenses_bloc.dart';
+import '../../expense/expense_bloc/expense_bloc.dart';
+
 
 class HomeTabSelectorSection extends StatefulWidget {
   const HomeTabSelectorSection({super.key});
@@ -45,7 +46,7 @@ class _HomeTabSelectorSectionState extends State<HomeTabSelectorSection> {
                   setState(() {
                     _selectedIndex = index;
                   });
-                  context.read<ExpensesBloc>().add(
+                  context.read<ExpenseBloc>().add(
                     ExpensesPeriodChanged(index),
                   );
                 },
