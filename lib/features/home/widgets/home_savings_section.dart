@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_icons.dart';
 import '../../category/expenses_bloc/expenses_bloc.dart';
 import '../../category/expenses_bloc/expenses_state.dart';
@@ -17,14 +16,15 @@ class HomeSavingsSection extends StatelessWidget {
         double revenueLastWeek = 0;
         double foodLastWeek = 0;
 
+        final bloc = context.read<ExpensesBloc>();
+
         if (state is ExpensesLoaded) {
-          // Общая сумма за все транзакции
           revenueLastWeek = state.totalExpense;
 
-          // Сумма food за последнюю неделю
-          foodLastWeek = state.filteredTransactions
-              .where((t) => t.category == CategoryEnum.food)
-              .fold(0.0, (sum, t) => sum + t.amount);
+          foodLastWeek = bloc.foodLastWeekTransactions.fold(
+            0.0,
+            (sum, t) => sum + t.amount,
+          );
         }
 
         return Container(
@@ -99,7 +99,9 @@ class HomeSavingsSection extends StatelessWidget {
                             Text(
                               'Revenue Last Week',
                               style: TextStyle(
-                                  color: Colors.black87, fontSize: 12),
+                                color: Colors.black87,
+                                fontSize: 12,
+                              ),
                             ),
                             SizedBox(height: 2),
                             Text(
@@ -131,7 +133,9 @@ class HomeSavingsSection extends StatelessWidget {
                             Text(
                               'Food Last Week',
                               style: TextStyle(
-                                  color: Colors.black87, fontSize: 12),
+                                color: Colors.black87,
+                                fontSize: 12,
+                              ),
                             ),
                             SizedBox(height: 2),
                             Text(

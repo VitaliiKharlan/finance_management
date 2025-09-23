@@ -12,8 +12,11 @@ class ExpensesBloc extends Bloc<ExpensesEvent, ExpensesState> {
   final ExpensesRepository repository;
 
   List<CategoryTransactionDto> _allTransactions = [];
-  List<CategoryTransactionDto> _foodLastWeekTransactions = [];
   int _selectedPeriodIndex = 0;
+  List<CategoryTransactionDto> _foodLastWeekTransactions = [];
+
+  List<CategoryTransactionDto> get foodLastWeekTransactions =>
+      _foodLastWeekTransactions;
 
   ExpensesBloc({required this.repository}) : super(ExpensesState.initial()) {
     on<SaveExpenseEvent>(_onSaveExpense);
