@@ -11,6 +11,22 @@
 part of 'router.dart';
 
 /// generated route for
+/// [AccountBalanceScreen]
+class AccountBalanceRoute extends PageRouteInfo<void> {
+  const AccountBalanceRoute({List<PageRouteInfo>? children})
+    : super(AccountBalanceRoute.name, initialChildren: children);
+
+  static const String name = 'AccountBalanceRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const AccountBalanceScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [AnalysisScreen]
 class AnalysisRoute extends PageRouteInfo<void> {
   const AnalysisRoute({List<PageRouteInfo>? children})
@@ -118,6 +134,22 @@ class ProfileRoute extends PageRouteInfo<void> {
     name,
     builder: (data) {
       return const ProfileScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [QuicklyAnalysisScreen]
+class QuicklyAnalysisRoute extends PageRouteInfo<void> {
+  const QuicklyAnalysisRoute({List<PageRouteInfo>? children})
+    : super(QuicklyAnalysisRoute.name, initialChildren: children);
+
+  static const String name = 'QuicklyAnalysisRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const QuicklyAnalysisScreen();
     },
   );
 }

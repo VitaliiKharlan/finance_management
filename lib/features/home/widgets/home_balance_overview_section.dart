@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:finance_management/core/theme/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,30 +28,37 @@ class HomeBalanceOverviewSection extends StatelessWidget {
           totalExpense = state.totalExpense;
           totalBalance = 10000.0 - totalExpense;
         }
-        return Padding(
-          padding: const EdgeInsets.only(left: 48, top: 20, right: 48),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _BalanceOverviewItem(
-                icon: AppIcons.iconHomeIncome,
-                label: 'Total Balance',
-                value: '\$${totalBalance.toStringAsFixed(2)}',
-                valueColor: Colors.white,
-              ),
-              Container(
-                height: 40,
-                width: 2,
-                color: Colors.white24,
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-              ),
-              _BalanceOverviewItem(
-                icon: AppIcons.iconHomeExpense,
-                label: 'Total Expense',
-                value: '-\$${totalExpense.toStringAsFixed(2)}',
-                valueColor: const Color(0xFF5050FF),
-              ),
-            ],
+        return InkWell(
+          borderRadius: BorderRadius.circular(24),
+          onTap: () {
+            final tabsRouter = AutoTabsRouter.of(context);
+            tabsRouter.setActiveIndex(6);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 48, top: 20, right: 48),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _BalanceOverviewItem(
+                  icon: AppIcons.iconHomeIncome,
+                  label: 'Total Balance',
+                  value: '\$${totalBalance.toStringAsFixed(2)}',
+                  valueColor: Colors.white,
+                ),
+                Container(
+                  height: 40,
+                  width: 2,
+                  color: Colors.white24,
+                  margin: const EdgeInsets.symmetric(horizontal: 8),
+                ),
+                _BalanceOverviewItem(
+                  icon: AppIcons.iconHomeExpense,
+                  label: 'Total Expense',
+                  value: '-\$${totalExpense.toStringAsFixed(2)}',
+                  valueColor: const Color(0xFF5050FF),
+                ),
+              ],
+            ),
           ),
         );
       },

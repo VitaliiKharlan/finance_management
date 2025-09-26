@@ -5,7 +5,7 @@ import '../../category/models/category_transaction_dto.dart';
 part 'expense_state.freezed.dart';
 
 @freezed
-abstract class ExpenseState with _$ExpensesState {
+abstract class ExpenseState with _$ExpenseState {
   const factory ExpenseState.initial({@Default(0.0) double totalExpense}) =
       ExpensesInitial;
 

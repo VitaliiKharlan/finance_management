@@ -5,7 +5,6 @@ class NotificationNotificationsListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Примерные уведомления
     final notifications = List.generate(
       10,
       (index) => {
