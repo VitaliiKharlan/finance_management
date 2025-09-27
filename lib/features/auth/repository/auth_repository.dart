@@ -1,29 +1,20 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finance_management/features/auth/user_entity.dart';
+import 'package:finance_management/features/auth/models/user_entity.dart';
 
-import '../../../../core/logger/i_logger_service.dart';
-import '../../core/constants/firestore_constants.dart';
-import 'auth_service.dart';
-import 'user_registration_dto.dart';
+import '../../../../../core/logger/i_logger_service.dart';
+import '../../../core/constants/firestore_constants.dart';
+import '../models/user_registration_dto.dart';
+import '../services/auth_service.dart';
+import 'i_auth_repository.dart';
 
-abstract class IAuthRepository<T> {
-  Future<UserEntity> getUser(String uid);
-
-  Future<void> registerCustomer({
-    required UserEntity user,
-
-    required String password,
-  });
-}
-
-class AuthRepository implements IAuthRepository<UserEntity> {
+class AuthRepository implements IAuthRepository {
   AuthRepository({
     required FirebaseFirestore firestore,
     required AuthService authService,
   }) : _firestore = firestore,
-        _authService = authService;
+       _authService = authService;
 
   final FirebaseFirestore _firestore;
   final AuthService _authService;
@@ -32,10 +23,10 @@ class AuthRepository implements IAuthRepository<UserEntity> {
   Future<UserEntity> getUser(String uid) async {
     try {
       final response =
-      await _firestore
-          .collection(FirestoreCollections.users)
-          .doc(uid)
-          .get();
+          await _firestore
+              .collection(FirestoreCollections.users)
+              .doc(uid)
+              .get();
 
       final data = response.data();
       if (response.exists && data != null) {
@@ -57,7 +48,6 @@ class AuthRepository implements IAuthRepository<UserEntity> {
   @override
   Future<void> registerCustomer({
     required UserEntity user,
-
     required String password,
   }) async {
     try {
@@ -103,6 +93,28 @@ class AuthRepository implements IAuthRepository<UserEntity> {
       );
       rethrow;
     }
+  }
+
+  @override
+  Future<UserEntity> login({
+    required String email,
+    required String password,
+  }) async {
+    final userCredential = await _authService.signIn(
+      email: email,
+      password: password,
+    );
+    return getUser(userCredential.user!.uid);
+  }
+
+  @override
+  Future<void> logout() async {
+    await _authService.signOut();
+  }
+
+  @override
+  Future<void> resetPassword({required String email}) async {
+    await _authService.resetPassword(email: email);
   }
 
   Future<String> _generateUniqueDisplayId() async {

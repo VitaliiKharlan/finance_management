@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/router/router.dart';
-import '../../../core/theme/app_icons.dart';
-import '../../auth/auth_bloc/auth_bloc.dart';
-import '../../auth/auth_bloc/auth_state.dart';
+import '../../../../../core/router/router.dart';
+import '../../../../../core/theme/app_icons.dart';
+import '../../../auth_bloc/auth_bloc.dart';
+import '../../../auth_bloc/auth_state.dart';
 import '../../create_account/widgets/custom_text_field.dart';
 
 @RoutePage()

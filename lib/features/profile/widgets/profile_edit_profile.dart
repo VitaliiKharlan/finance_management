@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../create_account/widgets/custom_text_field.dart';
+import '../../auth/views/create_account/widgets/custom_text_field.dart';
 
 class ProfileEditProfileView extends StatefulWidget {
   const ProfileEditProfileView({super.key});

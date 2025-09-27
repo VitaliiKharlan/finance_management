@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../auth_repository.dart';
-import '../auth_service.dart';
-import '../user_entity.dart';
+import '../models/user_entity.dart';
+import '../repository/auth_repository.dart';
+import '../services/auth_service.dart';
 import 'auth_state.dart';
 
 part 'auth_event.dart';

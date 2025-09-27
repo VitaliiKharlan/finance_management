@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/router/router.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
-import '../../auth/auth_repository.dart';
-import '../../auth/auth_service.dart';
+import '../../auth/repository/auth_repository.dart';
+import '../../auth/services/auth_service.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 
 @RoutePage()
