@@ -12,11 +12,17 @@ part 'categories_event.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final FirebaseFirestore _firestore;
+  final String userId;
   StreamSubscription<List<CategoryTransactionDto>>? _transactionsSub;
 
-  CategoriesBloc({required FirebaseFirestore firestore})
-    : _firestore = firestore,
-      super(CategoriesInitialState()) {
+  List<CategoryTransactionDto> _allTransactions = [];
+
+  CategoriesBloc({
+    required FirebaseFirestore firestore,
+    required this.userId,
+  })
+      : _firestore = firestore,
+        super(CategoriesInitialState()) {
     on<CategorySelectedEvent>(_onCategorySelected);
     on<CategoryBackEvent>(_onCategoryBack);
     on<AddExpenseButtonPressedEvent>(_onAddExpensePressed);
@@ -24,46 +30,37 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     on<EditTransactionInCategoryEvent>(_onEditTransactionInCategory);
     on<DeleteTransactionInCategoryEvent>(_onDeleteTransactionInCategory);
     on<UpdateTransactionInCategoryEvent>(_onUpdateTransactionInCategory);
-
     on<_TransactionsUpdatedEvent>(_onTransactionsUpdated);
 
     add(LoadCategoriesEvent());
   }
 
+  CollectionReference<Map<String, dynamic>> get _transactionsRef =>
+      _firestore.collection('users').doc(userId).collection('transactions');
+
   Future<void> _onCategorySelected(CategorySelectedEvent event,
       Emitter<CategoriesState> emit,) async {
-    try {
-      if (state is! CategoriesLoadedState) return;
+    if (state is! CategoriesLoadedState) return;
 
-      final allTransactions =
-          (state as CategoriesLoadedState).filteredTransactions;
+    final filteredTransactions =
+    _allTransactions.where((t) => t.category == event.category).toList();
 
-      final filteredTransactions =
-          allTransactions.where((t) => t.category == event.category).toList();
-
-      emit(
-        CategoriesState.loaded(
-          selectedIndex: event.index,
-          selectedCategory: event.category,
-          filteredTransactions: filteredTransactions,
-        ),
-      );
-    } catch (e, s) {
-      debugPrint('Error loading transactions: $e');
-      debugPrintStack(stackTrace: s);
-      emit(CategoriesState.failure(e.toString()));
-    }
+    emit(
+      CategoriesState.loaded(
+        selectedIndex: event.index,
+        selectedCategory: event.category,
+        filteredTransactions: filteredTransactions,
+      ),
+    );
   }
 
   void _onCategoryBack(CategoryBackEvent event, Emitter<CategoriesState> emit) {
     if (state is CategoriesLoadedState) {
       final currentState = state as CategoriesLoadedState;
-      emit(
-        currentState.copyWith(
-          selectedIndex: -1,
-          selectedCategory: null,
-        ),
-      );
+      emit(currentState.copyWith(
+        selectedIndex: -1,
+        selectedCategory: null,
+      ));
     } else {
       emit(CategoriesInitialState());
     }
@@ -81,27 +78,21 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     try {
       await _transactionsSub?.cancel();
 
-      _transactionsSub = _firestore
-          .collection('transactions')
+      _transactionsSub = _transactionsRef
           .orderBy('date', descending: true)
           .snapshots()
-          .map(
-            (snapshot) =>
-                snapshot.docs
-                    .map(
-                      (doc) =>
-                          CategoryTransactionDtoFirestore.fromFirestore(doc),
-                    )
-                    .toList(),
-          )
+          .map((snapshot) =>
+          snapshot.docs
+              .map((doc) => CategoryTransactionDtoFirestore.fromFirestore(doc))
+              .toList())
           .listen(
             (transactions) {
-              add(_TransactionsUpdatedEvent(transactions));
-            },
-            onError: (error) {
-              emit(CategoriesState.failure(error.toString()));
-            },
-          );
+          add(_TransactionsUpdatedEvent(transactions));
+        },
+        onError: (error) {
+          emit(CategoriesState.failure(error.toString()));
+        },
+      );
     } catch (e, s) {
       debugPrint('Error loading transactions: $e');
       debugPrintStack(stackTrace: s);
@@ -115,9 +106,8 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   }
 
   Future<void> _onDeleteTransactionInCategory(
-    DeleteTransactionInCategoryEvent event,
-    Emitter<CategoriesState> emit,
-  ) async {
+      DeleteTransactionInCategoryEvent event,
+      Emitter<CategoriesState> emit,) async {
     if (state is! CategoriesLoadedState) return;
 
     final currentState = state as CategoriesLoadedState;
@@ -125,12 +115,10 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     emit(const CategoriesState.loading());
 
     try {
-      await _firestore.collection('transactions').doc(event.id).delete();
+      await _transactionsRef.doc(event.id).delete();
 
       final updatedTransactions =
-          currentState.filteredTransactions
-              .where((t) => t.id != event.id)
-              .toList();
+      currentState.filteredTransactions.where((t) => t.id != event.id).toList();
 
       emit(currentState.copyWith(filteredTransactions: updatedTransactions));
     } catch (e) {
@@ -143,49 +131,42 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     if (state is! CategoriesLoadedState) return;
 
     final currentState = state as CategoriesLoadedState;
-    final updatedTransactions =
-        currentState.filteredTransactions.map((t) {
-          if (t.id == event.updatedTransaction.id) {
-            return event.updatedTransaction;
-          }
-          return t;
-        }).toList();
+    final updatedTransactions = currentState.filteredTransactions.map((t) {
+      if (t.id == event.updatedTransaction.id) return event.updatedTransaction;
+      return t;
+    }).toList();
 
     emit(currentState.copyWith(filteredTransactions: updatedTransactions));
   }
 
-  void _onTransactionsUpdated(
-    _TransactionsUpdatedEvent event,
-    Emitter<CategoriesState> emit,
-  ) {
+  void _onTransactionsUpdated(_TransactionsUpdatedEvent event,
+      Emitter<CategoriesState> emit,) {
+    // Сохраняем все транзакции локально
+    _allTransactions = event.transactions;
+
     if (state is CategoriesLoadedState) {
       final currentState = state as CategoriesLoadedState;
       final selectedCategory = currentState.selectedCategory;
 
-      final filtered =
-          selectedCategory != null
-              ? event.transactions
-                  .where((t) => t.category == selectedCategory)
-                  .toList()
-              : event.transactions;
+      // Фильтруем на основе выбранной категории
+      final filtered = selectedCategory != null
+          ? _allTransactions.where((t) => t.category == selectedCategory)
+          .toList()
+          : _allTransactions;
 
       emit(currentState.copyWith(filteredTransactions: filtered));
     } else {
-      emit(
-        CategoriesState.loaded(
-          selectedIndex: -1,
-          selectedCategory: null,
-          filteredTransactions: event.transactions,
-        ),
-      );
+      emit(CategoriesState.loaded(
+        selectedIndex: -1,
+        selectedCategory: null,
+        filteredTransactions: _allTransactions,
+      ));
     }
   }
 
   @override
-  Future<void> close() {
-    _transactionsSub?.cancel();
+  Future<void> close() async {
+    await _transactionsSub?.cancel();
     return super.close();
   }
 }
-
-

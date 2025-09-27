@@ -19,7 +19,7 @@ void main() async {
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
 
-      child: const FinanceManagementApp(),
+      child: FinanceManagementApp(),
     ),
   );
 }

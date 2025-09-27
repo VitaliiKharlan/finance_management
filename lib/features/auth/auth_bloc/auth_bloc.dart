@@ -26,6 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<RegisterCustomerRequested>(_onRegisterCustomerRequested);
     on<LogoutRequested>(_onLogoutRequested);
+    on<AuthUserChanged>(_onAuthUserChanged);
 
     _authStateSubscription = _authService.authStateChanges.listen((user) {
       if (user == null && state is! Unauthenticated) {
@@ -132,9 +133,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(Unauthenticated());
   }
 
+  Future<void> _onAuthUserChanged(
+    AuthUserChanged event,
+    Emitter<AuthState> emit,
+  ) async {
+    final firebaseUser = event.firebaseUser;
+    if (firebaseUser == null) {
+      emit(Unauthenticated());
+    } else {
+      try {
+        final user = await _authRepository.getUser(firebaseUser.uid);
+        emit(Authenticated(user: user));
+      } catch (e) {
+        emit(AuthFailure('Failed to load user data'));
+      }
+    }
+  }
+
   @override
   Future<void> close() {
     _authStateSubscription?.cancel();
     return super.close();
   }
 }
+
