@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../expense/expense_bloc/expense_bloc.dart';
+import '../../expense/expense_bloc/expense_state.dart';
+import '../widgets/account_balance_balance_section.dart';
+import '../widgets/account_balance_expense_progress_bar_widget.dart';
 import '../widgets/account_balance_header_section.dart';
-import '../widgets/account_balance_main_section.dart';
+import '../widgets/account_balance_overview_section.dart';
+import '../widgets/account_balance_transactions_list_section.dart';
 
 @RoutePage()
 class AccountBalanceScreen extends StatelessWidget {
@@ -17,6 +23,17 @@ class AccountBalanceScreen extends StatelessWidget {
         child: Column(
           children: [
             const AccountBalanceHeaderSection(),
+            const AccountBalanceOverviewSection(
+              totalBalance: 7783.00,
+              totalExpense: 1187.40,
+            ),
+            const AccountBalanceExpenseProgressBarWidget(
+              percentage: 0.3,
+              limitAmount: 20000.00,
+            ),
+            AccountBalanceBalanceSection(
+              // percentage: 0.3,
+            ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -30,8 +47,32 @@ class AccountBalanceScreen extends StatelessWidget {
                   horizontal: 24,
                   vertical: 8,
                 ),
+                child: BlocBuilder<ExpenseBloc, ExpenseState>(
+                  builder: (context, state) {
+                    if (state is ExpensesLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                child: AccountBalanceMainSection(),
+                    if (state is ExpensesFailure) {
+                      return Center(child: Text('Error: ${state.message}'));
+                    }
+
+                    if (state is ExpensesLoaded) {
+                      final transactions = state.transactions;
+
+                      if (transactions.isEmpty) {
+                        return const Center(
+                          child: Text('No transactions found'),
+                        );
+                      }
+
+                      return AccountBalanceTransactionsListSection(
+                        transactions: transactions,
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
               ),
             ),
           ],
@@ -40,3 +81,4 @@ class AccountBalanceScreen extends StatelessWidget {
     );
   }
 }
+
