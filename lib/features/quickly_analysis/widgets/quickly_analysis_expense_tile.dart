@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
+class QuicklyAnalysisExpenseTile extends StatelessWidget {
   final String svgAsset;
   final String category;
   final DateTime dateTime;
@@ -13,7 +13,7 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
   final double amount;
   final bool isExpense;
 
-  const AccountBalanceTransactionsListTransactionTile({
+  const QuicklyAnalysisExpenseTile({
     super.key,
     required this.svgAsset,
     required this.category,

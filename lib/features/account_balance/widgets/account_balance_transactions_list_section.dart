@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../category/models/category_transaction_dto.dart';
-import '../../transaction/data/transaction_data.dart';
 import 'account_balance_transactions_list_transaction_tile.dart';
 
-class AccountBalanceTransactionsListSection extends StatelessWidget {
+class AccountBalanceTransactionsListSection extends StatefulWidget {
   final List<CategoryTransactionDto> transactions;
 
   const AccountBalanceTransactionsListSection({
@@ -13,25 +11,25 @@ class AccountBalanceTransactionsListSection extends StatelessWidget {
     required this.transactions,
   });
 
-  TransactionData _mapTransaction(CategoryTransactionDto t) {
-    return TransactionData(
-      svgAsset: t.category.iconPath,
-      title: t.category.shortLabel,
-      subtitle: DateFormat('HH:mm - MMM dd').format(t.timeAndDate!),
-      category: t.title,
-      amount: t.amount,
-      isExpense: t.amount > 0,
-    );
-  }
+  @override
+  State<AccountBalanceTransactionsListSection> createState() =>
+      _AccountBalanceTransactionsListSectionState();
+}
+
+class _AccountBalanceTransactionsListSectionState
+    extends State<AccountBalanceTransactionsListSection> {
+  bool showAll = false;
 
   @override
   Widget build(BuildContext context) {
-    if (transactions.isEmpty) {
+    if (widget.transactions.isEmpty) {
       return const Center(child: Text('No transactions found'));
     }
 
-    final sortedTransactions = [...transactions]
+    final sortedTransactions = [...widget.transactions]
       ..sort((a, b) => b.timeAndDate!.compareTo(a.timeAndDate!));
+
+    final limitedTransactions = sortedTransactions.take(4).toList();
 
     return Column(
       children: [
@@ -40,7 +38,7 @@ class AccountBalanceTransactionsListSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Transactions',
                 style: TextStyle(
                   fontSize: 20,
@@ -49,35 +47,60 @@ class AccountBalanceTransactionsListSection extends StatelessWidget {
                 ),
               ),
               InkWell(
+                onTap: () {
+                  setState(() {
+                    showAll = !showAll;
+                  });
+                },
                 child: Text(
-                  'See all',
-                  style: TextStyle(
+                  showAll ? 'See less' : 'See all',
+                  style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: Color(0xFF093030),
                   ),
                 ),
-                onTap: () {},
               ),
             ],
           ),
         ),
-        Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: sortedTransactions.length,
-            itemBuilder: (context, index) {
-              return AccountBalanceTransactionsListTransactionTile(
-                svgAsset: sortedTransactions[index].category.iconPath,
-                title: sortedTransactions[index].category.shortLabel,
-                dateTime: sortedTransactions[index].timeAndDate!,
-                category: sortedTransactions[index].category,
-                amount: sortedTransactions[index].amount,
-                isExpense: sortedTransactions[index].amount > 0,
-              );
-            },
+        if (!showAll)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Column(
+              children: [
+                for (final transaction in limitedTransactions)
+                  AccountBalanceTransactionsListTransactionTile(
+                    svgAsset: transaction.category.iconPath,
+                    category: transaction.category.shortLabel,
+                    dateTime: transaction.timeAndDate!,
+                    title: transaction.title,
+                    amount: transaction.amount,
+                    isExpense: transaction.amount > 0,
+                  ),
+              ],
+            ),
+          )
+        else
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: ListView.builder(
+                itemCount: sortedTransactions.length,
+                itemBuilder: (context, index) {
+                  final transaction = sortedTransactions[index];
+                  return AccountBalanceTransactionsListTransactionTile(
+                    svgAsset: transaction.category.iconPath,
+                    category: transaction.category.shortLabel,
+                    dateTime: transaction.timeAndDate!,
+                    title: transaction.title,
+                    amount: transaction.amount,
+                    isExpense: transaction.amount > 0,
+                  );
+                },
+              ),
+            ),
           ),
-        ),
       ],
     );
   }
