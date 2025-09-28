@@ -24,7 +24,7 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
   });
 
   static const double _leadingWidth = 60;
-  static const double _titleWidth = 80;
+  static const double _titleWidth = 92;
   static const double _dividerLeftMargin = 4;
   static const double _categoryWidth = 72;
   static const double _dividerRightMargin = 4;
@@ -69,7 +69,7 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
                   category,
                   style: GoogleFonts.poppins(
                     color: AppColors.backgroundDarkModeAndLetters,
-                    fontSize: 15,
+                    fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -78,7 +78,7 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
                   DateFormat('dd MMM yyyy, HH:mm').format(dateTime),
                   style: GoogleFonts.poppins(
                     color: AppColors.oceanBlueButton,
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -96,7 +96,11 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
               width: _categoryWidth,
               child: Text(
                 title,
-                style: const TextStyle(color: Colors.grey),
+                style: GoogleFonts.poppins(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -115,14 +119,15 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
             child: Text(
               '${isExpense ? '-' : ''}${NumberFormat.currency(symbol: '\$', decimalDigits: 2).format(amount)}',
               // amount,
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color:
                     isExpense
                         ? AppColors.oceanBlueButton
                         : AppColors.backgroundDarkModeAndLetters,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
+
               textAlign: TextAlign.right,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

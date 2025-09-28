@@ -31,9 +31,8 @@ class AccountBalanceScreen extends StatelessWidget {
               percentage: 0.3,
               limitAmount: 20000.00,
             ),
-            AccountBalanceBalanceSection(
-              // percentage: 0.3,
-            ),
+            AccountBalanceBalanceSection(),
+            SizedBox(height: 20),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
