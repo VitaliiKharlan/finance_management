@@ -15,7 +15,6 @@ class NotificationHeaderSection extends StatefulWidget {
 
 class _NotificationHeaderSectionState extends State<NotificationHeaderSection> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -24,7 +23,8 @@ class _NotificationHeaderSectionState extends State<NotificationHeaderSection> {
         children: [
           InkWell(
             onTap: () {
-              context.maybePop();
+              final tabsRouter = AutoTabsRouter.of(context);
+              tabsRouter.setActiveIndex(0);
             },
             child: SvgPicture.asset(AppIcons.iconNotificationBringBack),
           ),

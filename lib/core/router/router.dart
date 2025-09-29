@@ -31,11 +31,11 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: TransactionRoute.page, path: 'transaction'),
           AutoRoute(page: CategoriesRoute.page, path: 'categories'),
           AutoRoute(page: ProfileRoute.page, path: 'profile'),
-          AutoRoute(page: QuicklyAnalysisRoute.page, path: 'quickly_analysis'),
+          AutoRoute(page: NotificationRoute.page, path: 'notification'),
           AutoRoute(page: AccountBalanceRoute.page, path: 'account_balance'),
+          AutoRoute(page: QuicklyAnalysisRoute.page, path: 'quickly_analysis'),
         ],
       ),
-      AutoRoute(page: NotificationRoute.page, path: '/notification'),
     ];
   }
 }

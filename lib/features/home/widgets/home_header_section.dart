@@ -84,6 +84,8 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
           InkWell(
             onTap: () {
               context.pushRoute(const NotificationRoute());
+              // final tabsRouter = AutoTabsRouter.of(context);
+              // tabsRouter.setActiveIndex(5);
             },
             child: SvgPicture.asset(
               AppIcons.iconHomeNotifications,

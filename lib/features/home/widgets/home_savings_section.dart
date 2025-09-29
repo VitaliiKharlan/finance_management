@@ -32,8 +32,7 @@ class HomeSavingsSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           onTap: () {
             final tabsRouter = AutoTabsRouter.of(context);
-            tabsRouter.setActiveIndex(5); // индекс QuicklyAnalysis
-            // context.pushRoute(QuicklyAnalysisRoute());
+            tabsRouter.setActiveIndex(7);
           },
           child: Container(
             margin: const EdgeInsets.all(12),
