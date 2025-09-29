@@ -1,0 +1,11 @@
+*.dart linguist-language=Dart
+
+# Исключаем из подсчёта вспомогательные и сгенерированные файлы
+.flutter-plugins linguist-vendored
+.flutter-plugins-dependencies linguist-vendored
+.packages linguist-vendored
+build/** linguist-vendored
+generated_plugin_registrant.* linguist-generated
+pubspec.lock linguist-vendored
+.dart_tool/** linguist-vendored
+.idea/** linguist-vendored
