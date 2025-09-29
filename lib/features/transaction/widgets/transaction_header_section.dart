@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
-import '../../auth/auth_bloc/auth_bloc.dart';
 
 class TransactionsHeaderSection extends StatefulWidget {
   const TransactionsHeaderSection({super.key});
@@ -15,11 +13,11 @@ class TransactionsHeaderSection extends StatefulWidget {
 }
 
 class _TransactionsHeaderSectionState extends State<TransactionsHeaderSection> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthBloc>().add(AuthStarted());
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<AuthBloc>().add(AuthStarted());
+  // }
 
   @override
   Widget build(BuildContext context) {

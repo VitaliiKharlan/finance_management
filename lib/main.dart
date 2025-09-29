@@ -18,7 +18,6 @@ void main() async {
       supportedLocales: [Locale('en', 'US'), Locale('uk', 'UA')],
       path: 'assets/translations',
       fallbackLocale: Locale('en'),
-
       child: FinanceManagementApp(),
     ),
   );

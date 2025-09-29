@@ -15,7 +15,7 @@ class ExpenseRepository implements IExpenseRepository {
   CollectionReference<Map<String, dynamic>>? get _transactionsRef {
     final userId = _auth.currentUser?.uid;
     if (userId == null || userId.isEmpty) {
-      return null; // пока нет userId
+      return null;
     }
     return _firestore
         .collection('users')
@@ -52,7 +52,7 @@ class ExpenseRepository implements IExpenseRepository {
   @override
   Future<List<CategoryTransactionDto>> getAllTransactions() async {
     final ref = _transactionsRef;
-    if (ref == null) return []; // пустой список пока нет userId
+    if (ref == null) return [];
     final snapshot = await ref.orderBy('date', descending: true).get();
     return snapshot.docs
         .map((doc) => CategoryTransactionDtoFirestore.fromFirestore(doc))
@@ -63,7 +63,7 @@ class ExpenseRepository implements IExpenseRepository {
   Stream<List<CategoryTransactionDto>> getTransactionsStream() {
     final ref = _transactionsRef;
     if (ref == null) {
-      return Stream.value([]); // пустой поток пока нет userId
+      return Stream.value([]);
     }
     return ref
         .orderBy('date', descending: true)

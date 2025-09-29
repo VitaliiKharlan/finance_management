@@ -11,29 +11,29 @@ final lightTheme = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: Colors.white,
   colorScheme: ColorScheme.fromSeed(
-    // Используется как основной цвет для генерации всех остальных цветов схемы (если не заданы явно).
+    // Used as the primary color to generate all other colors of the scheme (if not explicitly set).
     seedColor: primaryColor,
-    // Определяет цвет фона для карточек, NavigationBar, BottomSheet и других элементов UI.
+    // Defines the background color for cards, NavigationBar, BottomSheet, and other UI elements.
     surface: Colors.white,
-    // Цвет текста и иконок, которые располагаются на surface.
+    // Color for text and icons displayed on the surface.
     onSurface: Colors.black,
-    // Главный цвет приложения, используется для кнопок, индикаторов, AppBar, FAB и других важных элементов.
+    // The main color of the app, used for buttons, indicators, AppBar, FAB, and other key elements.
     primary: Colors.red,
-    // Цвет текста и иконок, которые располагаются на primary.
+    // Color for text and icons displayed on primary.
     onPrimary: Colors.blue[100],
-    // Вторичный цвет, используется для выделения менее важных кнопок, тегов, переключателей и акцентов.
+    // Secondary color, used to highlight less important buttons, tags, switches, and accents.
     secondary: Colors.lightGreen,
-    // Цвет текста и иконок, которые располагаются на secondary.
+    // Color for text and icons displayed on secondary.
     onSecondary: Colors.white,
   ),
   appBarTheme: AppBarTheme(
-    // убирает тень.
+    // Removes the shadow.
     elevation: 0,
-    // иконки в AppBar белые.
+    // Icons in the AppBar are black.
     iconTheme: IconThemeData(color: Colors.black),
-    // фон AppBar
+    // Background color of the AppBar.
     backgroundColor: Color(0xFF42FF00),
-    // заголовок AppBar
+    // Title text style of the AppBar.
     titleTextStyle: AppTextStyles.appBar.copyWith(color: Colors.black),
   ),
   textTheme: _textTheme,

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/router/router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme_cubit/theme_cubit.dart';
+import 'core/theme_cubit/theme_state.dart';
 import 'features/auth/auth_bloc/auth_bloc.dart';
 import 'features/auth/auth_bloc/auth_state.dart';
 import 'features/auth/repository/auth_repository.dart';

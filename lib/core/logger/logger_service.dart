@@ -22,13 +22,12 @@ class LoggerService implements ILoggerService {
 
       /// color settings organization
       levelColors: {
-        Level.info: AnsiColor.fg(10), // Зелёный для info
-        Level.warning: AnsiColor.fg(208), // Оранжевый для warning
-        Level.error: AnsiColor.fg(10), // Зелёный для error
-        // Level.error: AnsiColor.fg(196), // Красный для error
-        Level.debug: AnsiColor.fg(12), // Голубой для debug
-        Level.trace: AnsiColor.fg(8), // Серый для trace
-        Level.fatal: AnsiColor.fg(199), // Фиолетовый для fatal
+        Level.info: AnsiColor.fg(11), // Yellow for info
+        Level.warning: AnsiColor.fg(208), // Orange for warning
+        Level.error: AnsiColor.fg(10), // Green for error
+        Level.debug: AnsiColor.fg(12), // Blue for debug
+        Level.trace: AnsiColor.fg(8), // Gray for trace
+        Level.fatal: AnsiColor.fg(199), // Purple for fatal
       },
     ),
   );

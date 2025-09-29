@@ -13,7 +13,6 @@ abstract class AppTextStyles {
     color: Color(0xFF4CAF50),
   );
 
-  //
   // displayMedium
   static final displayMedium = TextStyle(
     fontFamily: GoogleFonts.roboto().fontFamily,
@@ -25,7 +24,6 @@ abstract class AppTextStyles {
     color: Color(0xFF4CAF50),
   );
 
-  //
   // displaySmall
   static final errorMessage = TextStyle(
     fontFamily: GoogleFonts.roboto().fontFamily,

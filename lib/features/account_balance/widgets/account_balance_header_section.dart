@@ -16,7 +16,6 @@ class AccountBalanceHeaderSection extends StatefulWidget {
 class _AccountBalanceHeaderSectionState
     extends State<AccountBalanceHeaderSection> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),

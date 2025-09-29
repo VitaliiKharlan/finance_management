@@ -1,14 +1,14 @@
-part of 'theme_cubit.dart';
+import 'dart:ui';
 
-class ThemeState extends Equatable {
-  const ThemeState(
-      this.brightness,
-      );
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final Brightness brightness;
+part 'theme_state.freezed.dart';
+
+@freezed
+abstract class ThemeState with _$ThemeState {
+  const factory ThemeState({required Brightness brightness}) = _ThemeState;
+
+  const ThemeState._();
 
   bool get isLight => brightness == Brightness.light;
-
-  @override
-  List<Object?> get props => [brightness];
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../auth/auth_bloc/auth_bloc.dart';
+// import '../../auth/auth_bloc/auth_bloc.dart';
 import '../categories_bloc/categories_bloc.dart';
 import '../categories_bloc/categories_state.dart';
 
@@ -16,11 +16,11 @@ class CategoriesHeaderSection extends StatefulWidget {
 }
 
 class _CategoriesHeaderSectionState extends State<CategoriesHeaderSection> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthBloc>().add(AuthStarted());
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<AuthBloc>().add(AuthStarted());
+  // }
 
   @override
   Widget build(BuildContext context) {
