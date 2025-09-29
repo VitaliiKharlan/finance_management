@@ -23,6 +23,19 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
     context.read<AuthBloc>().add(AuthStarted());
   }
 
+  String _getGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour >= 5 && hour < 12) {
+      return 'goodMorning'.tr();
+    } else if (hour >= 12 && hour < 18) {
+      return 'goodAfternoon'.tr();
+    } else if (hour >= 18 && hour < 22) {
+      return 'goodEvening'.tr();
+    } else {
+      return 'goodNight'.tr();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -66,7 +79,8 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
                       ),
                     ),
                     Text(
-                      'goodMorning'.tr(),
+                      _getGreeting(),
+                      // 'goodMorning'.tr(),
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,

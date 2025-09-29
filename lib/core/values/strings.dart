@@ -38,6 +38,9 @@ class AppStrings {
   */
   static const hiWelcomeBack = 'Hi, Welcome Back';
   static const goodMorning = 'Good Morning';
+  static const goodAfternoon = 'Good Afternoon';
+  static const goodEvening = 'Good Evening';
+  static const goodNight = 'Good Night';
   static const totalBalance = 'Total Balance';
   static const totalExpense = 'Total Expense';
   static const ofYourExpensesLooksGood = 'Of Your Expenses, Looks Good';

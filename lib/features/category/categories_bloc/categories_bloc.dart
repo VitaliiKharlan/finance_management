@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,17 +13,17 @@ part 'categories_event.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   final FirebaseFirestore _firestore;
-  final String userId;
+  final FirebaseAuth _auth;
   StreamSubscription<List<CategoryTransactionDto>>? _transactionsSub;
 
   List<CategoryTransactionDto> _allTransactions = [];
 
   CategoriesBloc({
     required FirebaseFirestore firestore,
-    required this.userId,
-  })
-      : _firestore = firestore,
-        super(CategoriesInitialState()) {
+    required FirebaseAuth auth,
+  }) : _firestore = firestore,
+       _auth = auth,
+       super(CategoriesInitialState()) {
     on<CategorySelectedEvent>(_onCategorySelected);
     on<CategoryBackEvent>(_onCategoryBack);
     on<AddExpenseButtonPressedEvent>(_onAddExpensePressed);
@@ -35,15 +36,25 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     add(LoadCategoriesEvent());
   }
 
-  CollectionReference<Map<String, dynamic>> get _transactionsRef =>
-      _firestore.collection('users').doc(userId).collection('transactions');
+  CollectionReference<Map<String, dynamic>>? get _transactionsRef {
+    final userId = _auth.currentUser?.uid;
+    if (userId == null || userId.isEmpty) {
+      return null;
+    }
+    return _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('transactions');
+  }
 
-  Future<void> _onCategorySelected(CategorySelectedEvent event,
-      Emitter<CategoriesState> emit,) async {
+  Future<void> _onCategorySelected(
+    CategorySelectedEvent event,
+    Emitter<CategoriesState> emit,
+  ) async {
     if (state is! CategoriesLoadedState) return;
 
     final filteredTransactions =
-    _allTransactions.where((t) => t.category == event.category).toList();
+        _allTransactions.where((t) => t.category == event.category).toList();
 
     emit(
       CategoriesState.loaded(
@@ -57,42 +68,53 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   void _onCategoryBack(CategoryBackEvent event, Emitter<CategoriesState> emit) {
     if (state is CategoriesLoadedState) {
       final currentState = state as CategoriesLoadedState;
-      emit(currentState.copyWith(
-        selectedIndex: -1,
-        selectedCategory: null,
-      ));
+      emit(currentState.copyWith(selectedIndex: -1, selectedCategory: null));
     } else {
       emit(CategoriesInitialState());
     }
   }
 
-  void _onAddExpensePressed(AddExpenseButtonPressedEvent event,
-      Emitter<CategoriesState> emit,) {
+  void _onAddExpensePressed(
+    AddExpenseButtonPressedEvent event,
+    Emitter<CategoriesState> emit,
+  ) {
     emit(CategoriesAddExpenseState());
   }
 
-  Future<void> _onLoadCategories(LoadCategoriesEvent event,
-      Emitter<CategoriesState> emit,) async {
+  Future<void> _onLoadCategories(
+    LoadCategoriesEvent event,
+    Emitter<CategoriesState> emit,
+  ) async {
     emit(const CategoriesState.loading());
 
     try {
       await _transactionsSub?.cancel();
 
-      _transactionsSub = _transactionsRef
+      final ref = _transactionsRef;
+      if (ref == null) {
+        emit(CategoriesState.failure('User not authenticated'));
+        return;
+      }
+      _transactionsSub = ref
           .orderBy('date', descending: true)
           .snapshots()
-          .map((snapshot) =>
-          snapshot.docs
-              .map((doc) => CategoryTransactionDtoFirestore.fromFirestore(doc))
-              .toList())
+          .map(
+            (snapshot) =>
+                snapshot.docs
+                    .map(
+                      (doc) =>
+                          CategoryTransactionDtoFirestore.fromFirestore(doc),
+                    )
+                    .toList(),
+          )
           .listen(
             (transactions) {
-          add(_TransactionsUpdatedEvent(transactions));
-        },
-        onError: (error) {
-          emit(CategoriesState.failure(error.toString()));
-        },
-      );
+              add(_TransactionsUpdatedEvent(transactions));
+            },
+            onError: (error) {
+              emit(CategoriesState.failure(error.toString()));
+            },
+          );
     } catch (e, s) {
       debugPrint('Error loading transactions: $e');
       debugPrintStack(stackTrace: s);
@@ -100,25 +122,36 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     }
   }
 
-  void _onEditTransactionInCategory(EditTransactionInCategoryEvent event,
-      Emitter<CategoriesState> emit,) {
+  void _onEditTransactionInCategory(
+    EditTransactionInCategoryEvent event,
+    Emitter<CategoriesState> emit,
+  ) {
     emit(CategoriesAddExpenseState(transactionToEdit: event.transaction));
   }
 
   Future<void> _onDeleteTransactionInCategory(
-      DeleteTransactionInCategoryEvent event,
-      Emitter<CategoriesState> emit,) async {
+    DeleteTransactionInCategoryEvent event,
+    Emitter<CategoriesState> emit,
+  ) async {
     if (state is! CategoriesLoadedState) return;
 
     final currentState = state as CategoriesLoadedState;
 
     emit(const CategoriesState.loading());
 
+    final ref = _transactionsRef;
+    if (ref == null) {
+      emit(CategoriesState.failure('User not authenticated'));
+      return;
+    }
+
     try {
-      await _transactionsRef.doc(event.id).delete();
+      await ref.doc(event.id).delete();
 
       final updatedTransactions =
-      currentState.filteredTransactions.where((t) => t.id != event.id).toList();
+          currentState.filteredTransactions
+              .where((t) => t.id != event.id)
+              .toList();
 
       emit(currentState.copyWith(filteredTransactions: updatedTransactions));
     } catch (e) {
@@ -126,21 +159,27 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     }
   }
 
-  void _onUpdateTransactionInCategory(UpdateTransactionInCategoryEvent event,
-      Emitter<CategoriesState> emit,) {
+  void _onUpdateTransactionInCategory(
+    UpdateTransactionInCategoryEvent event,
+    Emitter<CategoriesState> emit,
+  ) {
     if (state is! CategoriesLoadedState) return;
 
     final currentState = state as CategoriesLoadedState;
-    final updatedTransactions = currentState.filteredTransactions.map((t) {
-      if (t.id == event.updatedTransaction.id) return event.updatedTransaction;
-      return t;
-    }).toList();
+    final updatedTransactions =
+        currentState.filteredTransactions.map((t) {
+          if (t.id == event.updatedTransaction.id)
+            return event.updatedTransaction;
+          return t;
+        }).toList();
 
     emit(currentState.copyWith(filteredTransactions: updatedTransactions));
   }
 
-  void _onTransactionsUpdated(_TransactionsUpdatedEvent event,
-      Emitter<CategoriesState> emit,) {
+  void _onTransactionsUpdated(
+    _TransactionsUpdatedEvent event,
+    Emitter<CategoriesState> emit,
+  ) {
     // Сохраняем все транзакции локально
     _allTransactions = event.transactions;
 
@@ -149,18 +188,22 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       final selectedCategory = currentState.selectedCategory;
 
       // Фильтруем на основе выбранной категории
-      final filtered = selectedCategory != null
-          ? _allTransactions.where((t) => t.category == selectedCategory)
-          .toList()
-          : _allTransactions;
+      final filtered =
+          selectedCategory != null
+              ? _allTransactions
+                  .where((t) => t.category == selectedCategory)
+                  .toList()
+              : _allTransactions;
 
       emit(currentState.copyWith(filteredTransactions: filtered));
     } else {
-      emit(CategoriesState.loaded(
-        selectedIndex: -1,
-        selectedCategory: null,
-        filteredTransactions: _allTransactions,
-      ));
+      emit(
+        CategoriesState.loaded(
+          selectedIndex: -1,
+          selectedCategory: null,
+          filteredTransactions: _allTransactions,
+        ),
+      );
     }
   }
 

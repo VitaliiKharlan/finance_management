@@ -1,61 +1,55 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../category/models/category_transaction_dto.dart';
+import 'i_expense_repository.dart';
 
-
-
-class ExpenseRepository {
+class ExpenseRepository implements IExpenseRepository {
   final FirebaseFirestore _firestore;
+  final FirebaseAuth _auth;
 
-  // final FirebaseAuth _auth;
-  String? _userId;
-
-  ExpenseRepository({
-    FirebaseFirestore? firestore,
-    // FirebaseAuth? auth,
-    String? userId,
-  })
-      : _firestore = firestore ?? FirebaseFirestore.instance,
-  // _auth = auth ?? FirebaseAuth.instance,
-        _userId = userId;
-
-  /// Позволяет обновить userId после авторизации
-  void updateUserId(String userId) {
-    _userId = userId;
-  }
-
+  ExpenseRepository({FirebaseFirestore? firestore, FirebaseAuth? auth})
+    : _firestore = firestore ?? FirebaseFirestore.instance,
+      _auth = auth ?? FirebaseAuth.instance;
 
   CollectionReference<Map<String, dynamic>>? get _transactionsRef {
-    if (_userId == null || _userId!.isEmpty) {
+    final userId = _auth.currentUser?.uid;
+    if (userId == null || userId.isEmpty) {
       return null; // пока нет userId
     }
-    return _firestore.collection('users').doc(_userId).collection(
-        'transactions');
+    return _firestore
+        .collection('users')
+        .doc(userId)
+        .collection('transactions');
   }
 
+  @override
   Future<CategoryTransactionDto> addExpense(CategoryTransactionDto dto) async {
     final ref = _transactionsRef;
     if (ref == null) throw Exception('User not set');
-    final docRef = await ref.add(dto.toJson()
-      ..['createdAt'] = Timestamp.now());
+    final docRef = await ref.add(dto.toJson()..['createdAt'] = Timestamp.now());
     return dto.copyWith(id: docRef.id);
   }
 
-  Future<CategoryTransactionDto> updateExpense(String id,
-      CategoryTransactionDto dto) async {
+  @override
+  Future<CategoryTransactionDto> updateExpense(
+    String id,
+    CategoryTransactionDto dto,
+  ) async {
     final ref = _transactionsRef;
     if (ref == null) throw Exception('User not set');
-    await ref.doc(id).update(dto.toJson()
-      ..['updatedAt'] = Timestamp.now());
+    await ref.doc(id).update(dto.toJson()..['updatedAt'] = Timestamp.now());
     return dto.copyWith(id: id);
   }
 
+  @override
   Future<void> deleteExpense(String id) async {
     final ref = _transactionsRef;
     if (ref == null) return;
     await ref.doc(id).delete();
   }
 
+  @override
   Future<List<CategoryTransactionDto>> getAllTransactions() async {
     final ref = _transactionsRef;
     if (ref == null) return []; // пустой список пока нет userId
@@ -65,19 +59,26 @@ class ExpenseRepository {
         .toList();
   }
 
+  @override
   Stream<List<CategoryTransactionDto>> getTransactionsStream() {
     final ref = _transactionsRef;
     if (ref == null) {
       return Stream.value([]); // пустой поток пока нет userId
     }
-    return ref.orderBy('date', descending: true).snapshots().map(
+    return ref
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map(
           (snapshot) =>
-          snapshot.docs
-              .map((doc) => CategoryTransactionDtoFirestore.fromFirestore(doc))
-              .toList(),
-    );
+              snapshot.docs
+                  .map(
+                    (doc) => CategoryTransactionDtoFirestore.fromFirestore(doc),
+                  )
+                  .toList(),
+        );
   }
 
+  @override
   Future<double> getTotalExpense() async {
     final ref = _transactionsRef;
     if (ref == null) return 0.0;

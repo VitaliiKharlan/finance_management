@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -92,13 +93,16 @@ class FinanceManagementApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firestore = FirebaseFirestore.instance;
+    final auth = FirebaseAuth.instance;
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: _authService),
         RepositoryProvider(
           create:
-              (context) => AuthRepository(
-                firestore: FirebaseFirestore.instance,
+              (context) =>
+              AuthRepository(
+                firestore: firestore,
                 authService: _authService,
               ),
         ),
@@ -108,9 +112,9 @@ class FinanceManagementApp extends StatelessWidget {
           BlocProvider(
             create:
                 (context) => AuthBloc(
-                  authRepository: context.read<AuthRepository>(),
-                  authService: _authService,
-                )..add(AuthStarted()),
+              authRepository: context.read<AuthRepository>(),
+              authService: _authService,
+            )..add(AuthStarted()),
           ),
           BlocProvider(create: (_) => ThemeCubit()),
         ],
@@ -130,21 +134,20 @@ class FinanceManagementApp extends StatelessWidget {
                     BlocProvider(
                       create:
                           (_) =>
-                              ExpenseBloc(
-                                  repository: ExpenseRepository(
-                                    userId: authState.user.id,
-                                  ),
-                                )
-                                // ..add(UpdateUserEvent(userId: authState.user.id))
-                                ..add(LoadExpensesEvent())
-                                ..add(LoadTotalExpensesEvent()),
+                      ExpenseBloc(
+                        repository: ExpenseRepository(
+                          firestore: firestore,
+                          auth: auth,
+                        ),
+                      )
+                        ..add(LoadExpensesEvent())..add(LoadTotalExpensesEvent()),
                     ),
                     BlocProvider(
                       create:
                           (_) => CategoriesBloc(
-                            firestore: FirebaseFirestore.instance,
-                            userId: authState.user.id,
-                          )..add(LoadCategoriesEvent()),
+                        firestore: firestore,
+                        auth: auth,
+                      )..add(LoadCategoriesEvent()),
                     ),
                   ],
                   child: BlocBuilder<ThemeCubit, ThemeState>(
