@@ -16,76 +16,6 @@ import 'features/category/categories_bloc/categories_bloc.dart';
 import 'features/expense/expense_bloc/expense_bloc.dart';
 import 'features/expense/repository/expense_repository.dart';
 
-// class FinanceManagementApp extends StatefulWidget {
-//   const FinanceManagementApp({super.key});
-//
-//   @override
-//   State<FinanceManagementApp> createState() => _FinanceManagementAppState();
-// }
-//
-// class _FinanceManagementAppState extends State<FinanceManagementApp> {
-//   final _router = AppRouter();
-//   final AuthService _authService = AuthService();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MultiRepositoryProvider(
-//       providers: [
-//         RepositoryProvider<AuthService>.value(value: _authService),
-//         RepositoryProvider<AuthRepository>(
-//           create:
-//               (context) => AuthRepository(
-//                 firestore: FirebaseFirestore.instance,
-//                 authService: context.read<AuthService>(),
-//               ),
-//         ),
-//       ],
-//       child: MultiBlocProvider(
-//         providers: [
-//           BlocProvider<AuthBloc>(
-//             create: (context) {
-//               final bloc = AuthBloc(
-//                 authRepository: context.read<AuthRepository>(),
-//                 authService: _authService,
-//               );
-//               bloc.add(AuthStarted());
-//               return bloc;
-//             },
-//           ),
-//           BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
-//           BlocProvider<CategoriesBloc>(
-//             create:
-//                 (context) =>
-//                     CategoriesBloc(firestore: FirebaseFirestore.instance)
-//                       ..add(LoadCategoriesEvent()),
-//           ),
-//           BlocProvider(
-//             create:
-//                 (context) =>
-//             ExpenseBloc(
-//               repository: ExpenseRepository(),
-//             )
-//               ..add(LoadExpensesEvent())..add(LoadTotalExpensesEvent()),
-//           ),
-//         ],
-//         child: BlocBuilder<ThemeCubit, ThemeState>(
-//           builder: (context, state) {
-//             return MaterialApp.router(
-//               localizationsDelegates: context.localizationDelegates,
-//               supportedLocales: context.supportedLocales,
-//               locale: context.locale,
-//               debugShowCheckedModeBanner: false,
-//               title: 'Finance Management',
-//               theme: state.isLight ? lightTheme : darkTheme,
-//               routerConfig: _router.config(),
-//             );
-//           },
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class FinanceManagementApp extends StatelessWidget {
   final _router = AppRouter();
   final _authService = AuthService();
@@ -107,15 +37,24 @@ class FinanceManagementApp extends StatelessWidget {
                 authService: _authService,
               ),
         ),
+        RepositoryProvider(
+          create: (context) =>
+              ExpenseRepository(
+                firestore: firestore,
+                auth: auth,
+              ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create:
-                (context) => AuthBloc(
+                (context) =>
+            AuthBloc(
               authRepository: context.read<AuthRepository>(),
               authService: _authService,
-            )..add(AuthStarted()),
+            )
+              ..add(AuthStarted()),
           ),
           BlocProvider(create: (_) => ThemeCubit()),
         ],
@@ -141,14 +80,17 @@ class FinanceManagementApp extends StatelessWidget {
                           auth: auth,
                         ),
                       )
-                        ..add(LoadExpensesEvent())..add(LoadTotalExpensesEvent()),
+                        ..add(LoadExpensesEvent())..add(
+                          LoadTotalExpensesEvent()),
                     ),
                     BlocProvider(
                       create:
-                          (_) => CategoriesBloc(
-                        firestore: firestore,
-                        auth: auth,
-                      )..add(LoadCategoriesEvent()),
+                          (_) =>
+                      CategoriesBloc(
+                        expenseRepository:
+                        context.read<ExpenseRepository>(),
+                      )
+                        ..add(LoadCategoriesEvent()),
                     ),
                   ],
                   child: BlocBuilder<ThemeCubit, ThemeState>(

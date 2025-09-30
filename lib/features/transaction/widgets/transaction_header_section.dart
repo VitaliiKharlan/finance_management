@@ -13,12 +13,6 @@ class TransactionsHeaderSection extends StatefulWidget {
 }
 
 class _TransactionsHeaderSectionState extends State<TransactionsHeaderSection> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<AuthBloc>().add(AuthStarted());
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Padding(

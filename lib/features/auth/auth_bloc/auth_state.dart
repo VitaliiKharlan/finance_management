@@ -10,8 +10,6 @@ class AuthState with _$AuthState {
 
   const factory AuthState.loading() = AuthLoading;
 
-  const factory AuthState.success() = AuthSuccess;
-
   const factory AuthState.authenticated({required UserEntity user}) =
       Authenticated;
 

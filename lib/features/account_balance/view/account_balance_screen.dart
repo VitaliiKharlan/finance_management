@@ -48,28 +48,35 @@ class AccountBalanceScreen extends StatelessWidget {
                 ),
                 child: BlocBuilder<ExpenseBloc, ExpenseState>(
                   builder: (context, state) {
-                    if (state is ExpensesLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+                    return state.when(
+                      initial: (totalExpense) => const SizedBox.shrink(),
+                      loading:
+                          (totalExpense, transactions) =>
+                              const Center(child: CircularProgressIndicator()),
+                      failure:
+                          (message, totalExpense) =>
+                              Center(child: Text('Error: $message')),
+                      loaded: (
+                        totalExpense,
+                        transactions,
+                        filteredTransactions,
+                      ) {
+                        final showTransactions =
+                            filteredTransactions.isNotEmpty
+                                ? filteredTransactions
+                                : transactions;
 
-                    if (state is ExpensesFailure) {
-                      return Center(child: Text('Error: ${state.message}'));
-                    }
+                        if (showTransactions.isEmpty) {
+                          return const Center(
+                            child: Text('No transactions found'),
+                          );
+                        }
 
-                    if (state is ExpensesLoaded) {
-                      final transactions = state.transactions;
-
-                      if (transactions.isEmpty) {
-                        return const Center(
-                          child: Text('No transactions found'),
+                        return AccountBalanceTransactionsListSection(
+                          transactions: transactions,
                         );
-                      }
-
-                      return AccountBalanceTransactionsListSection(
-                        transactions: transactions,
-                      );
-                    }
-                    return const SizedBox.shrink();
+                      },
+                    );
                   },
                 ),
               ),
@@ -80,4 +87,3 @@ class AccountBalanceScreen extends StatelessWidget {
     );
   }
 }
-

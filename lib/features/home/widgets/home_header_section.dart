@@ -53,9 +53,7 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
               if (state is AuthLoading) {
                 debugPrint('loading');
               }
-              if (state is AuthSuccess) {
-                debugPrint('success');
-              }
+
               if (state is Authenticated) {
                 final userName = state.user.name;
 
@@ -80,7 +78,6 @@ class _HomeHeaderSectionState extends State<HomeHeaderSection> {
                     ),
                     Text(
                       _getGreeting(),
-                      // 'goodMorning'.tr(),
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,

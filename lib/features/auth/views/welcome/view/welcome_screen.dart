@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message)));
-        } else if (state is Authenticated || state is AuthSuccess) {
+        } else if (state is Authenticated) {
           emailController.clear();
           passwordController.clear();
           context.pushRoute(const HomeRoute());

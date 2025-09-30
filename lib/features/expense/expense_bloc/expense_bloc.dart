@@ -30,11 +30,19 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     on<ExpensesPeriodChanged>(_onExpensesPeriodChanged);
     on<_TransactionsUpdated>(_onTransactionsUpdated);
 
-    // Подписка на поток транзакций сразу
-    _transactionsSub =
-        repository.getTransactionsStream().listen((transactions) {
-          add(_TransactionsUpdated(transactions));
-        });
+    _transactionsSub = repository.getTransactionsStream().listen(
+          (transactions) {
+        add(_TransactionsUpdated(transactions));
+      },
+      onError: (error) {
+        add(_TransactionsErrorOccurred(error.toString()));
+      },
+    );
+
+    on<_TransactionsErrorOccurred>((event, emit) {
+      emit(ExpenseState.failure(
+          event.errorMessage, totalExpense: state.totalExpense));
+    });
   }
 
   /// Добавление или обновление транзакции

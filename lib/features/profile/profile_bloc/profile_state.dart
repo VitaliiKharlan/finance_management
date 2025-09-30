@@ -1,23 +1,14 @@
-part of 'profile_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class ProfileState extends Equatable {
-  const ProfileState();
+part 'profile_state.freezed.dart';
 
-  @override
-  List<Object?> get props => [];
+@freezed
+abstract class ProfileState with _$ProfileState {
+  const factory ProfileState.initial() = ProfileInitialState;
+
+  const factory ProfileState.failure(String message) = ProfileFailureState;
+
+  const factory ProfileState.view() = ProfileViewState;
+
+  const factory ProfileState.edit() = ProfileEditState;
 }
-
-class ProfileInitialState extends ProfileState {}
-
-class ProfileFailureState extends ProfileState {
-  final String message;
-
-  const ProfileFailureState(this.message);
-
-  @override
-  List<Object?> get props => [message];
-}
-
-class ProfileViewState extends ProfileState {}
-
-class ProfileEditState extends ProfileState {}

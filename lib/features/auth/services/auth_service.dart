@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../core/logger/i_logger_service.dart';
+
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -16,19 +18,21 @@ class AuthService {
         email: email,
         password: password,
       );
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'user-not-found':
-          throw Exception('User not found');
-        case 'wrong-password':
-          throw Exception('Incorrect password');
-        case 'invalid-email':
-          throw Exception('Incorrect email');
-        case 'user-disabled':
-          throw Exception('User blocked');
-        default:
-          throw Exception(e.message ?? 'Login error');
-      }
+    } on FirebaseAuthException catch (e, s) {
+      final errorMessage = switch (e.code) {
+        'user-not-found' => 'User not found',
+        'wrong-password' => 'Incorrect password',
+        'invalid-email' => 'Incorrect email',
+        'user-disabled' => 'User blocked',
+        _ => e.message ?? 'Login error',
+      };
+      logger.log(
+        'FirebaseAuthException during signIn: code=${e.code}, message=$errorMessage}',
+        error: e,
+        stackTrace: s,
+        logLevel: LogLevel.error,
+      );
+      throw Exception(errorMessage);
     }
   }
 

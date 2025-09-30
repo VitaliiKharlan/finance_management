@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../core/theme/app_icons.dart';
 import '../profile_bloc/profile_bloc.dart';
+import '../profile_bloc/profile_state.dart';
 
 class ProfileHeaderSection extends StatelessWidget {
   const ProfileHeaderSection({super.key});
@@ -24,27 +25,29 @@ class ProfileHeaderSection extends StatelessWidget {
           const Spacer(),
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
-              if (state is ProfileViewState) {
-                return const Text(
-                  'Profile',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF093030),
-                  ),
-                );
-              } else if (state is ProfileEditState) {
-                return const Text(
-                  'Edit My Profile',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF093030),
-                  ),
-                );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
+              return state.when(
+                initial: () => const SizedBox.shrink(),
+                view:
+                    () => const Text(
+                      'Profile',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF093030),
+                      ),
+                    ),
+                edit:
+                    () => const Text(
+                      'Edit My Profile',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF093030),
+                      ),
+                    ),
+                failure:
+                    (_) => const Center(child: CircularProgressIndicator()),
+              );
             },
           ),
           const Spacer(),

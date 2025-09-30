@@ -37,28 +37,29 @@ class TransactionScreen extends StatelessWidget {
                 ),
                 child: BlocBuilder<ExpenseBloc, ExpenseState>(
                   builder: (context, state) {
-                    if (state is ExpensesLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    if (state is ExpensesFailure) {
-                      return Center(child: Text('Error: ${state.message}'));
-                    }
-
-                    if (state is ExpensesLoaded) {
-                      final transactions = state.transactions;
-
-                      if (transactions.isEmpty) {
-                        return const Center(
-                          child: Text('No transactions found'),
+                    return state.when(
+                      initial: (totalExpense) => const SizedBox.shrink(),
+                      loading:
+                          (totalExpense, transactions) =>
+                              const Center(child: CircularProgressIndicator()),
+                      failure:
+                          (message, totalExpense) =>
+                              Center(child: Text('Error: $message')),
+                      loaded: (
+                        totalExpense,
+                        transactions,
+                        filteredTransactions,
+                      ) {
+                        if (transactions.isEmpty) {
+                          return const Center(
+                            child: Text('No transactions found'),
+                          );
+                        }
+                        return TransactionTransactionsListSection(
+                          transactions: transactions,
                         );
-                      }
-
-                      return TransactionTransactionsListSection(
-                        transactions: transactions,
-                      );
-                    }
-                    return const SizedBox.shrink();
+                      },
+                    );
                   },
                 ),
               ),

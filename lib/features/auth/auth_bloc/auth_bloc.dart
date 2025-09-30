@@ -72,25 +72,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         emit(Unauthenticated());
       }
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'user-not-found':
-          emit(AuthFailure('User not found'));
-          break;
-        case 'wrong-password':
-          emit(AuthFailure('Incorrect password'));
-          break;
-        case 'invalid-email':
-          emit(AuthFailure('Incorrect email'));
-          break;
-        case 'user-disabled':
-          emit(AuthFailure('Account disabled'));
-          break;
-        default:
-          emit(AuthFailure(e.message ?? 'Login error'));
-      }
     } catch (e) {
-      emit(AuthFailure('Unknown error: ${e.toString()}'));
+      emit(AuthFailure(e.toString()));
     }
   }
 

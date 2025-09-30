@@ -24,8 +24,6 @@ class QuicklyAnalysisExpensesListSection extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: ListView.builder(
-          // shrinkWrap: true,
-          // physics: const NeverScrollableScrollPhysics(),
           itemCount: sortedTransactions.length,
           itemBuilder: (context, index) {
             final transaction = sortedTransactions[index];

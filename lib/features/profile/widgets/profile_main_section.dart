@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../profile_bloc/profile_bloc.dart';
+import '../profile_bloc/profile_state.dart';
 
 class ProfileMainSection extends StatelessWidget {
   final String fullName;
@@ -72,18 +73,15 @@ class ProfileMainSection extends StatelessWidget {
               const SizedBox(height: 30),
               BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
-                  if (state is ProfileViewState) {
-                    return ProfileMenuItemsWidget();
-                  } else if (state is ProfileEditState) {
-                    return ProfileEditProfileView();
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+                  return state.when(
+                    initial: () => const SizedBox.shrink(),
+                    view: () => ProfileMenuItemsWidget(),
+                    edit: () => const ProfileEditProfileView(),
+                    failure:
+                        (_) => const Center(child: CircularProgressIndicator()),
+                  );
                 },
               ),
-
             ],
           ),
         ),

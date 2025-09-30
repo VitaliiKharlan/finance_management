@@ -89,7 +89,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       backgroundColor: const Color(0xFF00D09E),
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthSuccess) {
+          if (state is Authenticated) {
             context.pushRoute(const HomeRoute());
           }
           if (state is AuthFailure) {

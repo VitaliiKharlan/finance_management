@@ -51,3 +51,12 @@ class _TransactionsUpdated extends ExpenseEvent {
   @override
   List<Object?> get props => [transactions];
 }
+
+class _TransactionsErrorOccurred extends ExpenseEvent {
+  final String errorMessage;
+
+  const _TransactionsErrorOccurred(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
+}

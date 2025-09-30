@@ -11,7 +11,6 @@ part of 'theme_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$ThemeState {
 
@@ -57,7 +56,6 @@ abstract mixin class $ThemeStateCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$ThemeStateCopyWithImpl<$Res>
     implements $ThemeStateCopyWith<$Res> {
@@ -278,7 +276,6 @@ abstract mixin class _$ThemeStateCopyWith<$Res>
 
 
 }
-
 /// @nodoc
 class __$ThemeStateCopyWithImpl<$Res>
     implements _$ThemeStateCopyWith<$Res> {

@@ -135,42 +135,6 @@ extension ExpenseStatePatterns on ExpenseState {
 
   (
 
-  ExpensesSaved
-
-  value
-
-  )
-
-  ?
-
-  saved
-
-  ,
-
-  TResult
-
-  Function
-
-  (
-
-  ExpensesFailure
-
-  value
-
-  )
-
-  ?
-
-  failure
-
-  ,
-
-  TResult
-
-  Function
-
-  (
-
   ExpensesLoading
 
   value
@@ -201,6 +165,24 @@ extension ExpenseStatePatterns on ExpenseState {
 
   ,
 
+  TResult
+
+  Function
+
+  (
+
+  ExpensesFailure
+
+  value
+
+  )
+
+  ?
+
+  failure
+
+  ,
+
   required
 
   TResult
@@ -216,11 +198,10 @@ extension ExpenseStatePatterns on ExpenseState {
 final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
-return initial(_that);case ExpensesSaved() when saved != null:
-return saved(_that);case ExpensesFailure() when failure != null:
-return failure(_that);case ExpensesLoading() when loading != null:
+return initial(_that);case ExpensesLoading() when loading != null:
 return loading(_that);case ExpensesLoaded() when loaded != null:
-return loaded(_that);case _:
+return loaded(_that);case ExpensesFailure() when failure != null:
+return failure(_that);case _:
 return orElse();
 
 }
@@ -240,19 +221,17 @@ return orElse();
 
 @optionalTypeArgs
 TResult map<TResult extends Object?>(
-    {required TResult Function( ExpensesInitial value) initial, required TResult Function( ExpensesSaved value) saved, required TResult Function( ExpensesFailure value) failure, required TResult Function( ExpensesLoading value) loading, required TResult Function( ExpensesLoaded value) loaded,}) {
+    {required TResult Function( ExpensesInitial value) initial, required TResult Function( ExpensesLoading value) loading, required TResult Function( ExpensesLoaded value) loaded, required TResult Function( ExpensesFailure value) failure,}) {
   final _that = this;
   switch (_that) {
     case ExpensesInitial():
       return initial(_that);
-    case ExpensesSaved():
-      return saved(_that);
-    case ExpensesFailure():
-      return failure(_that);
     case ExpensesLoading():
       return loading(_that);
     case ExpensesLoaded():
       return loaded(_that);
+    case ExpensesFailure():
+      return failure(_that);
     case _:
       throw StateError('Unexpected subclass');
   }
@@ -271,19 +250,17 @@ TResult map<TResult extends Object?>(
 
 @optionalTypeArgs
 TResult? mapOrNull<TResult extends Object?>(
-    {TResult? Function( ExpensesInitial value)? initial, TResult? Function( ExpensesSaved value)? saved, TResult? Function( ExpensesFailure value)? failure, TResult? Function( ExpensesLoading value)? loading, TResult? Function( ExpensesLoaded value)? loaded,}) {
+    {TResult? Function( ExpensesInitial value)? initial, TResult? Function( ExpensesLoading value)? loading, TResult? Function( ExpensesLoaded value)? loaded, TResult? Function( ExpensesFailure value)? failure,}) {
   final _that = this;
   switch (_that) {
     case ExpensesInitial() when initial != null:
       return initial(_that);
-    case ExpensesSaved() when saved != null:
-      return saved(_that);
-    case ExpensesFailure() when failure != null:
-      return failure(_that);
     case ExpensesLoading() when loading != null:
       return loading(_that);
     case ExpensesLoaded() when loaded != null:
       return loaded(_that);
+    case ExpensesFailure() when failure != null:
+      return failure(_that);
     case _:
       return null;
   }
@@ -312,27 +289,6 @@ totalExpense
 )
 ?
 initial
-,
-TResult
-Function
-(
-double
-totalExpense
-)
-?
-saved
-,
-TResult
-Function
-(
-String
-message
-,
-double
-totalExpense
-)
-?
-failure
 ,
 TResult
 Function
@@ -370,16 +326,27 @@ filteredTransactions
 ?
 loaded
 ,
+TResult
+Function
+(
+String
+message
+,
+double
+totalExpense
+)
+?
+failure
+,
 required
 TResult
 orElse(),}) {final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
-return initial(_that.totalExpense);case ExpensesSaved() when saved != null:
-return saved(_that.totalExpense);case ExpensesFailure() when failure != null:
-return failure(_that.message,_that.totalExpense);case ExpensesLoading() when loading != null:
+return initial(_that.totalExpense);case ExpensesLoading() when loading != null:
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded() when loaded != null:
-return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case _:
+return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure() when failure != null:
+return failure(_that.message,_that.totalExpense);case _:
 return orElse();
 
 }
@@ -397,14 +364,13 @@ return orElse();
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double totalExpense) initial,required TResult Function( double totalExpense) saved,required TResult Function( String message, double totalExpense) failure,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions) loading,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions) loaded,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double totalExpense) initial,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions) loading,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions) loaded,required TResult Function( String message, double totalExpense) failure,}) {final _that = this;
 switch (_that) {
 case ExpensesInitial():
-return initial(_that.totalExpense);case ExpensesSaved():
-return saved(_that.totalExpense);case ExpensesFailure():
-return failure(_that.message,_that.totalExpense);case ExpensesLoading():
+return initial(_that.totalExpense);case ExpensesLoading():
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded():
-return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case _:
+return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure():
+return failure(_that.message,_that.totalExpense);case _:
 throw StateError('Unexpected subclass');
 
 }
@@ -421,14 +387,13 @@ throw StateError('Unexpected subclass');
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double totalExpense)? initial,TResult? Function( double totalExpense)? saved,TResult? Function( String message, double totalExpense)? failure,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions)? loading,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions)? loaded,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double totalExpense)? initial,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions)? loading,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions)? loaded,TResult? Function( String message, double totalExpense)? failure,}) {final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
-return initial(_that.totalExpense);case ExpensesSaved() when saved != null:
-return saved(_that.totalExpense);case ExpensesFailure() when failure != null:
-return failure(_that.message,_that.totalExpense);case ExpensesLoading() when loading != null:
+return initial(_that.totalExpense);case ExpensesLoading() when loading != null:
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded() when loaded != null:
-return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case _:
+return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure() when failure != null:
+return failure(_that.message,_that.totalExpense);case _:
 return null;
 
 }
@@ -492,134 +457,6 @@ final $Res Function(ExpensesInitial) _then;
 @override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,}) {
 return _then(ExpensesInitial(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
-as double,
-));
-}
-
-
-}
-
-/// @nodoc
-
-
-class ExpensesSaved implements ExpenseState {
-const ExpensesSaved({this.totalExpense = 0.0});
-
-
-@override@JsonKey() final double totalExpense;
-
-/// Create a copy of ExpenseState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ExpensesSavedCopyWith<ExpensesSaved> get copyWith => _$ExpensesSavedCopyWithImpl<ExpensesSaved>(this, _$identity);
-
-
-@override
-bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesSaved&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,totalExpense);
-
-@override
-String toString() {
-return 'ExpenseState.saved(totalExpense: $totalExpense)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $ExpensesSavedCopyWith<$Res> implements $ExpenseStateCopyWith<$Res> {
-factory $ExpensesSavedCopyWith(ExpensesSaved value, $Res Function(ExpensesSaved) _then) = _$ExpensesSavedCopyWithImpl;
-@override @useResult
-$Res call({
-double totalExpense
-});
-
-
-}
-/// @nodoc
-class _$ExpensesSavedCopyWithImpl<$Res>
-implements $ExpensesSavedCopyWith<$Res> {
-_$ExpensesSavedCopyWithImpl(this._self, this._then);
-
-final ExpensesSaved _self;
-final $Res Function(ExpensesSaved) _then;
-
-/// Create a copy of ExpenseState
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,}) {
-return _then(ExpensesSaved(
-totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
-as double,
-));
-}
-
-
-}
-
-/// @nodoc
-
-
-class ExpensesFailure implements ExpenseState {
-const ExpensesFailure(this.message, {this.totalExpense = 0.0});
-
-
-final String message;
-@override@JsonKey() final double totalExpense;
-
-/// Create a copy of ExpenseState
-/// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$ExpensesFailureCopyWith<ExpensesFailure> get copyWith => _$ExpensesFailureCopyWithImpl<ExpensesFailure>(this, _$identity);
-
-
-@override
-bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesFailure&&(identical(other.message, message) || other.message == message)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,message,totalExpense);
-
-@override
-String toString() {
-return 'ExpenseState.failure(message: $message, totalExpense: $totalExpense)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $ExpensesFailureCopyWith<$Res> implements $ExpenseStateCopyWith<$Res> {
-factory $ExpensesFailureCopyWith(ExpensesFailure value, $Res Function(ExpensesFailure) _then) = _$ExpensesFailureCopyWithImpl;
-@override @useResult
-$Res call({
-String message, double totalExpense
-});
-
-
-}
-/// @nodoc
-class _$ExpensesFailureCopyWithImpl<$Res>
-implements $ExpensesFailureCopyWith<$Res> {
-_$ExpensesFailureCopyWithImpl(this._self, this._then);
-
-final ExpensesFailure _self;
-final $Res Function(ExpensesFailure) _then;
-
-/// Create a copy of ExpenseState
-/// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? totalExpense = null,}) {
-return _then(ExpensesFailure(
-null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
-as String,totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
 as double,
 ));
 }
@@ -773,6 +610,71 @@ totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore
 as double,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,filteredTransactions: null == filteredTransactions ? _self._filteredTransactions : filteredTransactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,
+));
+}
+
+
+}
+
+/// @nodoc
+
+
+class ExpensesFailure implements ExpenseState {
+const ExpensesFailure(this.message, {this.totalExpense = 0.0});
+
+
+final String message;
+@override@JsonKey() final double totalExpense;
+
+/// Create a copy of ExpenseState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExpensesFailureCopyWith<ExpensesFailure> get copyWith => _$ExpensesFailureCopyWithImpl<ExpensesFailure>(this, _$identity);
+
+
+@override
+bool operator ==(Object other) {
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesFailure&&(identical(other.message, message) || other.message == message)&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message,totalExpense);
+
+@override
+String toString() {
+return 'ExpenseState.failure(message: $message, totalExpense: $totalExpense)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExpensesFailureCopyWith<$Res> implements $ExpenseStateCopyWith<$Res> {
+factory $ExpensesFailureCopyWith(ExpensesFailure value, $Res Function(ExpensesFailure) _then) = _$ExpensesFailureCopyWithImpl;
+@override @useResult
+$Res call({
+String message, double totalExpense
+});
+
+
+}
+/// @nodoc
+class _$ExpensesFailureCopyWithImpl<$Res>
+implements $ExpensesFailureCopyWith<$Res> {
+_$ExpensesFailureCopyWithImpl(this._self, this._then);
+
+final ExpensesFailure _self;
+final $Res Function(ExpensesFailure) _then;
+
+/// Create a copy of ExpenseState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? message = null,Object? totalExpense = null,}) {
+return _then(ExpensesFailure(
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
+as double,
 ));
 }
 

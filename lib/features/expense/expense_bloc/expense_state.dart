@@ -9,14 +9,6 @@ abstract class ExpenseState with _$ExpenseState {
   const factory ExpenseState.initial({@Default(0.0) double totalExpense}) =
       ExpensesInitial;
 
-  const factory ExpenseState.saved({@Default(0.0) double totalExpense}) =
-      ExpensesSaved;
-
-  const factory ExpenseState.failure(
-    String message, {
-    @Default(0.0) double totalExpense,
-  }) = ExpensesFailure;
-
   const factory ExpenseState.loading({
     @Default(0.0) double totalExpense,
     @Default([]) List<CategoryTransactionDto> transactions,
@@ -27,4 +19,9 @@ abstract class ExpenseState with _$ExpenseState {
     @Default([]) List<CategoryTransactionDto> transactions,
     required List<CategoryTransactionDto> filteredTransactions,
   }) = ExpensesLoaded;
+
+  const factory ExpenseState.failure(
+    String message, {
+    @Default(0.0) double totalExpense,
+  }) = ExpensesFailure;
 }

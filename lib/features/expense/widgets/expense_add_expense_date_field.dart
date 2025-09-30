@@ -45,12 +45,6 @@ class DateField extends StatelessWidget {
               color: AppColors.lettersAndIcons,
             ),
             onTap: () async {
-              // final date = await showDatePicker(
-              //   context: context,
-              //   initialDate: initialDate,
-              //   firstDate: DateTime(2000),
-              //   lastDate: DateTime.now(),
-              // );
               final date = await showDatePicker(
                 context: context,
                 initialDate: initialDate,
