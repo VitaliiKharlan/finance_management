@@ -50,14 +50,6 @@ class AppStrings {
   static const daily = 'Daily';
   static const weekly = 'Weekly';
   static const monthly = 'Monthly';
-  static const salary = 'Salary';
-  static const groceries = 'Groceries';
-  static const rent = 'Rent';
-
-  // static const monthly = 'Monthly';
-  static const pantry = 'Pantry';
-
-  // static const rent = 'Rent';
 
   /*
   💡 AnalysisScreen Strings

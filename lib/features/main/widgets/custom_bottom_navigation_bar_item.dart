@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BottomNavigationItem extends StatelessWidget {
+class CustomBottomNavigationBarItem extends StatelessWidget {
   final String assetPath;
   final bool isActive;
   final VoidCallback onTap;
   final ThemeData theme;
 
-  const BottomNavigationItem({
+  const CustomBottomNavigationBarItem({
     super.key,
     required this.assetPath,
     required this.isActive,
