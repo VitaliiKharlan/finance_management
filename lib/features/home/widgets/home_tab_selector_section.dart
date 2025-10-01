@@ -22,8 +22,7 @@ class _HomeTabSelectorSectionState extends State<HomeTabSelectorSection> {
       borderRadius: BorderRadius.circular(32),
       child: Container(
         width: double.infinity,
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
           color: const Color(0xFFDFF7E2),
           borderRadius: BorderRadius.circular(32),

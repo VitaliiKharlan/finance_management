@@ -14,19 +14,22 @@ class HomeTransactionsListSection extends StatelessWidget {
       return const Center(child: Text('No transactions found'));
     }
 
-    return ListView.builder(
-      itemCount: transactions.length,
-      itemBuilder: (context, index) {
-        final t = transactions[index];
-        return HomeTransactionsListTransactionTile(
-          svgAsset: t.category.iconPath,
-          title: t.title,
-          dateTime: t.timeAndDate!,
-          category: t.category,
-          amount: t.amount,
-          isExpense: t.amount > 0,
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (context, index) {
+          final t = transactions[index];
+          return HomeTransactionsListTransactionTile(
+            svgAsset: t.category.iconPath,
+            title: t.title,
+            dateTime: t.timeAndDate!,
+            category: t.category,
+            amount: t.amount,
+            isExpense: t.amount > 0,
+          );
+        },
+      ),
     );
   }
 }
