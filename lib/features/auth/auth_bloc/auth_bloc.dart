@@ -1,35 +1,36 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/di/locator.dart';
 import '../../../core/logger/i_logger_service.dart';
 import '../models/user_entity.dart';
-import '../repository/auth_repository.dart';
-import '../services/auth_service.dart';
+import '../repository/i_auth_repository.dart';
+import '../services/i_auth_service.dart';
 import 'auth_state.dart';
 
 part 'auth_event.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
-  final AuthService _authService;
+  final IAuthRepository _authRepository;
+  final IAuthService _authService;
   final ILoggerService _logger = getIt<ILoggerService>();
 
   StreamSubscription<User?>? _authStateSubscription;
 
   AuthBloc({
-    required AuthRepository authRepository,
-    required AuthService authService,
+    required IAuthRepository authRepository,
+    required IAuthService authService,
   }) : _authRepository = authRepository,
        _authService = authService,
        super(AuthInitial()) {
-    print('💡💡💡💡💡AuthBloc created');
+    debugPrint('💡💡💡💡💡AuthBloc created');
     _logger.log(
       'AuthBloc created',
       logLevel: LogLevel.info,
-      stackTrace: StackTrace.current, // Передаём текущий стек вызовов
+      stackTrace: StackTrace.current,
     );
     on<AuthStarted>(_onAuthStarted);
     on<LoginRequested>(_onLoginRequested);

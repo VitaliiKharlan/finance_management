@@ -1,23 +1,23 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finance_management/features/auth/models/user_entity.dart';
 
 import '../../../../../core/logger/i_logger_service.dart';
 import '../../../core/constants/firestore_constants.dart';
+import '../models/user_entity.dart';
 import '../models/user_registration_dto.dart';
-import '../services/auth_service.dart';
+import '../services/i_auth_service.dart';
 import 'i_auth_repository.dart';
 
 class AuthRepository implements IAuthRepository {
   AuthRepository({
     required FirebaseFirestore firestore,
-    required AuthService authService,
+    required IAuthService authService,
   }) : _firestore = firestore,
        _authService = authService;
 
   final FirebaseFirestore _firestore;
-  final AuthService _authService;
+  final IAuthService _authService;
 
   @override
   Future<UserEntity> getUser(String uid) async {

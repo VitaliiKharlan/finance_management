@@ -1,14 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/logger/i_logger_service.dart';
+import 'i_auth_service.dart';
 
-class AuthService {
+class AuthService implements IAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  @override
   User? get currentUser => _firebaseAuth.currentUser;
 
+  @override
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  @override
   Future<UserCredential> signIn({
     required String email,
     required String password,
@@ -36,6 +40,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<UserCredential> createAccount({
     required String email,
     required String password,
@@ -59,6 +64,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
@@ -67,6 +73,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<void> resetPassword({required String email}) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
@@ -81,6 +88,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<void> updateUsername({required String username}) async {
     try {
       await currentUser!.updateDisplayName(username);
@@ -89,6 +97,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<void> deleteAccount({
     required String email,
     required String password,
@@ -115,6 +124,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<void> resetPasswordFromCurrentPassword({
     required String currentPassword,
     required String newPassword,

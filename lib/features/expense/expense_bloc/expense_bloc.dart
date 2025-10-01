@@ -5,13 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/enums/category_enum.dart';
 import '../../category/models/category_transaction_dto.dart';
-import '../repository/expense_repository.dart';
+import '../repository/i_expense_repository.dart';
 import 'expense_state.dart';
 
 part 'expense_event.dart';
 
 class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
-  final ExpenseRepository repository;
+  final IExpenseRepository repository;
 
   List<CategoryTransactionDto> _allTransactions = [];
   int _selectedPeriodIndex = 0;
