@@ -3,40 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/enums/category_enum.dart';
 import '../../../core/theme/app_colors.dart';
 
 class HomeTransactionsListTransactionTile extends StatelessWidget {
   final String svgAsset;
+  final String category;
+  final DateTime timeAndDate;
   final String title;
-  final DateTime dateTime;
-  final CategoryEnum category;
   final double amount;
   final bool isExpense;
 
   const HomeTransactionsListTransactionTile({
     super.key,
     required this.svgAsset,
-    required this.title,
-    required this.dateTime,
     required this.category,
+    required this.timeAndDate,
+    required this.title,
     required this.amount,
     this.isExpense = true,
   });
 
-  static const double _leadingWidth = 60;
-  static const double _titleWidth = 180;
-  static const double _amountWidth = 72;
+  static const double _categoryIconWidth = 60;
+  static const double _categoryNameAndTimeAndDateWidth = 112;
+  static const double _dividerLeftWidth = 2;
+  static const double _transactionTitleWidth = 84;
+  static const double _dividerRightWidth = 2;
+  static const double _amountWidth = 68;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: _leadingWidth,
+            width: _categoryIconWidth,
             child: Container(
               width: 57,
               height: 53,
@@ -51,48 +53,66 @@ class HomeTransactionsListTransactionTile extends StatelessWidget {
               child: SvgPicture.asset(svgAsset, fit: BoxFit.contain),
             ),
           ),
-
-          const SizedBox(width: 16),
-
+          const SizedBox(width: 12),
           SizedBox(
-            width: _titleWidth,
+            width: _categoryNameAndTimeAndDateWidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  title,
+                  category,
                   style: GoogleFonts.poppins(
                     color: AppColors.backgroundDarkModeAndLetters,
-                    fontSize: 15,
+                    fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  DateFormat('dd MMM yyyy, HH:mm').format(dateTime),
+                  DateFormat('HH:mm - MMMM dd').format(timeAndDate),
                   style: GoogleFonts.poppins(
                     color: AppColors.oceanBlueButton,
-                    fontSize: 12,
+                    fontSize: 10,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
+          const SizedBox(width: _dividerLeftWidth),
+          Container(width: 1, height: 32, color: Colors.grey.shade400),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: SizedBox(
+              width: _transactionTitleWidth,
+              child: Text(
+                title,
+                style: GoogleFonts.poppins(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
 
+          const SizedBox(width: _dividerRightWidth),
+          Container(width: 1, height: 32, color: Colors.grey.shade400),
           SizedBox(
             width: _amountWidth,
             child: Text(
               '${isExpense ? '-' : ''}${NumberFormat.currency(symbol: '\$', decimalDigits: 2).format(amount)}',
-              // amount,
-              style: TextStyle(
+              style: GoogleFonts.poppins(
                 color:
                     isExpense
                         ? AppColors.oceanBlueButton
                         : AppColors.backgroundDarkModeAndLetters,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
               textAlign: TextAlign.right,
               maxLines: 1,

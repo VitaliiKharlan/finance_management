@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
@@ -15,13 +16,17 @@ class TransactionTransactionsHeaderWithCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             monthName,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            style: GoogleFonts.poppins(
+              color: AppColors.lettersAndIcons,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           GestureDetector(
             onTap: () {

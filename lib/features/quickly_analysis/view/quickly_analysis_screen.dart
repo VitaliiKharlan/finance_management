@@ -55,6 +55,7 @@ class QuicklyAnalysisScreen extends StatelessWidget {
                                   Center(child: Text('Error: $message')),
                           loaded: (
                             totalExpense,
+                            totalFoodLastWeekExpense,
                             transactions,
                             filteredTransactions,
                           ) {

@@ -18,9 +18,9 @@ class TransactionTransactionsListSection extends StatelessWidget {
   TransactionData _mapTransaction(CategoryTransactionDto t) {
     return TransactionData(
       svgAsset: t.category.iconPath,
-      title: t.category.shortLabel,
-      subtitle: DateFormat('HH:mm - MMM dd').format(t.timeAndDate!),
-      category: t.title,
+      category: t.category.shortLabel,
+      timeAmdDate: t.timeAndDate!,
+      title: t.title,
       amount: t.amount,
       isExpense: t.amount > 0,
     );

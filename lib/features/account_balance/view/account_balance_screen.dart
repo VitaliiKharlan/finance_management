@@ -58,6 +58,7 @@ class AccountBalanceScreen extends StatelessWidget {
                               Center(child: Text('Error: $message')),
                       loaded: (
                         totalExpense,
+                        totalFoodLastWeekExpense,
                         transactions,
                         filteredTransactions,
                       ) {

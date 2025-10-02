@@ -311,6 +311,9 @@ Function
 double
 totalExpense
 ,
+double
+totalFoodLastWeekExpense
+,
 List
 <
 CategoryTransactionDto
@@ -345,7 +348,7 @@ switch (_that) {
 case ExpensesInitial() when initial != null:
 return initial(_that.totalExpense);case ExpensesLoading() when loading != null:
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded() when loaded != null:
-return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure() when failure != null:
+return loaded(_that.totalExpense,_that.totalFoodLastWeekExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure() when failure != null:
 return failure(_that.message,_that.totalExpense);case _:
 return orElse();
 
@@ -364,12 +367,12 @@ return orElse();
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double totalExpense) initial,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions) loading,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions) loaded,required TResult Function( String message, double totalExpense) failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double totalExpense) initial,required TResult Function( double totalExpense, List<CategoryTransactionDto> transactions) loading,required TResult Function( double totalExpense, double totalFoodLastWeekExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions) loaded,required TResult Function( String message, double totalExpense) failure,}) {final _that = this;
 switch (_that) {
 case ExpensesInitial():
 return initial(_that.totalExpense);case ExpensesLoading():
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded():
-return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure():
+return loaded(_that.totalExpense,_that.totalFoodLastWeekExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure():
 return failure(_that.message,_that.totalExpense);case _:
 throw StateError('Unexpected subclass');
 
@@ -387,12 +390,12 @@ throw StateError('Unexpected subclass');
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double totalExpense)? initial,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions)? loading,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions)? loaded,TResult? Function( String message, double totalExpense)? failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double totalExpense)? initial,TResult? Function( double totalExpense, List<CategoryTransactionDto> transactions)? loading,TResult? Function( double totalExpense, double totalFoodLastWeekExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions)? loaded,TResult? Function( String message, double totalExpense)? failure,}) {final _that = this;
 switch (_that) {
 case ExpensesInitial() when initial != null:
 return initial(_that.totalExpense);case ExpensesLoading() when loading != null:
 return loading(_that.totalExpense,_that.transactions);case ExpensesLoaded() when loaded != null:
-return loaded(_that.totalExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure() when failure != null:
+return loaded(_that.totalExpense,_that.totalFoodLastWeekExpense,_that.transactions,_that.filteredTransactions);case ExpensesFailure() when failure != null:
 return failure(_that.message,_that.totalExpense);case _:
 return null;
 
@@ -540,10 +543,11 @@ as List<CategoryTransactionDto>,
 
 
 class ExpensesLoaded implements ExpenseState {
-const ExpensesLoaded({this.totalExpense = 0.0, final List<CategoryTransactionDto> transactions = const [], required final List<CategoryTransactionDto> filteredTransactions}): _transactions = transactions,_filteredTransactions = filteredTransactions;
+const ExpensesLoaded({this.totalExpense = 0.0, this.totalFoodLastWeekExpense = 0.0, final List<CategoryTransactionDto> transactions = const [], required final List<CategoryTransactionDto> filteredTransactions}): _transactions = transactions,_filteredTransactions = filteredTransactions;
 
 
 @override@JsonKey() final double totalExpense;
+@JsonKey() final double totalFoodLastWeekExpense;
 final List<CategoryTransactionDto> _transactions;
 @JsonKey() List<CategoryTransactionDto> get transactions {
 if (_transactions is EqualUnmodifiableListView) return _transactions;
@@ -566,19 +570,18 @@ return EqualUnmodifiableListView(_filteredTransactions);
 $ExpensesLoadedCopyWith<ExpensesLoaded> get copyWith => _$ExpensesLoadedCopyWithImpl<ExpensesLoaded>(this, _$identity);
 
 
-
 @override
 bool operator ==(Object other) {
-return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoaded&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions)&&const DeepCollectionEquality().equals(other._filteredTransactions, _filteredTransactions));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoaded&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&(identical(other.totalFoodLastWeekExpense, totalFoodLastWeekExpense) || other.totalFoodLastWeekExpense == totalFoodLastWeekExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions)&&const DeepCollectionEquality().equals(other._filteredTransactions, _filteredTransactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,totalExpense,const DeepCollectionEquality().hash(_transactions),const DeepCollectionEquality().hash(_filteredTransactions));
+int get hashCode => Object.hash(runtimeType,totalExpense,totalFoodLastWeekExpense,const DeepCollectionEquality().hash(_transactions),const DeepCollectionEquality().hash(_filteredTransactions));
 
 @override
 String toString() {
-return 'ExpenseState.loaded(totalExpense: $totalExpense, transactions: $transactions, filteredTransactions: $filteredTransactions)';
+return 'ExpenseState.loaded(totalExpense: $totalExpense, totalFoodLastWeekExpense: $totalFoodLastWeekExpense, transactions: $transactions, filteredTransactions: $filteredTransactions)';
 }
 
 
@@ -589,7 +592,7 @@ abstract mixin class $ExpensesLoadedCopyWith<$Res> implements $ExpenseStateCopyW
 factory $ExpensesLoadedCopyWith(ExpensesLoaded value, $Res Function(ExpensesLoaded) _then) = _$ExpensesLoadedCopyWithImpl;
 @override @useResult
 $Res call({
-double totalExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions
+double totalExpense, double totalFoodLastWeekExpense, List<CategoryTransactionDto> transactions, List<CategoryTransactionDto> filteredTransactions
 });
 
 
@@ -604,9 +607,10 @@ final $Res Function(ExpensesLoaded) _then;
 
 /// Create a copy of ExpenseState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,Object? transactions = null,Object? filteredTransactions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? totalExpense = null,Object? totalFoodLastWeekExpense = null,Object? transactions = null,Object? filteredTransactions = null,}) {
 return _then(ExpensesLoaded(
 totalExpense: null == totalExpense ? _self.totalExpense : totalExpense // ignore: cast_nullable_to_non_nullable
+as double,totalFoodLastWeekExpense: null == totalFoodLastWeekExpense ? _self.totalFoodLastWeekExpense : totalFoodLastWeekExpense // ignore: cast_nullable_to_non_nullable
 as double,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,filteredTransactions: null == filteredTransactions ? _self._filteredTransactions : filteredTransactions // ignore: cast_nullable_to_non_nullable
 as List<CategoryTransactionDto>,

@@ -23,8 +23,8 @@ class HomeTransactionsListSection extends StatelessWidget {
           return HomeTransactionsListTransactionTile(
             svgAsset: t.category.iconPath,
             title: t.title,
-            dateTime: t.timeAndDate!,
-            category: t.category,
+            timeAndDate: t.timeAndDate!,
+            category: t.category.shortLabel,
             amount: t.amount,
             isExpense: t.amount > 0,
           );

@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             loaded: (
                               totalExpense,
+                              totalFoodLastWeekExpense,
                               transactions,
                               filteredTransactions,
                             ) {

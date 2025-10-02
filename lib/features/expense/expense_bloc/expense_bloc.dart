@@ -16,6 +16,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
   List<CategoryTransactionDto> _allTransactions = [];
   int _selectedPeriodIndex = 0;
   List<CategoryTransactionDto> _foodLastWeekTransactions = [];
+  double _totalFoodLastWeekExpense = 0;
 
   StreamSubscription<List<CategoryTransactionDto>>? _transactionsSub;
 
@@ -135,6 +136,9 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
               date.isAfter(weekStart.subtract(const Duration(seconds: 1))) &&
               date.isBefore(weekEnd.add(const Duration(seconds: 1)));
         }).toList();
+
+    _totalFoodLastWeekExpense =
+        _foodLastWeekTransactions.fold<double>(0, (sum, t) => sum + t.amount);
   }
 
   /// Фильтрация транзакций по периоду
@@ -188,9 +192,10 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
 
     emit(
       ExpenseState.loaded(
+        totalExpense: totalExpense,
+        totalFoodLastWeekExpense: _totalFoodLastWeekExpense,
         transactions: _allTransactions,
         filteredTransactions: filtered,
-        totalExpense: totalExpense,
       ),
     );
   }

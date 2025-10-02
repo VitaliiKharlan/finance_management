@@ -66,14 +66,14 @@ class _AccountBalanceTransactionsListSectionState
         ),
         if (!showAll)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(vertical: 4),
             child: Column(
               children: [
                 for (final transaction in limitedTransactions)
                   AccountBalanceTransactionsListTransactionTile(
                     svgAsset: transaction.category.iconPath,
                     category: transaction.category.shortLabel,
-                    dateTime: transaction.timeAndDate!,
+                    timeAndDate: transaction.timeAndDate!,
                     title: transaction.title,
                     amount: transaction.amount,
                     isExpense: transaction.amount > 0,
@@ -84,7 +84,7 @@ class _AccountBalanceTransactionsListSectionState
         else
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: ListView.builder(
                 itemCount: sortedTransactions.length,
                 itemBuilder: (context, index) {
@@ -92,7 +92,7 @@ class _AccountBalanceTransactionsListSectionState
                   return AccountBalanceTransactionsListTransactionTile(
                     svgAsset: transaction.category.iconPath,
                     category: transaction.category.shortLabel,
-                    dateTime: transaction.timeAndDate!,
+                    timeAndDate: transaction.timeAndDate!,
                     title: transaction.title,
                     amount: transaction.amount,
                     isExpense: transaction.amount > 0,

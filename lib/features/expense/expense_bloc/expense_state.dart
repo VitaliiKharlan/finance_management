@@ -16,6 +16,7 @@ abstract class ExpenseState with _$ExpenseState {
 
   const factory ExpenseState.loaded({
     @Default(0.0) double totalExpense,
+    @Default(0.0) double totalFoodLastWeekExpense,
     @Default([]) List<CategoryTransactionDto> transactions,
     required List<CategoryTransactionDto> filteredTransactions,
   }) = ExpensesLoaded;
