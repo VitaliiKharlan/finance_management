@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,12 +27,26 @@ class MainScreen extends StatelessWidget {
           NotificationRoute(),
           AccountBalanceRoute(),
           QuicklyAnalysisRoute(),
+          ProfileSecurityRoute(),
         ],
         builder: (context, child) {
           final tabsRouter = AutoTabsRouter.of(context);
           return Scaffold(
             backgroundColor: const Color(0xFFF1FFF3),
-            body: child,
+            body: PageTransitionSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
+                return FadeThroughTransition(
+                  animation: primaryAnimation,
+                  secondaryAnimation: secondaryAnimation,
+                  child: KeyedSubtree(
+                    key: ValueKey(tabsRouter.activeIndex),
+                    child: child,
+                  ),
+                );
+              },
+              child: child,
+            ),
             bottomNavigationBar: CustomBottomNavigationBar(
               currentIndex: tabsRouter.activeIndex,
               onTap: (index) => _openPage(index, tabsRouter),

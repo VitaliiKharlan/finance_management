@@ -139,6 +139,22 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ProfileSecurityScreen]
+class ProfileSecurityRoute extends PageRouteInfo<void> {
+  const ProfileSecurityRoute({List<PageRouteInfo>? children})
+    : super(ProfileSecurityRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileSecurityRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileSecurityScreen();
+    },
+  );
+}
+
+/// generated route for
 /// [QuicklyAnalysisScreen]
 class QuicklyAnalysisRoute extends PageRouteInfo<void> {
   const QuicklyAnalysisRoute({List<PageRouteInfo>? children})

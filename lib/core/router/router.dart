@@ -9,6 +9,7 @@ import '../../features/category/view/categories_screen.dart';
 import '../../features/home/view/home_screen.dart';
 import '../../features/notification/view/notification_screen.dart';
 import '../../features/profile/view/profile_screen.dart';
+import '../../features/profile_security/view/profile_security_screen.dart';
 import '../../features/quickly_analysis/view/quickly_analysis_screen.dart';
 import '../../features/transaction/view/transaction_screen.dart';
 
@@ -34,6 +35,7 @@ class AppRouter extends RootStackRouter {
           AutoRoute(page: NotificationRoute.page, path: 'notification'),
           AutoRoute(page: AccountBalanceRoute.page, path: 'account_balance'),
           AutoRoute(page: QuicklyAnalysisRoute.page, path: 'quickly_analysis'),
+          AutoRoute(page: ProfileSecurityRoute.page, path: 'profile_security'),
         ],
       ),
     ];
