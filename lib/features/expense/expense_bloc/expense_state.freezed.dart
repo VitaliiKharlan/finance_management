@@ -570,6 +570,7 @@ return EqualUnmodifiableListView(_filteredTransactions);
 $ExpensesLoadedCopyWith<ExpensesLoaded> get copyWith => _$ExpensesLoadedCopyWithImpl<ExpensesLoaded>(this, _$identity);
 
 
+
 @override
 bool operator ==(Object other) {
 return identical(this, other) || (other.runtimeType == runtimeType&&other is ExpensesLoaded&&(identical(other.totalExpense, totalExpense) || other.totalExpense == totalExpense)&&(identical(other.totalFoodLastWeekExpense, totalFoodLastWeekExpense) || other.totalFoodLastWeekExpense == totalFoodLastWeekExpense)&&const DeepCollectionEquality().equals(other._transactions, _transactions)&&const DeepCollectionEquality().equals(other._filteredTransactions, _filteredTransactions));

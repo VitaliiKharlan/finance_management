@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/router/router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_icons.dart';
 
@@ -27,12 +28,17 @@ class ProfileSecurityMainSection extends StatelessWidget {
             ),
           ),
           SizedBox(height: 24),
-          _ProfileSecurityTile(
-            title: "Change Pin",
-            onIconTap: () {
-              final tabsRouter = AutoTabsRouter.of(context);
-              tabsRouter.setActiveIndex(4);
-            },
+          Builder(
+              builder: (context) {
+                return _ProfileSecurityTile(
+                  title: "Change Pin",
+                  onIconTap: () {
+                    context.router.push(ProfileSecurityChangePinRoute());
+
+                    // context.pushRoute(const HomeRoute());
+                  },
+                );
+              }
           ),
           SizedBox(height: 12),
           const Padding(
@@ -43,8 +49,7 @@ class ProfileSecurityMainSection extends StatelessWidget {
           _ProfileSecurityTile(
             title: "Fingerprint",
             onIconTap: () {
-              final tabsRouter = AutoTabsRouter.of(context);
-              tabsRouter.setActiveIndex(4);
+              context.router.push(ProfileSecurityFingerprintRoute());
             },
           ),
           SizedBox(height: 12),
@@ -56,8 +61,7 @@ class ProfileSecurityMainSection extends StatelessWidget {
           _ProfileSecurityTile(
             title: "Terms And Conditions",
             onIconTap: () {
-              final tabsRouter = AutoTabsRouter.of(context);
-              tabsRouter.setActiveIndex(4);
+              context.router.push(ProfileSecurityTermsAndConditionsRoute());
             },
           ),
         ],

@@ -6,9 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../core/router/router.dart';
 import '../../../../../core/theme/app_icons.dart';
+import '../../../../../core/widgets/custom_text_field.dart';
 import '../../../auth_bloc/auth_bloc.dart';
 import '../../../auth_bloc/auth_state.dart';
-import '../../create_account/widgets/custom_text_field.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatefulWidget {

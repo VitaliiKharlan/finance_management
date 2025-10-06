@@ -27,7 +27,6 @@ class MainScreen extends StatelessWidget {
           NotificationRoute(),
           AccountBalanceRoute(),
           QuicklyAnalysisRoute(),
-          ProfileSecurityRoute(),
         ],
         builder: (context, child) {
           final tabsRouter = AutoTabsRouter.of(context);

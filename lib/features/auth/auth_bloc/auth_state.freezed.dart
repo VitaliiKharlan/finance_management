@@ -43,9 +43,9 @@ $AuthStateCopyWith(AuthState _, $Res Function(AuthState) __);
 
 /// Adds pattern-matching-related methods to [AuthState].
 extension AuthStatePatterns on AuthState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
   /// ```dart
   /// switch (sealedClass) {
   ///   case final Subclass value:

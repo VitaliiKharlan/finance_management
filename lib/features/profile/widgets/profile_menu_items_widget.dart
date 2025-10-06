@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:finance_management/core/router/router.dart';
 import 'package:finance_management/features/profile/widgets/profile_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +27,7 @@ class ProfileMenuItemsWidget extends StatelessWidget {
           iconAsset: AppIcons.iconProfileSecurity,
           title: 'Security',
           onTap: () {
-            final tabsRouter = AutoTabsRouter.of(context);
-            tabsRouter.setActiveIndex(8);
+            context.router.push(ProfileSecurityRoute());
           },
         ),
         ProfileMenuItem(
