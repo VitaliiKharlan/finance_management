@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/router/router.dart';
+import '../../../../../core/widgets/custom_text_field.dart';
 import '../../../auth_bloc/auth_bloc.dart';
 import '../../../auth_bloc/auth_state.dart';
 import '../../../models/user_entity.dart';
-import '../widgets/custom_text_field.dart';
 
 @RoutePage()
 class CreateAccountScreen extends StatefulWidget {

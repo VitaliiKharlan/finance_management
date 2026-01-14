@@ -11,7 +11,6 @@ part of 'profile_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$ProfileState {
 
@@ -195,7 +194,6 @@ TResult map<TResult extends Object?>(
       throw StateError('Unexpected subclass');
   }
 }
-
 /// A variant of `map` that fallback to returning `null`.
 ///
 /// It is equivalent to doing:
@@ -225,7 +223,6 @@ TResult? mapOrNull<TResult extends Object?>(
       return null;
   }
 }
-
 /// A variant of `when` that fallback to an `orElse` callback.
 ///
 /// It is equivalent to doing:

@@ -51,7 +51,6 @@ class HomeScreen extends StatelessWidget {
                     const HomeSavingsSection(),
                     const SizedBox(height: 8),
                     const HomeTabSelectorSection(),
-                    const SizedBox(height: 20),
 
                     Expanded(
                       child: BlocBuilder<ExpenseBloc, ExpenseState>(
@@ -64,6 +63,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                             loaded: (
                               totalExpense,
+                              totalFoodLastWeekExpense,
                               transactions,
                               filteredTransactions,
                             ) {

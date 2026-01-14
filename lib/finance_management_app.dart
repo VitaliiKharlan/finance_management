@@ -1,60 +1,45 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/di/locator.dart';
 import 'core/router/router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme_cubit/theme_cubit.dart';
 import 'core/theme_cubit/theme_state.dart';
 import 'features/auth/auth_bloc/auth_bloc.dart';
 import 'features/auth/auth_bloc/auth_state.dart';
-import 'features/auth/repository/auth_repository.dart';
-import 'features/auth/services/auth_service.dart';
+import 'features/auth/repository/i_auth_repository.dart';
+import 'features/auth/services/i_auth_service.dart';
 import 'features/category/categories_bloc/categories_bloc.dart';
 import 'features/expense/expense_bloc/expense_bloc.dart';
-import 'features/expense/repository/expense_repository.dart';
+import 'features/expense/repository/i_expense_repository.dart';
 
 class FinanceManagementApp extends StatelessWidget {
   final _router = AppRouter();
-  final _authService = AuthService();
 
   FinanceManagementApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final firestore = FirebaseFirestore.instance;
-    final auth = FirebaseAuth.instance;
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider.value(value: _authService),
-        RepositoryProvider(
-          create:
-              (context) =>
-              AuthRepository(
-                firestore: firestore,
-                authService: _authService,
-              ),
+        RepositoryProvider<IAuthService>(create: (_) => getIt<IAuthService>()),
+        RepositoryProvider<IAuthRepository>(
+          create: (_) => getIt<IAuthRepository>(),
         ),
-        RepositoryProvider(
-          create: (context) =>
-              ExpenseRepository(
-                firestore: firestore,
-                auth: auth,
-              ),
+        RepositoryProvider<IExpenseRepository>(
+          create: (_) => getIt<IExpenseRepository>(),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create:
-                (context) =>
-            AuthBloc(
-              authRepository: context.read<AuthRepository>(),
-              authService: _authService,
-            )
-              ..add(AuthStarted()),
+                (context) => AuthBloc(
+                  authRepository: context.read<IAuthRepository>(),
+                  authService: context.read<IAuthService>(),
+                )..add(AuthStarted()),
           ),
           BlocProvider(create: (_) => ThemeCubit()),
         ],
@@ -74,23 +59,19 @@ class FinanceManagementApp extends StatelessWidget {
                     BlocProvider(
                       create:
                           (_) =>
-                      ExpenseBloc(
-                        repository: ExpenseRepository(
-                          firestore: firestore,
-                          auth: auth,
-                        ),
-                      )
-                        ..add(LoadExpensesEvent())..add(
-                          LoadTotalExpensesEvent()),
+                              ExpenseBloc(
+                                  repository:
+                                      context.read<IExpenseRepository>(),
+                                )
+                                ..add(LoadExpensesEvent())
+                                ..add(LoadTotalExpensesEvent()),
                     ),
                     BlocProvider(
                       create:
-                          (_) =>
-                      CategoriesBloc(
-                        expenseRepository:
-                        context.read<ExpenseRepository>(),
-                      )
-                        ..add(LoadCategoriesEvent()),
+                          (_) => CategoriesBloc(
+                            expenseRepository:
+                                context.read<IExpenseRepository>(),
+                          )..add(LoadCategoriesEvent()),
                     ),
                   ],
                   child: BlocBuilder<ThemeCubit, ThemeState>(

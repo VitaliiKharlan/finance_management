@@ -110,4 +110,6 @@ abstract class AppIcons {
   static const iconProfileSettings = '${_basePath}icon_profile_settings.svg';
   static const iconProfileHelp = '${_basePath}icon_profile_help.svg';
   static const iconProfileLogout = '${_basePath}icon_profile_logout.svg';
+  static const iconProfileSecurityArrowForward =
+      '${_basePath}icon_profile_security_arrow_forward.svg';
 }

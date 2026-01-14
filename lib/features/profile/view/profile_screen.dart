@@ -9,6 +9,16 @@ import '../profile_bloc/profile_bloc.dart';
 import '../widgets/profile_header_section.dart';
 import '../widgets/profile_main_section.dart';
 
+@RoutePage(name: 'ProfileWrapperRoute')
+class ProfileWrapper extends StatelessWidget {
+  const ProfileWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const AutoRouter();
+  }
+}
+
 @RoutePage()
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

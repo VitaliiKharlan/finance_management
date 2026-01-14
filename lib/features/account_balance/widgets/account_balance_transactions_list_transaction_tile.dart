@@ -8,7 +8,7 @@ import '../../../core/theme/app_colors.dart';
 class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
   final String svgAsset;
   final String category;
-  final DateTime dateTime;
+  final DateTime timeAndDate;
   final String title;
   final double amount;
   final bool isExpense;
@@ -17,31 +17,28 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
     super.key,
     required this.svgAsset,
     required this.category,
-    required this.dateTime,
+    required this.timeAndDate,
     required this.title,
     required this.amount,
     this.isExpense = true,
   });
 
-  static const double _leadingWidth = 60;
-  static const double _titleWidth = 92;
-  static const double _dividerLeftMargin = 4;
-  static const double _categoryWidth = 72;
-  static const double _dividerRightMargin = 4;
-  static const double _amountWidth = 72;
+  static const double _categoryIconWidth = 60;
+  static const double _categoryNameAndTimeAndDateWidth = 112;
+  static const double _dividerLeftWidth = 2;
+  static const double _transactionTitleWidth = 84;
+  static const double _dividerRightWidth = 2;
+  static const double _amountWidth = 68;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        // horizontal: 4,
-        vertical: 8,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            width: _leadingWidth,
+            width: _categoryIconWidth,
             child: Container(
               width: 57,
               height: 53,
@@ -56,11 +53,9 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
               child: SvgPicture.asset(svgAsset, fit: BoxFit.contain),
             ),
           ),
-
-          const SizedBox(width: 16),
-
+          const SizedBox(width: 12),
           SizedBox(
-            width: _titleWidth,
+            width: _categoryNameAndTimeAndDateWidth,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -75,7 +70,7 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  DateFormat('dd MMM yyyy, HH:mm').format(dateTime),
+                  DateFormat('HH:mm - MMMM dd').format(timeAndDate),
                   style: GoogleFonts.poppins(
                     color: AppColors.oceanBlueButton,
                     fontSize: 10,
@@ -85,15 +80,12 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(width: 8),
-
-          const SizedBox(width: _dividerLeftMargin),
-
+          const SizedBox(width: _dividerLeftWidth),
           Container(width: 1, height: 32, color: Colors.grey.shade400),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: SizedBox(
-              width: _categoryWidth,
+              width: _transactionTitleWidth,
               child: Text(
                 title,
                 style: GoogleFonts.poppins(
@@ -107,13 +99,8 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
               ),
             ),
           ),
-
-          const SizedBox(width: 8),
-
-          const SizedBox(width: _dividerRightMargin),
-
+          const SizedBox(width: _dividerRightWidth),
           Container(width: 1, height: 32, color: Colors.grey.shade400),
-
           SizedBox(
             width: _amountWidth,
             child: Text(
@@ -127,7 +114,6 @@ class AccountBalanceTransactionsListTransactionTile extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
               ),
-
               textAlign: TextAlign.right,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

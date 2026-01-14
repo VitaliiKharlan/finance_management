@@ -13,23 +13,27 @@ class QuicklyAnalysisBalanceCardSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ExpenseBloc, ExpenseState>(
       builder: (context, state) {
-        double revenueLastWeek = 0;
-        double foodLastWeek = 0;
+        final revenueLastWeek = state.when(
+          initial: (totalExpense) => totalExpense,
+          loading: (totalExpense, _) => totalExpense,
+          loaded:
+              (totalExpense, totalFoodLastWeekExpense, _, __) => totalExpense,
+          failure: (_, totalExpense) => totalExpense,
+        );
 
-        final bloc = context.read<ExpenseBloc>();
-
-        if (state is ExpensesLoaded) {
-          revenueLastWeek = state.totalExpense;
-
-          foodLastWeek = bloc.foodLastWeekTransactions.fold(
-            0.0,
-            (sum, t) => sum + t.amount,
-          );
-        }
+        final foodLastWeek = state.when(
+          initial: (totalExpense) => 0.0,
+          loading: (totalExpense, _) => 0.0,
+          loaded:
+              (totalExpense, totalFoodLastWeekExpense, _, __) =>
+                  totalFoodLastWeekExpense,
+          failure: (_, totalExpense) => 0.0,
+        );
 
         return Container(
+          constraints: BoxConstraints(maxWidth: 332),
           margin: const EdgeInsets.all(12),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
           decoration: BoxDecoration(
             color: const Color(0xFF00D09E),
             borderRadius: BorderRadius.circular(24),
@@ -81,7 +85,7 @@ class QuicklyAnalysisBalanceCardSection extends StatelessWidget {
 
               const SizedBox(width: 20),
 
-              Expanded(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

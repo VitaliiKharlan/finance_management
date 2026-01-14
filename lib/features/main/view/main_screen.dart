@@ -1,11 +1,10 @@
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/router/router.dart';
 import '../../auth/auth_bloc/auth_bloc.dart';
-import '../../auth/repository/auth_repository.dart';
-import '../../auth/services/auth_service.dart';
 import '../widgets/custom_bottom_navigation_bar.dart';
 
 @RoutePage()
@@ -14,15 +13,10 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authRepository = RepositoryProvider.of<AuthRepository>(context);
-    final authService = AuthService();
+    final authBloc = BlocProvider.of<AuthBloc>(context);
 
-    return BlocProvider(
-      create:
-          (context) => AuthBloc(
-            authRepository: authRepository,
-            authService: authService,
-          ),
+    return BlocProvider.value(
+      value: authBloc,
       child: AutoTabsRouter(
         routes: [
           HomeRoute(),
@@ -38,7 +32,20 @@ class MainScreen extends StatelessWidget {
           final tabsRouter = AutoTabsRouter.of(context);
           return Scaffold(
             backgroundColor: const Color(0xFFF1FFF3),
-            body: child,
+            body: PageTransitionSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
+                return FadeThroughTransition(
+                  animation: primaryAnimation,
+                  secondaryAnimation: secondaryAnimation,
+                  child: KeyedSubtree(
+                    key: ValueKey(tabsRouter.activeIndex),
+                    child: child,
+                  ),
+                );
+              },
+              child: child,
+            ),
             bottomNavigationBar: CustomBottomNavigationBar(
               currentIndex: tabsRouter.activeIndex,
               onTap: (index) => _openPage(index, tabsRouter),

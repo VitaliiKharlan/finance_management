@@ -2,7 +2,7 @@ import 'package:finance_management/core/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/theme/app_icons.dart';
+import '../theme/app_icons.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;

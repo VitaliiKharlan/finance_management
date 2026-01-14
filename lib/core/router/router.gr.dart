@@ -139,6 +139,89 @@ class ProfileRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ProfileSecurityChangePinScreen]
+class ProfileSecurityChangePinRoute extends PageRouteInfo<void> {
+  const ProfileSecurityChangePinRoute({List<PageRouteInfo>? children})
+    : super(ProfileSecurityChangePinRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileSecurityChangePinRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileSecurityChangePinScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProfileSecurityFingerprintScreen]
+class ProfileSecurityFingerprintRoute extends PageRouteInfo<void> {
+  const ProfileSecurityFingerprintRoute({List<PageRouteInfo>? children})
+    : super(ProfileSecurityFingerprintRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileSecurityFingerprintRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileSecurityFingerprintScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProfileSecurityScreen]
+class ProfileSecurityRoute extends PageRouteInfo<void> {
+  const ProfileSecurityRoute({List<PageRouteInfo>? children})
+    : super(ProfileSecurityRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileSecurityRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileSecurityScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProfileSecurityTermsAndConditionsScreen]
+class ProfileSecurityTermsAndConditionsRoute extends PageRouteInfo<void> {
+  const ProfileSecurityTermsAndConditionsRoute({List<PageRouteInfo>? children})
+    : super(
+        ProfileSecurityTermsAndConditionsRoute.name,
+        initialChildren: children,
+      );
+
+  static const String name = 'ProfileSecurityTermsAndConditionsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileSecurityTermsAndConditionsScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [ProfileWrapper]
+class ProfileWrapperRoute extends PageRouteInfo<void> {
+  const ProfileWrapperRoute({List<PageRouteInfo>? children})
+    : super(ProfileWrapperRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileWrapperRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileWrapper();
+    },
+  );
+}
+
+/// generated route for
 /// [QuicklyAnalysisScreen]
 class QuicklyAnalysisRoute extends PageRouteInfo<void> {
   const QuicklyAnalysisRoute({List<PageRouteInfo>? children})

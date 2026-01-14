@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/bottom_navigation_constants.dart';
-import '../../../core/utils/bottom_navigation_item.dart';
+import 'custom_bottom_navigation_bar_item.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -38,7 +38,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: List.generate(
           BottomNavigationConstants.items.length,
-          (index) => BottomNavigationItem(
+              (index) => CustomBottomNavigationBarItem(
             assetPath: BottomNavigationConstants.items[index],
             isActive: currentIndex == index,
             onTap: () => onTap(index),

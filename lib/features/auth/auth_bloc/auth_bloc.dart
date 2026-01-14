@@ -1,27 +1,37 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/di/locator.dart';
+import '../../../core/logger/i_logger_service.dart';
 import '../models/user_entity.dart';
-import '../repository/auth_repository.dart';
-import '../services/auth_service.dart';
+import '../repository/i_auth_repository.dart';
+import '../services/i_auth_service.dart';
 import 'auth_state.dart';
 
 part 'auth_event.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
-  final AuthService _authService;
+  final IAuthRepository _authRepository;
+  final IAuthService _authService;
+  final ILoggerService _logger = getIt<ILoggerService>();
 
   StreamSubscription<User?>? _authStateSubscription;
 
   AuthBloc({
-    required AuthRepository authRepository,
-    required AuthService authService,
+    required IAuthRepository authRepository,
+    required IAuthService authService,
   }) : _authRepository = authRepository,
        _authService = authService,
        super(AuthInitial()) {
+    debugPrint('💡💡💡💡💡AuthBloc created');
+    _logger.log(
+      'AuthBloc created',
+      logLevel: LogLevel.info,
+      stackTrace: StackTrace.current,
+    );
     on<AuthStarted>(_onAuthStarted);
     on<LoginRequested>(_onLoginRequested);
     on<RegisterCustomerRequested>(_onRegisterCustomerRequested);
@@ -42,16 +52,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final currentUser = _authService.currentUser;
     if (currentUser != null) {
       try {
-        print('User found with UID: ${currentUser.uid}');
+        _logger.log(
+          'User found with UID: ${currentUser.uid}',
+          logLevel: LogLevel.info,
+        );
         final user = await _authRepository.getUser(currentUser.uid);
-        print('User data loaded: $user');
+        _logger.log('User data loaded: $user', logLevel: LogLevel.info);
+
         emit(Authenticated(user: user));
-      } catch (e) {
-        print('Failed to load user data: $e');
+      } catch (e, s) {
+        _logger.log(
+          'Failed to load user data: $e',
+          error: e,
+          stackTrace: s,
+          logLevel: LogLevel.error,
+        );
         emit(AuthFailure('Failed to load user data'));
       }
     } else {
-      print('No current user, emit Unauthenticated');
+      _logger.log(
+        'No current user, emit Unauthenticated',
+        logLevel: LogLevel.info,
+      );
       emit(Unauthenticated());
     }
   }
@@ -139,4 +161,3 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return super.close();
   }
 }
-

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/theme/app_colors.dart';
 import '../data/transaction_data.dart';
 import 'transaction_transactions_tile.dart';
 
@@ -22,17 +24,21 @@ class TransactionTransactionsMonth extends StatelessWidget {
       children: [
         if (showMonthLabel)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Text(
               month,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: GoogleFonts.poppins(
+                color: AppColors.lettersAndIcons,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ...transactions.map(
           (t) => TransactionTransactionsTile(
             svgAsset: t.svgAsset,
             title: t.title,
-            subtitle: t.subtitle,
+            timeAndDate: t.timeAmdDate,
             category: t.category,
             amount: t.amount,
             isExpense: t.isExpense,

@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/enums/category_enum.dart';
-import '../../expense/repository/expense_repository.dart';
+import '../../expense/repository/i_expense_repository.dart';
 import '../models/category_transaction_dto.dart';
 import 'categories_state.dart';
 
 part 'categories_event.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  final ExpenseRepository _expenseRepository;
+  final IExpenseRepository _expenseRepository;
   StreamSubscription<List<CategoryTransactionDto>>? _transactionsSub;
 
   List<CategoryTransactionDto> _allTransactions = [];
 
-  CategoriesBloc({required ExpenseRepository expenseRepository})
+  CategoriesBloc({required IExpenseRepository expenseRepository})
     : _expenseRepository = expenseRepository,
       super(CategoriesInitialState()) {
     on<CategorySelectedEvent>(_onCategorySelected);
